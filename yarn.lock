@@ -687,7 +687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/react@npm:^2.2.8":
+"@chakra-ui/react@npm:2.2.8":
   version: 2.2.8
   resolution: "@chakra-ui/react@npm:2.2.8"
   dependencies:
@@ -1106,7 +1106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.0":
+"@emotion/react@npm:11.10.0":
   version: 11.10.0
   resolution: "@emotion/react@npm:11.10.0"
   dependencies:
@@ -1149,7 +1149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.0":
+"@emotion/styled@npm:11.10.0":
   version: 11.10.0
   resolution: "@emotion/styled@npm:11.10.0"
   dependencies:
@@ -1625,23 +1625,23 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "admin-panel@workspace:."
   dependencies:
-    "@chakra-ui/react": ^2.2.8
-    "@emotion/react": ^11.10.0
-    "@emotion/styled": ^11.10.0
+    "@chakra-ui/react": 2.2.8
+    "@emotion/react": 11.10.0
+    "@emotion/styled": 11.10.0
     "@types/node": 18.7.9
     "@types/react": 18.0.17
     "@types/react-dom": 18.0.6
-    discord-api-types: ^0.37.4
+    discord-api-types: 0.37.4
     eslint: 8.22.0
     eslint-config-next: 12.2.5
-    formik: ^2.2.9
-    framer-motion: ^7.2.0
+    formik: 2.2.9
+    framer-motion: 7.2.0
     next: 12.2.5
-    prettier: ^2.7.1
+    prettier: 2.7.1
     react: 18.2.0
     react-dom: 18.2.0
-    react-icons: ^4.4.0
-    recoil: ^0.7.5
+    react-icons: 4.4.0
+    recoil: 0.7.5
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -2050,7 +2050,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.37.4":
+"discord-api-types@npm:0.37.4":
   version: 0.37.4
   resolution: "discord-api-types@npm:0.37.4"
   checksum: 18b74acfcd5f6c554668eb5cb31a5db9076dfb5cb6b5c538a342ab9d22816644bada22a66285468fe7dd9980287921d5d50ba3b11cc8e391fe4f09e761bcd179
@@ -2527,7 +2527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"formik@npm:^2.2.9":
+"formik@npm:2.2.9":
   version: 2.2.9
   resolution: "formik@npm:2.2.9"
   dependencies:
@@ -2544,7 +2544,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^7.2.0":
+"framer-motion@npm:7.2.0":
   version: 7.2.0
   resolution: "framer-motion@npm:7.2.0"
   dependencies:
@@ -3515,7 +3515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.7.1":
+"prettier@npm:2.7.1":
   version: 2.7.1
   resolution: "prettier@npm:2.7.1"
   bin:
@@ -3606,7 +3606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:^4.4.0":
+"react-icons@npm:4.4.0":
   version: 4.4.0
   resolution: "react-icons@npm:4.4.0"
   peerDependencies:
@@ -3683,7 +3683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recoil@npm:^0.7.5":
+"recoil@npm:0.7.5":
   version: 0.7.5
   resolution: "recoil@npm:0.7.5"
   dependencies:
