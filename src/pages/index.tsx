@@ -4,6 +4,7 @@ import { Fullscreen } from "../components/layout/Fullscreen"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { greeting } from "../util/greeting"
 
+// TODO: homepage
 const Home: NextPage = () => {
   const currentUser = CurrentUserStore.useValue()
 
