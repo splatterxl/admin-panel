@@ -8,8 +8,6 @@ import { greeting } from "../util/greeting"
 const Home: NextPage = () => {
   const currentUser = CurrentUserStore.useValue()
 
-  console.log(currentUser)
-
   return (
     <Fullscreen>
       <Heading as="h1" size="lg">

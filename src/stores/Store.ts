@@ -11,9 +11,9 @@ export default class Store<T, D = null> {
 
   constructor(
     defaultValue: D = null as unknown as D,
+    public key: string,
     public persisted = false
   ) {
-    const key = this.constructor.name
     let initialValue = defaultValue
 
     if (persisted && typeof window !== "undefined") {
@@ -27,7 +27,7 @@ export default class Store<T, D = null> {
     }
 
     this._atom = atom<T | D>({
-      key: this.constructor.name,
+      key,
       default: initialValue,
     })
   }
@@ -54,7 +54,7 @@ export default class Store<T, D = null> {
     const setState = this.useSetState()
 
     return (): D | T => {
-      let value: any = localStorage.getItem(this.constructor.name)
+      let value: any = localStorage.getItem(this.key)
 
       if (value != null) value = JSON.parse(value)
 
@@ -68,8 +68,8 @@ export default class Store<T, D = null> {
     const setState = this.useSetState()
 
     return (value: D | T) => {
-      if (value == null) localStorage.removeItem(this.constructor.name)
-      else localStorage.setItem(this.constructor.name, JSON.stringify(value))
+      if (value == null) localStorage.removeItem(this.key)
+      else localStorage.setItem(this.key, JSON.stringify(value))
 
       setState(value)
     }
