@@ -33,15 +33,21 @@ export default class Store<T, D = null> {
   }
 
   useValue() {
-    return useRecoilValue(this._atom)
+    const value = useRecoilValue(this._atom)
+
+    return value
   }
 
   useSetState() {
-    return useSetRecoilState(this._atom)
+    const fn = useSetRecoilState(this._atom)
+
+    return fn
   }
 
   useState() {
-    return useRecoilState(this._atom)
+    const state = useRecoilState(this._atom)
+
+    return state
   }
 
   useGetFromStorage() {
