@@ -1,6 +1,7 @@
 import {
   atom,
   RecoilState,
+  SetterOrUpdater,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
@@ -53,15 +54,17 @@ export default class Store<T, D = null> {
   useGetFromStorage() {
     const setState = this.useSetState()
 
-    return (): D | T => {
-      let value: any = localStorage.getItem(this.key)
+    return () => this._getFromStorage(setState)
+  }
 
-      if (value != null) value = JSON.parse(value)
+  _getFromStorage(setState: SetterOrUpdater<D | T>) {
+    let value: any = localStorage.getItem(this.key)
 
-      setState(value)
+    if (value != null) value = JSON.parse(value)
 
-      return value
-    }
+    setState(value)
+
+    return value
   }
 
   useSetInStorage() {

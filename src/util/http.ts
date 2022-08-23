@@ -1,4 +1,5 @@
-import { RESTError } from "discord-api-types/v8"
+import AuthStore from "../stores/AuthStore"
+import { noop } from "./noop"
 
 export interface APIResponse<T> extends Response {
   data: T
@@ -21,7 +22,7 @@ class HTTPClient {
     if (!globalThis.localStorage?.AuthStore) return {}
 
     return {
-      Authorization: `${JSON.parse(localStorage.AuthStore)}`,
+      Authorization: `${AuthStore._getFromStorage(noop)}`,
     }
   }
 

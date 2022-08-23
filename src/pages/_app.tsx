@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider>
         <ThemeToggle />
         <AuthProvider>
-            <Component {...pageProps} />
+          <Component {...pageProps} />
         </AuthProvider>
       </ChakraProvider>
     </RecoilRoot>
