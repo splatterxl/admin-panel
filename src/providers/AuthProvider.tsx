@@ -14,11 +14,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     [, setCurrentUser, currentUser] = CurrentUserStore.useStateFromStorage(),
     router = useRouter(),
     isLogin = router.pathname === "/auth/login",
-    [isLoaded, setLoaded] = React.useState(false)
+    [isLoaded, setLoaded] = React.useState(isLogin)
 
   React.useEffect(() => {
     ;(async () => {
-      if (isLogin) return
+      if (isLoaded) return
 
       const token = getToken()
 
