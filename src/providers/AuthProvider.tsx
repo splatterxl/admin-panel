@@ -13,12 +13,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [getToken, _, token] = AuthStore.useStateFromStorage(),
     [, setCurrentUser, currentUser] = CurrentUserStore.useStateFromStorage(),
     router = useRouter(),
-    isLogin = router.pathname === "/auth/login",
-    [isLoaded, setLoaded] = React.useState(isLogin)
+    isLogin = router.pathname === "/auth/login"
 
   React.useEffect(() => {
     ;(async () => {
-      if (isLoaded) return
+      if (isLogin) return
 
       const token = getToken()
 
@@ -28,13 +27,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         const { data } = await http.get<APIUser>(Routes.user())
 
         setCurrentUser(data)
-      } else {
-        setLoaded(true)
       }
     })()
   }, [])
 
-  if (!isLoaded) {
+  if (!isLogin && !token && !currentUser) {
     return <FullscreenSpinner />
   } else {
     return <>{children}</>

@@ -11,6 +11,7 @@ import FormBody from "../../components/form/FormBody"
 import FormHeading from "../../components/form/FormHeading"
 import { FullscreenCard } from "../../components/layout/card/CardWithContainer"
 import AuthStore from "../../stores/AuthStore"
+import CurrentUserStore from "../../stores/CurrentUserStore"
 import { Endpoints, ErrorMessages } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
@@ -20,8 +21,8 @@ export default function Login() {
       login?: string
       password?: string
     }>({}),
-    auth = AuthStore.useValue(),
-    setAuth = AuthStore.useSetInStorage(),
+    [, setAuth, auth] = AuthStore.useStateFromStorage(),
+    setCurrentUser = CurrentUserStore.useSetInStorage(),
     router = useRouter(),
     next = one(router.query.next),
     { setColorMode } = useColorMode()
@@ -76,6 +77,7 @@ export default function Login() {
             } else {
               setColorMode(theme)
 
+              setCurrentUser(user)
               setAuth(token)
             }
           }
