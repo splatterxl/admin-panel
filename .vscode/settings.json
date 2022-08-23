@@ -1,0 +1,6 @@
+{
+  "[typescriptreact]": {
+    "typescript.autoClosingTags": false
+  },
+  "typescript.preferences.importModuleSpecifierEnding": "minimal"
+}

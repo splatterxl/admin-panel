@@ -1,0 +1,1 @@
+export const one = (item: string | string[] | undefined) => Array.isArray(item) ? item[0] : item
