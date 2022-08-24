@@ -63,7 +63,8 @@ export default function Search() {
           {results.guilds?.length ? (
             <SearchSection label="Guilds">
               {results.guilds.map((d) => (
-                <SearchGuildResult d={d} key={d.id} />
+                // <SearchGuildResult d={d} key={d.id} />
+                <></>
               ))}
             </SearchSection>
           ) : null}
