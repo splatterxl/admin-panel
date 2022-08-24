@@ -2,12 +2,16 @@ import { Box, Flex } from "@chakra-ui/react"
 import React from "react"
 import { Guilds } from "../../../icons/Guilds"
 import { Users } from "../../../icons/Users"
+import AuthStore from "../../../stores/AuthStore"
 import SearchTypeStore, { SearchType } from "../../../stores/SearchTypeStore"
 import { Endpoints } from "../../../util/constants"
 import { TabItem } from "./TabItem"
 
 export const Tabs: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const type = SearchTypeStore.useValue()
+  const type = SearchTypeStore.useValue(),
+    auth = AuthStore.useValue()
+
+  if (!auth) return <>{children}</>
 
   return (
     <Flex
