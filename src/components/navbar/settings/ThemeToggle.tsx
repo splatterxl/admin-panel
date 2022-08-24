@@ -22,7 +22,7 @@ export const ThemeToggle: React.FC = () => {
     >
       <Icon
         as={colorMode === "dark" ? MdDarkMode : MdLightMode}
-        boxSize="1.1em"
+        boxSize="1.6em"
       />
     </Button>
   )

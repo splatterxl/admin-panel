@@ -1,8 +1,8 @@
-import { APIUser } from "discord-api-types/v10"
+import { User } from "../util/types"
 import Store from "./Store"
 
-export default new (class CurrentUserStore extends Store<APIUser, APIUser> {
+export default new (class CurrentUserStore extends Store<User> {
   constructor() {
-    super(null as any, 'CurrentUserStore', true)
+    super(null as any, "CurrentUserStore", true)
   }
 })()

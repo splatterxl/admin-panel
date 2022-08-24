@@ -11,7 +11,7 @@ export const SearchSection: React.FC<{
       justify="flex-start"
       align="flex-start"
       w="full"
-      h="full"
+      mb={5}
     >
       <Heading as="h3" size="sm">
         {label}

@@ -1,4 +1,4 @@
-import { APIUser, Routes } from "discord-api-types/v10"
+import { Routes } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React from "react"
 import { FullscreenSpinner } from "../components/layout/FullscreenSpinner"
@@ -6,6 +6,7 @@ import AuthStore from "../stores/AuthStore"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { Endpoints } from "../util/constants"
 import http from "../util/http"
+import { User } from "../util/types"
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -27,7 +28,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (!token) {
         router.replace(Endpoints.LOGIN(router.asPath))
       } else if (!currentUser) {
-        const { data } = await http.get<APIUser>(Routes.user())
+        const { data } = await http.get<User>(Routes.user())
 
         setCurrentUser(data)
       }

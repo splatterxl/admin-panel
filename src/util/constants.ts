@@ -22,7 +22,7 @@ export const Endpoints = {
 }
 
 export const PatchcordRoutes = {
-  COUNTS: "/admin/info/counts",
+  COUNTS: "/admin/counts",
   USER: (id: Snowflake) => `/admin/users/${id}`,
   GUILD: (id: Snowflake) => `/admin/guilds/${id}`,
   QUERY_USERS: "/admin/users",

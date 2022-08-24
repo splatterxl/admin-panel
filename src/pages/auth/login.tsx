@@ -1,5 +1,5 @@
 import { useColorMode } from "@chakra-ui/react"
-import { APIUser, UserFlags } from "discord-api-types/v10"
+import { UserFlags } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormInputAutocompleteTypes } from "../../components/form/autocomplete/FormInputAutocompleteTypes"
@@ -15,6 +15,7 @@ import CurrentUserStore from "../../stores/CurrentUserStore"
 import { Endpoints, ErrorMessages } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
+import { User } from "../../util/types"
 
 export default function Login() {
   const [errors, setErrors] = React.useState<{
@@ -64,7 +65,7 @@ export default function Login() {
               user_settings: { theme },
             } = res.data
 
-            const { data: user } = await http.get<APIUser>("/users/@me", "", {
+            const { data: user } = await http.get<User>("/users/@me", "", {
               headers: {
                 Authorization: token,
               },
@@ -79,6 +80,10 @@ export default function Login() {
 
               setCurrentUser(user)
               setAuth(token)
+
+              router.replace(Endpoints.HOME, Endpoints.HOME, {
+                shallow: false,
+              })
             }
           }
         }}

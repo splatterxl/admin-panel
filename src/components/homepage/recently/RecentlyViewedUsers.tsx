@@ -4,11 +4,13 @@ import { UserCard } from "../../user/UserCard"
 import { RecentlyViewed } from "./RecentlyViewed"
 
 export const RecentlyViewedUsers: React.FC = () => {
-  const value = RecentlyViewedUsersStore.useValue()
+  const [getValue, _, value] = RecentlyViewedUsersStore.useStateFromStorage()
 
-  console.log(value)
+  React.useEffect(() => {
+    if (!value) getValue()
+  }, [getValue, value])
 
-  if (!value.length) return null
+  if (!value?.length) return null
 
   return (
     <RecentlyViewed>

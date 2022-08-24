@@ -1,13 +1,15 @@
 import { Button, Flex, Icon } from "@chakra-ui/react"
-import { APIUser } from "discord-api-types/v10"
+import { useRouter } from "next/router"
 import React from "react"
 import { FaEdit } from "react-icons/fa"
+import { User } from "../../../util/types"
 import { UserFlagsEditModal } from "../../modals/UserFlagsEditModal"
 import { _TooltipCard } from "../../Tooltip"
 import { UserFlagsRow } from "./UserFlags"
 
-export const EditableUserFlags: React.FC<{ d: APIUser }> = ({ d }) => {
-  const [modal, setModalOpen] = React.useState(false)
+export const EditableUserFlags: React.FC<{ d: User }> = ({ d }) => {
+  const [modal, setModalOpen] = React.useState(false),
+    router = useRouter()
 
   return (
     <>
@@ -27,7 +29,16 @@ export const EditableUserFlags: React.FC<{ d: APIUser }> = ({ d }) => {
           </_TooltipCard>
         </Button>
       </Flex>
-      {/*<UserFlagsEditModal onClose={() => setModalOpen(false)} open={modal} />*/}
+      <UserFlagsEditModal
+        onClose={() => setModalOpen(false)}
+        open={modal}
+        onUpdate={() => {
+          router.reload()
+        }}
+        bitfield={d.flags!}
+        id={d.id}
+        username={d.username}
+      />
     </>
   )
 }

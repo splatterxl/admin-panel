@@ -1,6 +1,6 @@
 import React from "react"
 import { SetterOrUpdater, useSetRecoilState } from "recoil"
-import { FullscreenSpinner } from '../components/layout/FullscreenSpinner';
+import { FullscreenSpinner } from "../components/layout/FullscreenSpinner"
 import AuthStore from "../stores/AuthStore"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import {
@@ -16,6 +16,9 @@ const persistentStores = [
   RecentlyViewedUsersStore,
 ]
 
+/**
+ * @deprecated
+ */
 export const PersistentStoreProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {

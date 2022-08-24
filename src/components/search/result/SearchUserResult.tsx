@@ -1,7 +1,7 @@
-import { APIUser } from "discord-api-types/v10"
 import React from "react"
+import { User } from "../../../util/types"
 import { UserCard } from "../../user/UserCard"
 
-export const SearchUserResult: React.FC<{ d: APIUser }> = ({ d }) => {
+export const SearchUserResult: React.FC<{ d: User }> = ({ d }) => {
   return <UserCard d={d} compact />
 }

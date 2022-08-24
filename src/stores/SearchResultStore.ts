@@ -1,4 +1,5 @@
-import { APIGuild, APIUser } from "discord-api-types/v10"
+import { APIGuild } from "discord-api-types/v10"
+import { User } from "../util/types"
 import Store from "./Store"
 
 export enum SearchResultsType {
@@ -9,7 +10,7 @@ export enum SearchResultsType {
 
 export interface SearchResults {
   type: SearchResultsType
-  users?: APIUser[]
+  users?: User[]
   guilds?: APIGuild[]
 }
 

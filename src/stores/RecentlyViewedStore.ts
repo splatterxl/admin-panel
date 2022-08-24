@@ -1,7 +1,8 @@
-import { APIGuild, APIUser } from "discord-api-types/v10"
+import { APIGuild } from "discord-api-types/v10"
+import { User } from "../util/types"
 import Store from "./Store"
 
-class RecentlyViewedStore<T extends APIGuild | APIUser> extends Store<
+class RecentlyViewedStore<T extends APIGuild | User> extends Store<
   { data: T; lastViewedTimestamp: number }[]
 > {
   constructor(name: string) {
@@ -42,4 +43,4 @@ class RecentlyViewedStore<T extends APIGuild | APIUser> extends Store<
 export const RecentlyViewedGuildsStore = new RecentlyViewedStore<APIGuild>(
     "guilds"
   ),
-  RecentlyViewedUsersStore = new RecentlyViewedStore<APIUser>("users")
+  RecentlyViewedUsersStore = new RecentlyViewedStore<User>("users")

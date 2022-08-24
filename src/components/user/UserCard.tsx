@@ -1,16 +1,22 @@
-import { Box, Flex, FlexProps } from "@chakra-ui/react"
-import { APIUser } from "discord-api-types/v10"
+import { Box, BoxProps, Flex, FlexProps, Text } from "@chakra-ui/react"
 import Link from "next/link"
 import React from "react"
 import { Endpoints } from "../../util/constants"
+import { User } from "../../util/types"
 import { EditableUserFlags } from "./flags/EditableUserFlags"
 import { UserFlagsRow } from "./flags/UserFlags"
 import { UserAvatar } from "./UserAvatar"
 import { Username } from "./Username"
 
-export const UserCard: React.FC<
-  { d: APIUser; compact?: boolean } & FlexProps
-> = ({ d, compact = false, ...props }) => {
+export const Hr: React.FC<BoxProps> = (props) => (
+  <Box as="hr" w="60%" mb={2} {...props} />
+)
+
+export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
+  d,
+  compact = false,
+  ...props
+}) => {
   const content = (
     <Flex
       as={compact ? "a" : undefined}
@@ -34,19 +40,22 @@ export const UserCard: React.FC<
           alignItems="flex-start"
           justify="flex-end"
         >
-          <Username d={d} />
-          <Box as="hr" w="full" mb={2} />
+          <Username username={d.username} discriminator={d.discriminator} />
+          <Hr w={52} />
           <UserFlagsRow
             bitfield={d.flags!}
             nitro={d.premium_type!}
             boxSize="1.3em"
           />
+          <Text mb={1}>{d.bio || "No bio"}</Text>
         </Flex>
       ) : (
         <Flex direction="column" justify="flex-start" align="center">
-          <Username d={d} />
-          <Box as="hr" w="60%" mb={2} />
+          <Username username={d.username} discriminator={d.discriminator} />
+          <Hr mb={0} />
           <EditableUserFlags d={d} />
+          <Hr mt={1} />
+          <Text mb={1}>{d.bio || "No bio"}</Text>
         </Flex>
       )}
     </Flex>

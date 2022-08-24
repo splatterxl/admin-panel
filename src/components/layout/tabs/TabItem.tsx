@@ -9,14 +9,15 @@ export const TabItem: React.FC<{
   selected: boolean
 }> = ({ label, href, icon: Icon, selected }) => {
   return (
-    <NextLink href={href} passHref={false}>
+    <NextLink href={href} passHref>
       <Link
         _hover={{
           textDecoration: "none",
         }}
       >
         <Flex
-          pt={4}
+          as="button"
+          py={2}
           px={8}
           w={56}
           direction="row"
@@ -24,8 +25,9 @@ export const TabItem: React.FC<{
           align="center"
           gap={2}
           cursor="pointer"
-          _dark={{
-            color: !selected ? "whiteAlpha.700" : "white",
+          opacity={!selected ? 0.7 : 1}
+          _hover={{
+            opacity: !selected ? 0.8 : 1,
           }}
         >
           {/* @ts-ignore shut up ts */}

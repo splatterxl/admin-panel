@@ -44,7 +44,7 @@ export const UserFlagsRow: React.FC<
           if (useTooltip) return <Tooltip label={label}>{elem}</Tooltip>
           else return elem
         })}
-      {nitro !== UserPremiumType.None ? (
+      {nitro ? (
         useTooltip ? (
           <Tooltip label="Nitro">
             <Nitro {...props} />

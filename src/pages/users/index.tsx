@@ -1,4 +1,5 @@
 import { Heading } from "@chakra-ui/react"
+import React from "react"
 import { RecentlyViewedUsers } from "../../components/homepage/recently/RecentlyViewedUsers"
 import { RecentlyViewedUsersStore } from "../../stores/RecentlyViewedStore"
 import { useSearchbarFocus } from "../../util/focus"
@@ -6,9 +7,13 @@ import { useSearchbarFocus } from "../../util/focus"
 export default function Users() {
   useSearchbarFocus()
 
-  const value = RecentlyViewedUsersStore.useValue()
+  const [getValue, _, value] = RecentlyViewedUsersStore.useStateFromStorage()
 
-  if (value.length) {
+  React.useEffect(() => {
+    if (!value) getValue()
+  })
+
+  if (value?.length) {
     return (
       <>
         <Heading as="h2" size="md" fontStyle="italic" mb={2}>

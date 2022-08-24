@@ -20,6 +20,10 @@ export default function Search() {
     ;(async () => {
       if (!query) return router.replace(Endpoints.HOME)
 
+      setResults({
+        type: SearchResultsType.LOADING,
+      })
+
       const res = await search(query)
 
       if (res) {

@@ -1,6 +1,7 @@
 import { Flex, Heading, Link } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import NextLink from "next/link"
+import { Counts } from "../components/homepage/counts/Counts"
 import { RecentlyViewedUsers } from "../components/homepage/recently/RecentlyViewedUsers"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { Endpoints } from "../util/constants"
@@ -19,14 +20,7 @@ const Home: NextPage = () => {
         </NextLink>
         !
       </Heading>
-      <Flex direction="column" justify="flex-start" align="flex-start">
-        <Flex direction="column" justify="flex-start" align="flex-start">
-          <Heading as="h2" size="md" fontStyle="italic">
-            Jump back in...
-          </Heading>
-          <RecentlyViewedUsers />
-        </Flex>
-      </Flex>
+      <Counts />
     </>
   )
 }

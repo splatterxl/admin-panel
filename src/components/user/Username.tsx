@@ -1,15 +1,13 @@
 import { HeadingProps, Text } from "@chakra-ui/react"
-import { APIUser } from "discord-api-types/v10"
 import React from "react"
 
-export const Username: React.FC<{ d: APIUser } & HeadingProps> = ({
-  d,
-  ...props
-}) => {
+export const Username: React.FC<
+  { username: string; discriminator: string } & HeadingProps
+> = ({ username, discriminator, ...props }) => {
   return (
     <Text as="header" fontWeight={700} fontSize="3xl">
       <Text as="h2" display="inline-block">
-        {d.username}
+        {username}
       </Text>
       <Text
         as="span"
@@ -19,7 +17,7 @@ export const Username: React.FC<{ d: APIUser } & HeadingProps> = ({
           color: "gray.600",
         }}
       >
-        #{d.discriminator}
+        #{discriminator}
       </Text>
     </Text>
   )
