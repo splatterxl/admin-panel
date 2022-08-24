@@ -1,5 +1,4 @@
 import { useColorMode } from "@chakra-ui/react"
-import { UserFlags } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormInputAutocompleteTypes } from "../../components/form/autocomplete/FormInputAutocompleteTypes"
@@ -12,25 +11,17 @@ import FormHeading from "../../components/form/FormHeading"
 import { FullscreenCard } from "../../components/layout/card/CardWithContainer"
 import AuthStore from "../../stores/AuthStore"
 import CurrentUserStore from "../../stores/CurrentUserStore"
-import { Endpoints, ErrorMessages } from "../../util/constants"
-import http from "../../util/http"
+import { login } from "../../util/auth"
+import { Endpoints } from "../../util/constants"
 import { one } from "../../util/one"
-import { User } from "../../util/types"
 
 export default function Login() {
-  const [errors, setErrors] = React.useState<{
-      login?: string
-      password?: string
-    }>({}),
-    [, setAuth, auth] = AuthStore.useStateFromStorage(),
+  const [error, setError] = React.useState<string>(""),
+    setAuth = AuthStore.useSetInStorage(),
     setCurrentUser = CurrentUserStore.useSetInStorage(),
+    { setColorMode } = useColorMode(),
     router = useRouter(),
-    next = one(router.query.next),
-    { setColorMode } = useColorMode()
-
-  if (auth) {
-    router.replace(next ?? Endpoints.HOME)
-  }
+    next = one(router.query.next)
 
   return (
     <FullscreenCard>
@@ -49,42 +40,23 @@ export default function Login() {
           submit: "Continue",
         }}
         onSubmit={async (data) => {
-          const res = await http.post<{
-            token: string
-            user_settings: { theme: string }
-          }>("/auth/login", data)
+          try {
+            const { theme, user, token } = await login(data as any)
 
-          if (!res.ok) {
-            setErrors({
-              login: ErrorMessages.INVALID_CREDENTIALS,
-              password: ErrorMessages.INVALID_CREDENTIALS,
-            })
-          } else {
-            const {
-              token,
-              user_settings: { theme },
-            } = res.data
+            setColorMode(theme)
+            setCurrentUser(user)
+            setAuth(token)
 
-            const { data: user } = await http.get<User>("/users/@me", "", {
-              headers: {
-                Authorization: token,
-              },
-            })
-
-            if ((user.flags! & UserFlags.Staff) !== UserFlags.Staff) {
-              setErrors({
-                login: ErrorMessages.MAZE,
-              })
-            } else {
-              setColorMode(theme)
-
-              setCurrentUser(user)
-              setAuth(token)
-
-              router.replace(Endpoints.HOME, Endpoints.HOME, {
-                shallow: false,
-              })
-            }
+            // I don't know why this is needed but everything breaks without it
+            setTimeout(
+              () =>
+                router.push(next ?? Endpoints.HOME, next ?? Endpoints.HOME, {
+                  shallow: false,
+                }),
+              1e2
+            )
+          } catch (e) {
+            setError(new String(e) as string)
           }
         }}
       >
@@ -107,7 +79,7 @@ export default function Login() {
             inputProps={{
               type: "email",
             }}
-            error={errors.login}
+            error={error}
           />
           <FormField
             as={PasswordInput}
@@ -117,7 +89,7 @@ export default function Login() {
               type: FormInputAutocompleteTypes.CURRENT_PASSWORD,
             }}
             required
-            error={errors.password}
+            error={error}
           />
         </FormBody>
       </Form>
