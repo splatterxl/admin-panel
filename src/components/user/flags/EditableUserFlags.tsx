@@ -27,7 +27,7 @@ export const EditableUserFlags: React.FC<{ d: APIUser }> = ({ d }) => {
           </_TooltipCard>
         </Button>
       </Flex>
-      <UserFlagsEditModal onClose={() => setModalOpen(false)} open={modal} />
+      {/*<UserFlagsEditModal onClose={() => setModalOpen(false)} open={modal} />*/}
     </>
   )
 }
