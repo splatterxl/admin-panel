@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <title>Patchcord</title>
+        <link rel="icon" href="/assets/patchcord/patchcord.png" />
       </Head>
       <body
         style={{

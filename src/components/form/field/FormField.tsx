@@ -77,7 +77,13 @@ export default function FormField<
           value,
         }}
       >
-        {props.label && <FormLabel for={props.id} text={props.label} />}
+        {props.label && (
+          <FormLabel
+            for={props.id}
+            text={props.label}
+            hidden={props.hiddenLabel}
+          />
+        )}
         {/* @ts-ignore */}
         <props.as
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -139,4 +145,5 @@ interface FormFieldProps<
   inputProps?: Component extends React.ComponentType<infer P>
     ? P
     : ComponentProps
+  hiddenLabel?: boolean
 }

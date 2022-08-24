@@ -9,11 +9,9 @@ const Home: NextPage = () => {
   const currentUser = CurrentUserStore.useValue()
 
   return (
-    <Fullscreen>
-      <Heading as="h1" size="lg">
-        Good {greeting()}, {currentUser.username}
-      </Heading>
-    </Fullscreen>
+    <Heading as="h1" size="lg">
+      Good {greeting()}, {currentUser.username}
+    </Heading>
   )
 }
 

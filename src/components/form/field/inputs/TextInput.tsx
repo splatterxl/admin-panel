@@ -1,6 +1,6 @@
-import { Input, type InputProps } from "@chakra-ui/react";
-import { useFormContext } from "../../Form";
-import { useFormFieldContext } from "../FormField";
+import { Input, type InputProps } from "@chakra-ui/react"
+import { useFormContext } from "../../Form"
+import { useFormFieldContext } from "../FormField"
 
 export default function TextInput({
   secret,
@@ -10,7 +10,7 @@ export default function TextInput({
   ...props
 }: TextInputProps) {
   const context = useFormFieldContext(),
-    formContext = useFormContext();
+    formContext = useFormContext()
 
   return (
     <Input
@@ -43,15 +43,15 @@ export default function TextInput({
       }}
       autoComplete={autocomplete ? autocomplete : undefined}
       aria-required={context.required}
-      userSelect={_isDisabled ? "none" : undefined}
+      userSelect="none"
       {...props}
     />
-  );
+  )
 }
 
 export interface TextInputProps extends InputProps {
-  secret?: boolean;
-  inputRef?: React.Ref<HTMLInputElement>;
-  autocomplete?: string;
-  _isDisabled?: boolean;
+  secret?: boolean
+  inputRef?: React.Ref<HTMLInputElement>
+  autocomplete?: string
+  _isDisabled?: boolean
 }

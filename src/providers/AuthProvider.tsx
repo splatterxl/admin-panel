@@ -13,11 +13,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [getToken, _, token] = AuthStore.useStateFromStorage(),
     [, setCurrentUser, currentUser] = CurrentUserStore.useStateFromStorage(),
     router = useRouter(),
-    isLogin = router.pathname === "/auth/login"
+    isLogin = router.pathname === "/auth/login",
+    [isLoaded, setLoaded] = React.useState(false)
 
   React.useEffect(() => {
     ;(async () => {
-      if (isLogin) return
+      setLoaded(true)
+
+      if (isLogin || isLoaded) return
 
       const token = getToken()
 
@@ -29,9 +32,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setCurrentUser(data)
       }
     })()
-  }, [])
+  }, [setCurrentUser, currentUser, getToken, isLoaded, isLogin, router])
 
-  if (!isLogin && !token && !currentUser) {
+  if (!isLoaded || (!isLogin && !token && !currentUser)) {
     return <FullscreenSpinner />
   } else {
     return <>{children}</>

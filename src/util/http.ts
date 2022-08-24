@@ -75,9 +75,10 @@ interface HTTPClient {
   post: MethodShorthand
   put: MethodShorthand
   delete: MethodShorthand
+  head: MethodShorthand
 }
 
-for (const method of ["GET", "POST", "PUT", "DELETE"]) {
+for (const method of ["GET", "POST", "PUT", "DELETE", "HEAD"]) {
   HTTPClient.prototype[method.toLowerCase() as "get"] = async function (
     this: HTTPClient,
     endpoint: string,

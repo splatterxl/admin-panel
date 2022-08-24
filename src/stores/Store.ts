@@ -7,7 +7,7 @@ import {
   useSetRecoilState,
 } from "recoil"
 
-export default class Store<T, D = null> {
+export default class Store<T, D = T> {
   _atom: RecoilState<T | D>
 
   constructor(
