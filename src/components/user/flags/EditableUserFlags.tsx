@@ -7,14 +7,21 @@ import { UserFlagsEditModal } from "../../modals/UserFlagsEditModal"
 import { _TooltipCard } from "../../Tooltip"
 import { UserFlagsRow } from "./UserFlags"
 
-export const EditableUserFlags: React.FC<{ d: User }> = ({ d }) => {
+export const EditableUserFlags: React.FC<{ d: User; default: string }> = ({
+  d,
+}) => {
   const [modal, setModalOpen] = React.useState(false),
     router = useRouter()
 
   return (
     <>
       <Flex direction="row" align="center" justify="center" pl={2}>
-        <UserFlagsRow bitfield={d.flags!} nitro={d.premium_type!} useTooltip />
+        <UserFlagsRow
+          default="No flags"
+          bitfield={d.flags!}
+          nitro={d.premium_type!}
+          useTooltip
+        />
         <Button
           variant="ghost"
           size="xs"
@@ -35,9 +42,6 @@ export const EditableUserFlags: React.FC<{ d: User }> = ({ d }) => {
         onUpdate={() => {
           router.reload()
         }}
-        bitfield={d.flags!}
-        id={d.id}
-        username={d.username}
       />
     </>
   )

@@ -21,38 +21,51 @@ export const FLAGS = {
   2: [PartneredServerOwner, "Partnered Server Owner", "partner"],
   4: [HSEvents, "HypeSquad Events", "hse"],
   8: [BugHunter, "Bug Hunter", "spoon"],
+  16384: [BugHunter2, "Bug Hunter Level 2", "yellow_spoon"],
   64: [HSBravery, "Bravery", "bravery"],
   128: [HSBrilliance, "Brilliance", "brilliance"],
   256: [HSBalance, "Balance", "balance"],
   512: [EarlySupporter, "Early Supporter", "supporter"],
-  16384: [BugHunter2, "Bug Hunter Level 2", "yellow_spoon"],
   // 65536: "VerifiedBot",
   131072: [BotDeveloper, "Verified Bot Developer", "bot_dev"],
   262144: [CertifiedMod, "Certified Moderator", "mod"],
 } as const
 
 export const UserFlagsRow: React.FC<
-  { bitfield: number; nitro: UserPremiumType; useTooltip?: boolean } & IconProps
-> = ({ bitfield: bits, nitro, useTooltip, ...props }) => {
+  {
+    bitfield: number
+    nitro: UserPremiumType
+    useTooltip?: boolean
+    default: React.ReactNode
+  } & IconProps
+> = ({ bitfield: bits, nitro, useTooltip, default: defaultNode, ...props }) => {
+  const elems = Object.entries(FLAGS)
+    .filter(([K]) => (bits & parseInt(K)) === parseInt(K))
+    .map(([K, [Component, label]]) => {
+      const elem = <Component key={K} {...props} />
+
+      if (useTooltip) return <Tooltip label={label}>{elem}</Tooltip>
+      else return elem
+    })
+    .concat(
+      nitro
+        ? [
+            useTooltip ? (
+              <Tooltip label="Nitro">
+                <Nitro {...props} />
+              </Tooltip>
+            ) : (
+              <Nitro {...props} />
+            ),
+          ]
+        : []
+    )
+
+  if (!elems.length) elems.push(<>{defaultNode}</>)
+
   return (
     <Flex direction="row" align="center" justify="center">
-      {Object.entries(FLAGS)
-        .filter(([K]) => (bits & parseInt(K)) === parseInt(K))
-        .map(([K, [Component, label]]) => {
-          const elem = <Component key={K} {...props} />
-
-          if (useTooltip) return <Tooltip label={label}>{elem}</Tooltip>
-          else return elem
-        })}
-      {nitro ? (
-        useTooltip ? (
-          <Tooltip label="Nitro">
-            <Nitro {...props} />
-          </Tooltip>
-        ) : (
-          <Nitro {...props} />
-        )
-      ) : null}
+      {elems}
     </Flex>
   )
 }

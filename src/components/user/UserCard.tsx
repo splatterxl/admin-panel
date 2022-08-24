@@ -9,7 +9,15 @@ import { UserAvatar } from "./UserAvatar"
 import { Username } from "./Username"
 
 export const Hr: React.FC<BoxProps> = (props) => (
-  <Box as="hr" w="60%" mb={2} {...props} />
+  <Box
+    as="hr"
+    w="60%"
+    mb={2}
+    _light={{
+      borderColor: "gray.400",
+    }}
+    {...props}
+  />
 )
 
 export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
@@ -30,6 +38,10 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
       gap={compact ? 4 : 2}
       borderRadius="lg"
       borderWidth={1}
+      _light={{
+        bgColor: "gray.100",
+        borderColor: "gray.300",
+      }}
     >
       {d.avatar && <UserAvatar d={d} />}
       {compact ? (
@@ -43,6 +55,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
           <Username username={d.username} discriminator={d.discriminator} />
           <Hr w={52} />
           <UserFlagsRow
+            default={<></>}
             bitfield={d.flags!}
             nitro={d.premium_type!}
             boxSize="1.3em"
@@ -53,7 +66,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
         <Flex direction="column" justify="flex-start" align="center">
           <Username username={d.username} discriminator={d.discriminator} />
           <Hr mb={0} />
-          <EditableUserFlags d={d} />
+          <EditableUserFlags d={d} default="No flags" />
           <Hr mt={1} />
           <Text mb={1}>{d.bio || "No bio"}</Text>
         </Flex>
