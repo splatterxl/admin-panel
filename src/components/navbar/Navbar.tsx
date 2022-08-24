@@ -3,15 +3,12 @@ import Link from "next/link"
 import React from "react"
 import AuthStore from "../../stores/AuthStore"
 import { Endpoints } from "../../util/constants"
-import { Searchbar } from "./search/Searchbar"
+import { Searchbar } from "../search/Searchbar"
 import { AvatarDropdown } from "./settings/AvatarDropdown"
 import { ThemeToggle } from "./settings/ThemeToggle"
 
 export const Navbar: React.FC = () => {
-  const auth = AuthStore.useValue(),
-    imageWidth = useBreakpointValue({
-      base: 48,
-    })
+  const auth = AuthStore.useValue()
 
   if (!auth) return null
 

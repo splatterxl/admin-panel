@@ -1,14 +1,14 @@
-import { Input } from "@chakra-ui/react"
+import { FlexProps, Input } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
-import SearchbarFocusStore from "../../../stores/SearchbarFocusStore"
-import SearchResultStore from "../../../stores/SearchResultStore"
-import SearchTypeStore, { SearchType } from "../../../stores/SearchTypeStore"
-import { getQuery } from "../../../util/query"
-import { search } from "../../../util/search"
-import FormField from "../../form/field/FormField"
-import SearchbarInput from "../../form/field/inputs/SearchbarInput"
-import Form from "../../form/Form"
+import SearchbarFocusStore from "../../stores/SearchbarFocusStore"
+import SearchResultStore from "../../stores/SearchResultStore"
+import SearchTypeStore, { SearchType } from "../../stores/SearchTypeStore"
+import { getQuery } from "../../util/query"
+import { search } from "../../util/search"
+import FormField from "../form/field/FormField"
+import SearchbarInput from "../form/field/inputs/SearchbarInput"
+import Form from "../form/Form"
 
 const PLACEHOLDERS: Record<SearchType, string> = {
   [SearchType.ANY]: "users or guilds",
@@ -16,10 +16,9 @@ const PLACEHOLDERS: Record<SearchType, string> = {
   [SearchType.USERS]: "users",
 }
 
-export const Searchbar: React.FC = () => {
+export const Searchbar: React.FC<FlexProps> = (props) => {
   const searchType = SearchTypeStore.useValue(),
     setRef = SearchbarFocusStore.useSetState(),
-    setSearchResults = SearchResultStore.useSetState(),
     ref = React.useRef<HTMLInputElement>(null),
     router = useRouter(),
     { q: query } = getQuery(router.asPath)
@@ -33,7 +32,7 @@ export const Searchbar: React.FC = () => {
     <Form
       id="search"
       customButtons
-      useFlex={false}
+      {...props}
       onSubmit={({ input }) => search(input, searchType)}
     >
       <FormField

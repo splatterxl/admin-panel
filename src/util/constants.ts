@@ -1,5 +1,4 @@
 import { Snowflake } from "discord-api-types/globals"
-import { RouteBases } from "discord-api-types/v10"
 import { SearchType } from "../stores/SearchTypeStore"
 
 const encode = encodeURIComponent
@@ -16,9 +15,18 @@ export const Endpoints = {
 
   USERS: "/users",
   USER: (id: Snowflake) => `${Endpoints.USERS}/${id}`,
+  USER_NOT_FOUND: "/users/not-found",
 
   GUILDS: "/guilds",
   GUILD: (id: Snowflake) => `${Endpoints.GUILDS}/${id}`,
+}
+
+export const PatchcordRoutes = {
+  COUNTS: "/admin/info/counts",
+  USER: (id: Snowflake) => `/admin/users/${id}`,
+  GUILD: (id: Snowflake) => `/admin/guilds/${id}`,
+  QUERY_USERS: "/admin/users",
+  QUERY_GUILDS: "/admin/guilds",
 }
 
 export enum Colors {

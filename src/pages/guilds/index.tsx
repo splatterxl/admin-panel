@@ -1,5 +1,5 @@
-import { PleaseSearch } from "../../components/PleaseSearch"
+import { useSearchbarFocus } from "../../util/focus"
 
 export default function Guilds() {
-  return <PleaseSearch />
+  useSearchbarFocus()
 }

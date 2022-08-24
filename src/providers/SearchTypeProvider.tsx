@@ -36,7 +36,8 @@ export const SearchTypeProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if (newType === type) return
     else setType(newType)
-  }, [router.asPath])
+    // deps do not need to be exhaustive here
+  }, [router.asPath, router.pathname])
 
   return <>{children}</>
 }

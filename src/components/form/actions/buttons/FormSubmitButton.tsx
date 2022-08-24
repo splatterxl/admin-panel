@@ -1,19 +1,26 @@
+import { ButtonProps } from "@chakra-ui/react"
 import { PrimaryButton } from "../../../PrimaryButton"
 
-export default function FormSubmitButton(props: FormSubmitButtonProps) {
+export default function FormSubmitButton({
+  loading,
+  i18n,
+  hasCancel,
+  ...props
+}: FormSubmitButtonProps) {
   return (
     <PrimaryButton
       type="submit"
-      isLoading={props.loading}
+      isLoading={loading}
       borderRadius="0.25rem"
       width="full"
+      {...props}
     >
-      {props.i18n ?? "Submit"}
+      {i18n ?? "Submit"}
     </PrimaryButton>
   )
 }
 
-interface FormSubmitButtonProps {
+interface FormSubmitButtonProps extends ButtonProps {
   loading?: boolean
   i18n?: string
   hasCancel: boolean

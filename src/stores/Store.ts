@@ -57,7 +57,7 @@ export default class Store<T, D = T> {
     return () => this._getFromStorage(setState)
   }
 
-  _getFromStorage(setState: SetterOrUpdater<D | T>) {
+  _getFromStorage(setState: SetterOrUpdater<D | T>): D | T {
     let value: any = localStorage.getItem(this.key)
 
     if (value != null) value = JSON.parse(value)

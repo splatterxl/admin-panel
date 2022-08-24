@@ -1,6 +1,7 @@
 import { Center, Spinner, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
+import { Full } from "../../components/layout/Full"
 import { SearchUserResult } from "../../components/search/result/SearchUserResult"
 import { SearchSection } from "../../components/search/SearchSection"
 import SearchResultStore, {
@@ -37,16 +38,16 @@ export default function Search() {
   switch (results.type) {
     case SearchResultsType.LOADING: {
       return (
-        <Center w="full" h="80vh">
+        <Full>
           <Spinner size="lg" />
-        </Center>
+        </Full>
       )
     }
     case SearchResultsType.NONE: {
       return (
-        <Center w="full" h="80vh">
+        <Full>
           <Text opacity={0.7}>No results were found</Text>
-        </Center>
+        </Full>
       )
     }
     case SearchResultsType.DONE: {
@@ -56,6 +57,13 @@ export default function Search() {
             <SearchSection label="Users">
               {results.users.map((d) => (
                 <SearchUserResult d={d} key={d.id} />
+              ))}
+            </SearchSection>
+          ) : null}
+          {results.guilds?.length ? (
+            <SearchSection label="Guilds">
+              {results.guilds.map((d) => (
+                <SearchGuildResult d={d} key={d.id} />
               ))}
             </SearchSection>
           ) : null}

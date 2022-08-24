@@ -29,10 +29,10 @@ export const redirectToSearchResult = (
   id: Snowflake,
   data: any
 ): SearchResults => {
-  // Router.replace(`/${type}/${id}`)
+  Router.replace(`/${type}/${id}`)
 
   return {
-    type: SearchResultsType.DONE,
+    type: SearchResultsType.LOADING,
     [type]: [data],
   }
 }

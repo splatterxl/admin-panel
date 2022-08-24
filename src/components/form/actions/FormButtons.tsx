@@ -1,13 +1,13 @@
-import { Flex } from "@chakra-ui/react";
-import { useFormContext } from "../Form";
-import FormCancelButton from "./buttons/FormCancelButton";
-import FormSubmitButton from "./buttons/FormSubmitButton";
+import { ButtonProps, Flex } from "@chakra-ui/react"
+import { useFormContext } from "../Form"
+import FormCancelButton from "./buttons/FormCancelButton"
+import FormSubmitButton from "./buttons/FormSubmitButton"
 
 export default function FormButtons(props: FormButtonsProps) {
   const {
     actions: { cancel },
     i18n: { submit },
-  } = useFormContext();
+  } = useFormContext()
 
   return (
     <Flex
@@ -20,12 +20,14 @@ export default function FormButtons(props: FormButtonsProps) {
         loading={props.loading}
         i18n={submit}
         hasCancel={!!cancel}
+        {...props.submitProps}
       />
       {cancel ? <FormCancelButton /> : null}
     </Flex>
-  );
+  )
 }
 
 interface FormButtonsProps {
-  loading?: boolean;
+  loading?: boolean
+  submitProps?: ButtonProps
 }

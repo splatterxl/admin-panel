@@ -1,4 +1,4 @@
-import { Flex, type FlexProps } from "@chakra-ui/react"
+import { ButtonProps, Flex, type FlexProps } from "@chakra-ui/react"
 import { FormikProps, useFormik } from "formik"
 import {
   ChangeEvent,
@@ -69,6 +69,7 @@ export default function Form({
 
   customButtons = false,
   useFlex = true,
+  submitProps = {},
 
   ...props
 }: FormProps) {
@@ -171,7 +172,10 @@ export default function Form({
       {children}
       {!customButtons ? (
         <FormFooter br={props.borderRadius as number}>
-          <FormButtons loading={formik.isSubmitting} />
+          <FormButtons
+            loading={formik.isSubmitting}
+            submitProps={submitProps}
+          />
         </FormFooter>
       ) : null}
     </>
@@ -193,7 +197,9 @@ export default function Form({
           {content}
         </Flex>
       ) : (
-        content
+        <form onSubmit={formik.handleSubmit as FormEventHandler<any>}>
+          {content}
+        </form>
       )}
     </Context.Provider>
   )
@@ -255,4 +261,5 @@ interface FormProps extends Omit<FlexProps, "onSubmit"> {
 
   customButtons?: boolean
   useFlex?: boolean
+  submitProps?: ButtonProps
 }

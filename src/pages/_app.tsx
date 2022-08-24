@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil"
 import { Tabs } from "../components/layout/tabs/Tabs"
 import { Navbar } from "../components/navbar/Navbar"
 import { AuthProvider } from "../providers/AuthProvider"
+import { PersistentStoreProvider } from "../providers/PersistentStoreProvider"
 import { SearchTypeProvider } from "../providers/SearchTypeProvider"
 import "../styles/globals.css"
 
@@ -15,14 +16,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Patchcord</title>
       </Head>
       <ChakraProvider>
-        <AuthProvider>
-          <SearchTypeProvider>
-            <Navbar />
-            <Tabs>
-              <Component {...pageProps} />
-            </Tabs>
-          </SearchTypeProvider>
-        </AuthProvider>
+        <PersistentStoreProvider>
+          <AuthProvider>
+            <SearchTypeProvider>
+              <Navbar />
+              <Tabs>
+                <Component {...pageProps} />
+              </Tabs>
+            </SearchTypeProvider>
+          </AuthProvider>
+        </PersistentStoreProvider>
       </ChakraProvider>
     </RecoilRoot>
   )
