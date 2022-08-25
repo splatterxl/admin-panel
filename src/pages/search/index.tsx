@@ -1,4 +1,4 @@
-import { Center, Spinner, Text } from "@chakra-ui/react"
+import { Spinner, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { Full } from "../../components/layout/Full"
@@ -64,14 +64,13 @@ export default function Search() {
               ))}
             </SearchSection>
           ) : null}
-          {results.guilds?.length ? (
+          {/* {results.guilds?.length ? (
             <SearchSection label="Guilds">
               {results.guilds.map((d) => (
-                // <SearchGuildResult d={d} key={d.id} />
-                <></>
+                <SearchGuildResult d={d} key={d.id} />
               ))}
             </SearchSection>
-          ) : null}
+          ) : null} */}
         </>
       )
     }

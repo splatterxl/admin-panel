@@ -37,25 +37,39 @@ export const UserFlagsRow: React.FC<
     nitro: UserPremiumType
     useTooltip?: boolean
     default: React.ReactNode
+
+    compact?: boolean
   } & IconProps
-> = ({ bitfield: bits, nitro, useTooltip, default: defaultNode, ...props }) => {
+> = ({
+  bitfield: bits,
+  nitro,
+  useTooltip,
+  default: defaultNode,
+  compact = false,
+  ...props
+}) => {
   const elems = Object.entries(FLAGS)
     .filter(([K]) => (bits & parseInt(K)) === parseInt(K))
     .map(([K, [Component, label]]) => {
       const elem = <Component key={K} {...props} />
 
-      if (useTooltip) return <Tooltip label={label}>{elem}</Tooltip>
+      if (useTooltip)
+        return (
+          <Tooltip label={label} key={K}>
+            {elem}
+          </Tooltip>
+        )
       else return elem
     })
     .concat(
       nitro
         ? [
             useTooltip ? (
-              <Tooltip label="Nitro">
+              <Tooltip label="Nitro" key="nitro">
                 <Nitro {...props} />
               </Tooltip>
             ) : (
-              <Nitro {...props} />
+              <Nitro key="nitro" {...props} />
             ),
           ]
         : []
@@ -64,7 +78,13 @@ export const UserFlagsRow: React.FC<
   if (!elems.length) elems.push(<>{defaultNode}</>)
 
   return (
-    <Flex direction="row" align="center" justify="center">
+    <Flex
+      direction="row"
+      align="center"
+      justify="center"
+      wrap="wrap"
+      maxW={!compact ? 36 : undefined}
+    >
       {elems}
     </Flex>
   )

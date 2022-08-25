@@ -1,5 +1,5 @@
 import { APIGuild } from "discord-api-types/v10"
-import { User } from "../util/types"
+import { User } from "../util/routes/types"
 import Store from "./Store"
 
 export enum SearchResultsType {

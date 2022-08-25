@@ -8,7 +8,7 @@ import { RecentlyViewedUsersStore } from "../../stores/RecentlyViewedStore"
 import { Endpoints, PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
-import { User } from "../../util/types"
+import { User } from "../../util/routes/types"
 
 export default function UserProfile() {
   const addRecentlyViewedUser = RecentlyViewedUsersStore.useAdd(),
@@ -38,8 +38,6 @@ export default function UserProfile() {
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps -- doesn't need add hook
   }, [userId])
-
-  console.log(user)
 
   if (!user) return <FullscreenSpinner />
 

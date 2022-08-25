@@ -1,5 +1,5 @@
 import React from "react"
-import { User } from "../../../util/types"
+import { User } from "../../../util/routes/types"
 import { UserCard } from "../../user/UserCard"
 
 export const SearchUserResult: React.FC<{ d: User }> = ({ d }) => {

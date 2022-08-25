@@ -1,4 +1,4 @@
-import { User } from "../util/types"
+import { User } from "../util/routes/types"
 import Store from "./Store"
 
 export default new (class FocusedUserStore extends Store<User, null> {

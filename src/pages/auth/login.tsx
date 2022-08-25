@@ -11,9 +11,9 @@ import FormHeading from "../../components/form/FormHeading"
 import { FullscreenCard } from "../../components/layout/card/CardWithContainer"
 import AuthStore from "../../stores/AuthStore"
 import CurrentUserStore from "../../stores/CurrentUserStore"
-import { login } from "../../util/auth"
 import { Endpoints } from "../../util/constants"
 import { one } from "../../util/one"
+import { login } from "../../util/routes/auth"
 
 export default function Login() {
   const [error, setError] = React.useState<string>(""),

@@ -1,6 +1,6 @@
 import { PatchcordRoutes } from "../../../constants"
 import http from "../../../http"
-import { UserQueryResult } from "../../../types"
+import { UserQueryResult } from "../../../routes/types"
 
 export const searchUsersByQuery = async (input: string) => {
   const res = await http.get<UserQueryResult>(PatchcordRoutes.QUERY_USERS, "", {

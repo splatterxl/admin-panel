@@ -1,6 +1,6 @@
 import { PatchcordRoutes } from "../../../constants"
 import http from "../../../http"
-import { GuildsQueryResult } from "../../../types"
+import { GuildsQueryResult } from "../../../routes/types"
 
 export const searchGuildsByQuery = async (input: string) => {
   const res = await http.get<GuildsQueryResult>(

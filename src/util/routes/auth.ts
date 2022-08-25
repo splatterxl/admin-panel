@@ -1,6 +1,6 @@
 import { UserFlags } from "discord-api-types/v10"
-import { ErrorMessages } from "./constants"
-import http from "./http"
+import { ErrorMessages } from "../constants"
+import http from "../http"
 import { User } from "./types"
 
 export const login = async (data: { login: string; password: string }) => {

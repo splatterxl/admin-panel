@@ -6,7 +6,7 @@ import AuthStore from "../stores/AuthStore"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { Endpoints } from "../util/constants"
 import http from "../util/http"
-import { User } from "../util/types"
+import { User } from "../util/routes/types"
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

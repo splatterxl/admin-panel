@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex, FlexProps, Text } from "@chakra-ui/react"
 import Link from "next/link"
 import React from "react"
 import { Endpoints } from "../../util/constants"
-import { User } from "../../util/types"
+import { User } from "../../util/routes/types"
 import { EditableUserFlags } from "./flags/EditableUserFlags"
 import { UserFlagsRow } from "./flags/UserFlags"
 import { UserAvatar } from "./UserAvatar"
@@ -59,6 +59,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
             bitfield={d.flags!}
             nitro={d.premium_type!}
             boxSize="1.3em"
+            compact
           />
           <Text mb={1}>{d.bio || "No bio"}</Text>
         </Flex>

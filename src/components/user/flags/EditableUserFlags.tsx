@@ -2,7 +2,7 @@ import { Button, Flex, Icon } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { FaEdit } from "react-icons/fa"
-import { User } from "../../../util/types"
+import { User } from "../../../util/routes/types"
 import { UserFlagsEditModal } from "../../modals/UserFlagsEditModal"
 import { _TooltipCard } from "../../Tooltip"
 import { UserFlagsRow } from "./UserFlags"
@@ -21,6 +21,7 @@ export const EditableUserFlags: React.FC<{ d: User; default: string }> = ({
           bitfield={d.flags!}
           nitro={d.premium_type!}
           useTooltip
+          compact={false}
         />
         <Button
           variant="ghost"
