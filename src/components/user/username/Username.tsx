@@ -1,16 +1,41 @@
-import { Text, TextProps } from "@chakra-ui/react"
+import { Text, TextProps, useToast } from "@chakra-ui/react"
+import { Snowflake } from "discord-api-types/globals"
 import React from "react"
+import { BotTag } from "../BotTag"
 
 export const Username: React.FC<
   {
     username: string
     discriminator: string
     isBot: boolean
+    id: Snowflake
     editable?: boolean
+    shouldCopy?: boolean
   } & TextProps
-> = ({ username, discriminator, isBot, ...props }) => {
+> = ({ username, id, discriminator, isBot, shouldCopy, ...props }) => {
+  const toast = useToast()
+
   return (
-    <Text as="header" fontWeight={700} fontSize="3xl" {...props}>
+    <Text
+      as="header"
+      fontWeight={700}
+      fontSize="3xl"
+      cursor={shouldCopy ? "pointer" : undefined}
+      onClick={() => {
+        if (!shouldCopy) return
+
+        navigator.clipboard.writeText(id)
+
+        toast({
+          title: "Copied!",
+          description: "Copied ID to clipboard",
+          variant: "left-accent",
+          isClosable: true,
+          duration: 3e3,
+        })
+      }}
+      {...props}
+    >
       <Text as="h2" display="inline-block">
         {username}
       </Text>
@@ -24,6 +49,7 @@ export const Username: React.FC<
       >
         #{discriminator}
       </Text>
+      {isBot ? <BotTag /> : null}
     </Text>
   )
 }

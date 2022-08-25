@@ -56,6 +56,8 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
           username={d.username}
           discriminator={d.discriminator}
           isBot={!!d.bot}
+          id={d.id}
+          shouldCopy={!compact}
         />
         <Hr mb={+compact} w={compact ? 52 : "60%"} />
         {!compact ? (
