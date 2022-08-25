@@ -26,7 +26,7 @@ export const Counts: React.FC = () => {
 
   if (!counts) {
     return (
-      <HStack pt={12} w="40%" justify="center">
+      <HStack pt={12} w={{base:"full",md:"40%"}} justify="center">
         <Spinner size="lg" />
       </HStack>
     )
