@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react"
+import { Modal, ModalContent, ModalOverlay, ModalCloseButton } from "@chakra-ui/react"
 import React from "react"
 import FocusedUserStore from "../../stores/FocusedUserStore"
 import { User } from "../../util/routes/types"
@@ -31,6 +31,7 @@ export const UserFlagsEditModal: React.FC<{
     >
       <ModalOverlay />
       <ModalContent justifySelf="flex-start" marginTop={2}>
+        <ModalCloseButton />
         <Form
           id={`edit_flags_${user!.id}`}
           onSubmit={async (values) => {
