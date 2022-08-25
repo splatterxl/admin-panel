@@ -33,7 +33,7 @@ export const Counts: React.FC = () => {
   }
 
   return (
-    <HStack flexWrap="wrap" py={4} spacing={3}>
+    <HStack flexWrap="wrap" py={4} align="center" justify="center">
       <Counter label="Users" value={counts.users} href={Endpoints.USERS} />
       <Counter label="Guilds" value={counts.guilds} href={Endpoints.GUILDS} />
       <Counter label="Channels" value={counts.channels} />

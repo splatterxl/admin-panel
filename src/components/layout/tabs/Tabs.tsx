@@ -17,11 +17,16 @@ export const Tabs: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <Flex
       h="85vh"
       w="full"
-      direction="row"
+      direction={{ base: "column", md: "row" }}
       justify="flex-start"
       align="flex-start"
     >
-      <Flex direction="column" justify="flex-start" align="center">
+      <Flex
+        direction="column"
+        justify="flex-start"
+        align="center"
+        display={{ base: "none", md: "block" }}
+      >
         <TabItem
           label="Users"
           selected={type === SearchType.USERS}

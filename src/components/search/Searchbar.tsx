@@ -31,6 +31,7 @@ export const Searchbar: React.FC<FlexProps> = (props) => {
   return (
     <Form
       id="search"
+      w="full"
       customButtons
       {...props}
       onSubmit={({ input }) => search(input, searchType)}
