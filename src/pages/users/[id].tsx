@@ -43,11 +43,11 @@ export default function UserProfile() {
 
   return (
     <Flex
-      direction="row"
+      direction={{ base: "column", md: "row" }}
       h="full"
       w="full"
       justify="flex-start"
-      align="flex-start"
+      align={{ base: "center", md: "flex-start" }}
     >
       <UserCard d={user} />
       {/* <Box>Balls</Box> */}

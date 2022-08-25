@@ -1,8 +1,7 @@
-import { Flex, Heading, Link } from "@chakra-ui/react"
+import { Heading, Link, Text } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import { Counts } from "../components/homepage/counts/Counts"
-import { RecentlyViewedUsers } from "../components/homepage/recently/RecentlyViewedUsers"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { Endpoints } from "../util/constants"
 import { greeting } from "../util/greeting"
@@ -13,12 +12,24 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Heading as="h1" size="xl" ml={{base:3,md:0}}>
-        Good {greeting()},{" "}
-        <NextLink href={Endpoints.USER(currentUser.id)} passHref>
-          <Link>{currentUser.username}</Link>
-        </NextLink>
-        !
+      <Heading
+        as="h1"
+        size="xl"
+        display="flex"
+        justifyContent={{ base: "center", md: "flex-start" }}
+        w={{ base: "full", md: "auto" }}
+        textAlign={{
+          base: "center",
+          md: "left",
+        }}
+      >
+        <Text as="span">
+          Good {greeting()},{" "}
+          <NextLink href={Endpoints.USER(currentUser.id)} passHref>
+            <Link>{currentUser.username}</Link>
+          </NextLink>
+          !
+        </Text>
       </Heading>
       <Counts />
     </>

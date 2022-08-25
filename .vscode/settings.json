@@ -2,5 +2,6 @@
   "[typescriptreact]": {
     "typescript.autoClosingTags": false
   },
-  "typescript.preferences.importModuleSpecifierEnding": "minimal"
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "git.mergeEditor": false
 }

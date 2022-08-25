@@ -26,14 +26,21 @@ export const Counts: React.FC = () => {
 
   if (!counts) {
     return (
-      <HStack pt={12} w={{base:"full",md:"40%"}} justify="center">
+      <HStack pt={12} w={{ base: "full", md: "40%" }} justify="center">
         <Spinner size="lg" />
       </HStack>
     )
   }
 
   return (
-    <HStack flexWrap="wrap" py={4} align="center" justify="center" spacing={0} gap={1}>
+    <HStack
+      flexWrap="wrap"
+      py={4}
+      align="center"
+      justify={{ base: "center", md: "flex-start" }}
+      spacing={0}
+      gap={1}
+    >
       <Counter label="Users" value={counts.users} href={Endpoints.USERS} />
       <Counter label="Guilds" value={counts.guilds} href={Endpoints.GUILDS} />
       <Counter label="Channels" value={counts.channels} />

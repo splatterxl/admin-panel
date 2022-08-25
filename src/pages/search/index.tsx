@@ -7,6 +7,7 @@ import { SearchSection } from "../../components/search/SearchSection"
 import SearchResultStore, {
   SearchResultsType,
 } from "../../stores/SearchResultStore"
+import { SearchType } from "../../stores/SearchTypeStore"
 import { Endpoints } from "../../util/constants"
 import { getQuery } from "../../util/query"
 import { search } from "../../util/search/http"
@@ -14,7 +15,7 @@ import { search } from "../../util/search/http"
 export default function Search() {
   const [results, setResults] = SearchResultStore.useState(),
     router = useRouter(),
-    { q: query } = getQuery(router.asPath)
+    { q: query, t: type } = getQuery(router.asPath)
 
   React.useEffect(() => {
     ;(async () => {
@@ -24,7 +25,7 @@ export default function Search() {
         type: SearchResultsType.LOADING,
       })
 
-      const res = await search(query)
+      const res = await search(query, type ? parseInt(type) : SearchType.ANY)
 
       if (res) {
         setResults(res)

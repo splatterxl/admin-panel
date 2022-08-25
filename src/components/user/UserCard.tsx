@@ -44,11 +44,11 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
         borderColor: "gray.300",
       }}
     >
-      {d.avatar && <UserAvatar d={d} />}
+      <UserAvatar d={d} />
       <Flex
         direction="column"
         justify="flex-start"
-        align={compact ? "flex-end" : "center"}
+        align={compact ? "flex-start" : "center"}
         w={!compact ? "full" : "fit-content"}
         as="section"
       >
