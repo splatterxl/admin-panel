@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Heading as="h1" size="xl">
+      <Heading as="h1" size="xl" ml={{base:3,md:0}}>
         Good {greeting()},{" "}
         <NextLink href={Endpoints.USER(currentUser.id)} passHref>
           <Link>{currentUser.username}</Link>
