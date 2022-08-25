@@ -1,4 +1,4 @@
-import { Box, BoxProps, Flex, FlexProps, Text } from "@chakra-ui/react"
+import { Box, BoxProps, Flex, FlexProps } from "@chakra-ui/react"
 import Link from "next/link"
 import React from "react"
 import { Endpoints } from "../../util/constants"
@@ -6,6 +6,7 @@ import { User } from "../../util/routes/types"
 import { EditableUserFlags } from "./flags/EditableUserFlags"
 import { UserFlagsRow } from "./flags/UserFlags"
 import { UserAvatar } from "./UserAvatar"
+import { UserBio } from "./UserBio"
 import { Username } from "./Username"
 
 export const Hr: React.FC<BoxProps> = (props) => (
@@ -61,7 +62,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
             boxSize="1.3em"
             compact
           />
-          <Text mb={1}>{d.bio || "No bio"}</Text>
+          <UserBio bio={d.bio} compact />
         </Flex>
       ) : (
         <Flex direction="column" justify="flex-start" align="center">
@@ -69,7 +70,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
           <Hr mb={0} />
           <EditableUserFlags d={d} default="No flags" />
           <Hr mt={1} />
-          <Text mb={1}>{d.bio || "No bio"}</Text>
+          <UserBio bio={d.bio} />
         </Flex>
       )}
     </Flex>
