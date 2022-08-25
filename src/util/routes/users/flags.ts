@@ -1,7 +1,33 @@
 import { Snowflake } from "discord-api-types/globals"
-import { FLAGS } from "../../../components/user/flags/UserFlags"
+import { BotDeveloper } from "../../../icons/flags/BotDeveloper"
+import { BugHunter, BugHunter2 } from "../../../icons/flags/BugHunter"
+import { CertifiedMod } from "../../../icons/flags/CertifiedMod"
+import { EarlySupporter } from "../../../icons/flags/EarlySupporter"
+import {
+  HSBalance,
+  HSBravery,
+  HSBrilliance,
+  HSEvents,
+} from "../../../icons/flags/HypeSquad"
+import { PartneredServerOwner } from "../../../icons/flags/Partner"
+import { Staff } from "../../../icons/flags/Staff"
 import { PatchcordRoutes } from "../../constants"
 import http from "../../http"
+
+export const FLAGS = {
+  1: [Staff, "Staff", "staff"],
+  2: [PartneredServerOwner, "Partnered Server Owner", "partner"],
+  4: [HSEvents, "HypeSquad Events", "hse"],
+  8: [BugHunter, "Bug Hunter", "spoon"],
+  16384: [BugHunter2, "Bug Hunter Level 2", "yellow_spoon"],
+  64: [HSBravery, "Bravery", "bravery"],
+  128: [HSBrilliance, "Brilliance", "brilliance"],
+  256: [HSBalance, "Balance", "balance"],
+  512: [EarlySupporter, "Early Supporter", "supporter"],
+  // 65536: "VerifiedBot",
+  131072: [BotDeveloper, "Verified Bot Developer", "bot_dev"],
+  262144: [CertifiedMod, "Certified Moderator", "mod"],
+} as const
 
 export const FLAG_MAP = Object.fromEntries(
   Object.entries(FLAGS).map(([value, [icon, label, id]]) => [

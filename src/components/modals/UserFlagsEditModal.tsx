@@ -30,11 +30,13 @@ export const UserFlagsEditModal: React.FC<{
       isCentered={false}
     >
       <ModalOverlay />
-      <ModalContent justifySelf="flex-start" marginTop={3}>
+      <ModalContent justifySelf="flex-start" marginTop={2}>
         <Form
           id={`edit_flags_${user!.id}`}
           onSubmit={async (values) => {
             const newBitfield = keyObjectToBitfield(values as any, bitfield)
+
+            console.log(values)
 
             await editUserFlags(user!.id, newBitfield)
 
@@ -47,19 +49,20 @@ export const UserFlagsEditModal: React.FC<{
           }}
           submitProps={{
             m: 4,
+            mt: 0,
           }}
           px={6}
           pt={6}
           pb={4}
         >
-          <FormHeading p={4}>
+          <FormHeading px={4} py={1}>
             <FormHeading.Title size="lg">Edit flags</FormHeading.Title>
             <FormHeading textAlign="center">
               Exercise caution when applying flags as they may have unintended
               side effects.
             </FormHeading>
           </FormHeading>
-          <FormBody>{getFlagComponents(bitfield)}</FormBody>
+          <FormBody mb={3}>{getFlagComponents(bitfield)}</FormBody>
         </Form>
       </ModalContent>
     </Modal>

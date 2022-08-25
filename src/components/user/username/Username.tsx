@@ -1,11 +1,16 @@
-import { HeadingProps, Text } from "@chakra-ui/react"
+import { Text, TextProps } from "@chakra-ui/react"
 import React from "react"
 
 export const Username: React.FC<
-  { username: string; discriminator: string } & HeadingProps
-> = ({ username, discriminator, ...props }) => {
+  {
+    username: string
+    discriminator: string
+    isBot: boolean
+    editable?: boolean
+  } & TextProps
+> = ({ username, discriminator, isBot, ...props }) => {
   return (
-    <Text as="header" fontWeight={700} fontSize="3xl">
+    <Text as="header" fontWeight={700} fontSize="3xl" {...props}>
       <Text as="h2" display="inline-block">
         {username}
       </Text>

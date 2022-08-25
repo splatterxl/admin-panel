@@ -7,7 +7,7 @@ import { EditableUserFlags } from "./flags/EditableUserFlags"
 import { UserFlagsRow } from "./flags/UserFlags"
 import { UserAvatar } from "./UserAvatar"
 import { UserBio } from "./UserBio"
-import { Username } from "./Username"
+import { Username } from "./username/Username"
 
 export const Hr: React.FC<BoxProps> = (props) => (
   <Box
@@ -45,34 +45,32 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
       }}
     >
       {d.avatar && <UserAvatar d={d} />}
-      {compact ? (
-        <Flex
-          as="section"
-          width="full"
-          direction="column"
-          alignItems="flex-start"
-          justify="flex-end"
-        >
-          <Username username={d.username} discriminator={d.discriminator} />
-          <Hr w={52} />
+      <Flex
+        direction="column"
+        justify="flex-start"
+        align={compact ? "flex-end" : "center"}
+        w={!compact ? "full" : "fit-content"}
+        as="section"
+      >
+        <Username
+          username={d.username}
+          discriminator={d.discriminator}
+          isBot={!!d.bot}
+        />
+        <Hr mb={+compact} w={compact ? 52 : "60%"} />
+        {!compact ? (
+          <EditableUserFlags d={d} default="No flags" />
+        ) : (
           <UserFlagsRow
-            default={<></>}
             bitfield={d.flags!}
             nitro={d.premium_type!}
-            boxSize="1.3em"
+            default={<></>}
             compact
           />
-          <UserBio bio={d.bio} compact />
-        </Flex>
-      ) : (
-        <Flex direction="column" justify="flex-start" align="center">
-          <Username username={d.username} discriminator={d.discriminator} />
-          <Hr mb={0} />
-          <EditableUserFlags d={d} default="No flags" />
-          <Hr mt={1} />
-          <UserBio bio={d.bio} />
-        </Flex>
-      )}
+        )}
+        {!compact ? <Hr mt={1} /> : null}
+        <UserBio bio={d.bio} compact={compact} />
+      </Flex>
     </Flex>
   )
 
