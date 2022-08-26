@@ -20,6 +20,7 @@ export const Username: React.FC<
       as="header"
       fontWeight={700}
       fontSize="3xl"
+      maxW={52}
       cursor={shouldCopy ? "pointer" : undefined}
       onClick={() => {
         if (!shouldCopy) return
@@ -36,7 +37,7 @@ export const Username: React.FC<
       }}
       {...props}
     >
-      <Text as="h2" display="inline-block">
+      <Text as="h2" display="inline-block" maxW={52} textAlign="center">
         {username}
       </Text>
       <Text
@@ -46,6 +47,7 @@ export const Username: React.FC<
         _light={{
           color: "gray.600",
         }}
+        textAlign="center"
       >
         #{discriminator}
       </Text>

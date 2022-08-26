@@ -9,10 +9,15 @@ import { searchUsersByQuery } from "./user"
 
 export const searchByQuery = async (
   input: string,
-  type: SearchType
+  type: SearchType,
+  offset: number
 ): Promise<SearchResults> => {
-  const users = _hasType(_USERS, type) ? await searchUsersByQuery(input) : [],
-    guilds = _hasType(_GUILDS, type) ? await searchGuildsByQuery(input) : []
+  const users = _hasType(_USERS, type)
+      ? await searchUsersByQuery(input, offset)
+      : [],
+    guilds = _hasType(_GUILDS, type)
+      ? await searchGuildsByQuery(input, offset)
+      : []
 
   if (users.length || guilds.length) {
     return {

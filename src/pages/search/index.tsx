@@ -16,7 +16,13 @@ import { search } from "../../util/search/http"
 export default function Search() {
   const [results, setResults] = SearchResultStore.useState(),
     router = useRouter(),
-    { q: query, t: type, "search-input": legacyInput } = getQuery(router.asPath)
+    {
+      q: query,
+      t: type,
+      "search-input": legacyInput,
+      o: offsetRaw,
+    } = getQuery(router.asPath),
+    [offset, setOffset] = React.useState(+offsetRaw)
 
   React.useEffect(() => {
     ;(async () => {
@@ -26,9 +32,17 @@ export default function Search() {
         type: SearchResultsType.LOADING,
       })
 
+      let offsetValue = offset
+
+      if (isNaN(offsetValue)) {
+        setOffset(0)
+        return
+      }
+
       const res = await search(
         query ?? legacyInput,
-        type ? parseInt(type) : SearchType.ANY
+        type ? parseInt(type) : SearchType.ANY,
+        +offset
       )
 
       if (res) {
@@ -39,8 +53,7 @@ export default function Search() {
         })
       }
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- search being here breaks everything
-  }, [query, setResults])
+  }, [query, setResults, offset, legacyInput, router, type])
 
   switch (results.type) {
     case SearchResultsType.LOADING: {
@@ -52,23 +65,25 @@ export default function Search() {
     }
     case SearchResultsType.NONE: {
       return (
-        <Full>
-          <Text opacity={0.7}>No results were found</Text>
-        </Full>
+        <>
+          <Full>
+            <Text opacity={0.7}>No results were found</Text>
+          </Full>
+        </>
       )
     }
     case SearchResultsType.DONE: {
       return (
         <>
           {results.users?.length ? (
-            <SearchSection label="Users">
+            <SearchSection label="Users" input={query} type={+type}>
               {results.users.map((d) => (
                 <SearchUserResult d={d} key={d.id} />
               ))}
             </SearchSection>
           ) : null}
           {results.guilds?.length ? (
-            <SearchSection label="Guilds">
+            <SearchSection label="Guilds" input={query} type={+type}>
               {results.guilds.map((d) => (
                 <SearchGuildResult d={d} key={d.id} />
               ))}

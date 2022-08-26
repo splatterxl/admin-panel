@@ -6,12 +6,13 @@ import { searchByQuery } from "./with-query"
 
 export const search = async (
   input: string,
-  type: SearchType
+  type: SearchType,
+  offset: number
 ): Promise<SearchResults> => {
   if (Constants.ID_REGEXP.test(input)) {
     return searchById(input, type)
   } else {
-    return searchByQuery(input, type)
+    return searchByQuery(input, type, offset)
   }
 }
 

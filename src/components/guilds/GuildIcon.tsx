@@ -4,8 +4,6 @@ import React from "react"
 import { cdn } from "../../util/constants"
 
 export const GuildIcon: React.FC<{ d: APIGuild }> = ({ d }) => {
-  console.log(d)
-
   return (
     <Avatar
       src={
