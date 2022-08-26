@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, Image, useBreakpointValue } from "@chakra-ui/react"
 import Link from "next/link"
 import React from "react"
 import AuthStore from "../../stores/AuthStore"
@@ -23,12 +23,12 @@ export const Navbar: React.FC = () => {
     >
       <Box w={52} as={Link} href={Endpoints.HOME} passHref>
         <a>
-          <Box
-            role="img"
-            bgImg={{
+          <Image
+            src={useBreakpointValue({
               base: "/assets/patchcord/patchcord.png",
               md: "/assets/patchcord/patchcord-big.png",
-            }}
+            })}
+            alt="Patchcord logo"
             userSelect="none"
             width={{ md: 52, base: 12 }}
             height="auto"
