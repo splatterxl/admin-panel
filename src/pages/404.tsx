@@ -1,6 +1,5 @@
 import { Flex, Icon, Text } from "@chakra-ui/react"
 import { MdErrorOutline } from "react-icons/md"
-import { Full } from "../../components/layout/Full"
 
 export default function UserNotFound() {
   return (
@@ -13,7 +12,7 @@ export default function UserNotFound() {
       opacity={0.7}
     >
       <Icon as={MdErrorOutline} boxSize="2em" />
-      <Text>Unknown user</Text>
+      <Text>Not found</Text>
     </Flex>
   )
 }

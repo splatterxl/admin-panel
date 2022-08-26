@@ -2,6 +2,7 @@ import { Spinner, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { Full } from "../../components/layout/Full"
+import { SearchGuildResult } from "../../components/search/result/SearchGuildResult"
 import { SearchUserResult } from "../../components/search/result/SearchUserResult"
 import { SearchSection } from "../../components/search/SearchSection"
 import SearchResultStore, {
@@ -15,7 +16,7 @@ import { search } from "../../util/search/http"
 export default function Search() {
   const [results, setResults] = SearchResultStore.useState(),
     router = useRouter(),
-    { q: query, t: type } = getQuery(router.asPath)
+    { q: query, t: type, "search-input": legacyInput } = getQuery(router.asPath)
 
   React.useEffect(() => {
     ;(async () => {
@@ -25,7 +26,10 @@ export default function Search() {
         type: SearchResultsType.LOADING,
       })
 
-      const res = await search(query, type ? parseInt(type) : SearchType.ANY)
+      const res = await search(
+        query ?? legacyInput,
+        type ? parseInt(type) : SearchType.ANY
+      )
 
       if (res) {
         setResults(res)
@@ -37,8 +41,6 @@ export default function Search() {
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps -- search being here breaks everything
   }, [query, setResults])
-
-  console.log(query, results)
 
   switch (results.type) {
     case SearchResultsType.LOADING: {
@@ -65,13 +67,13 @@ export default function Search() {
               ))}
             </SearchSection>
           ) : null}
-          {/* {results.guilds?.length ? (
+          {results.guilds?.length ? (
             <SearchSection label="Guilds">
               {results.guilds.map((d) => (
                 <SearchGuildResult d={d} key={d.id} />
               ))}
             </SearchSection>
-          ) : null} */}
+          ) : null}
         </>
       )
     }

@@ -15,7 +15,6 @@ export const Endpoints = {
 
   USERS: "/users",
   USER: (id: Snowflake) => `${Endpoints.USERS}/${id}`,
-  USER_NOT_FOUND: "/users/not-found",
 
   GUILDS: "/guilds",
   GUILD: (id: Snowflake) => `${Endpoints.GUILDS}/${id}`,

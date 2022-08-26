@@ -49,7 +49,8 @@ export const UserFlagsRow: React.FC<
         : []
     )
 
-  if (!elems.length) elems.push(<>{defaultNode}</>)
+  if (!elems.length)
+    elems.push(<React.Fragment key="__default">{defaultNode}</React.Fragment>)
 
   return (
     <Flex
