@@ -1,4 +1,4 @@
-import { Text, TextProps, useToast } from "@chakra-ui/react"
+import { Flex, Text, TextProps, useToast } from "@chakra-ui/react"
 import { Snowflake } from "discord-api-types/globals"
 import React from "react"
 import { BotTag } from "../BotTag"
@@ -16,12 +16,15 @@ export const Username: React.FC<
   const toast = useToast()
 
   return (
-    <Text
+    <Flex
       as="header"
       fontWeight={700}
       fontSize="3xl"
-      maxW={52}
+      maxW={shouldCopy ? 52 : undefined}
       cursor={shouldCopy ? "pointer" : undefined}
+      flexDirection={shouldCopy ? "column" : "row"}
+      marginBottom={shouldCopy ? 2 : 0}
+      display={shouldCopy ? "flex" : "block"}
       onClick={() => {
         if (!shouldCopy) return
 
@@ -37,21 +40,28 @@ export const Username: React.FC<
       }}
       {...props}
     >
-      <Text as="h2" display="inline-block" maxW={52} textAlign="center">
+      <Text
+        as="h2"
+        display="inline-block"
+        maxW={shouldCopy ? 52 : undefined}
+        textAlign={shouldCopy ? "center" : undefined}
+        lineHeight={1}
+      >
         {username}
       </Text>
       <Text
         as="span"
         fontSize="xl"
+        w="full"
         _dark={{ color: "gray.400" }}
         _light={{
           color: "gray.600",
         }}
-        textAlign="center"
+        textAlign={shouldCopy ? "center" : undefined}
       >
         #{discriminator}
       </Text>
       {isBot ? <BotTag /> : null}
-    </Text>
+    </Flex>
   )
 }
