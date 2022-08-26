@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Endpoints } from "../../util/constants"
 import { Hr } from "../user/UserCard"
 import { GuildDescription } from "./GuildDescription"
+import { GuildFeatures } from "./GuildFeatures"
 import { GuildIcon } from "./GuildIcon"
 import { GuildName } from "./GuildName"
 
@@ -44,6 +45,13 @@ export const GuildCard: React.FC<
         />
         <Hr mb={compact ? 1 : 2} mt={1} w={compact ? 52 : "60%"} />
         <GuildDescription description={d.description!} compact={compact} />
+
+        {!compact ? (
+          <>
+            <Hr mb={compact ? 1 : 2} mt={1} w={compact ? 52 : "60%"} />
+            <GuildFeatures features={d.features} />
+          </>
+        ) : null}
       </Flex>
     </Flex>
   )
