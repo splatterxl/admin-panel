@@ -9,7 +9,7 @@ export const searchGuildsByQuery = async (input: string, offset = 0) => {
     {
       query: {
         q: input.slice(0, 32),
-        limit: 25,
+        limit: 50,
         offset,
       },
     }
