@@ -76,14 +76,14 @@ export default function Search() {
       return (
         <>
           {results.users?.length ? (
-            <SearchSection label="Users" input={query} type={+type}>
+            <SearchSection label="Users">
               {results.users.map((d) => (
                 <SearchUserResult d={d} key={d.id} />
               ))}
             </SearchSection>
           ) : null}
           {results.guilds?.length ? (
-            <SearchSection label="Guilds" input={query} type={+type}>
+            <SearchSection label="Guilds">
               {results.guilds.map((d) => (
                 <SearchGuildResult d={d} key={d.id} />
               ))}
