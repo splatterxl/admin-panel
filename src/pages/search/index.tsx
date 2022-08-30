@@ -13,20 +13,27 @@ import { Endpoints } from "../../util/constants"
 import { getQuery } from "../../util/query"
 import { search } from "../../util/search/http"
 
-export default function Search() {
+// NOTE(lexisother): No, this isn't exactly a desirable way to do things.
+// The Search component can be overriden to search for all items by providing
+//   it with `"", "<int>"` as its arguments. Please, for the love of god,
+//   REWRITE THIS!!!
+export default function Search(manualQuery?: string, manualType?: string) {
   const [results, setResults] = SearchResultStore.useState(),
-    router = useRouter(),
-    {
-      q: query,
-      t: type,
-      "search-input": legacyInput,
-      o: offsetRaw,
-    } = getQuery(router.asPath),
-    [offset, setOffset] = React.useState(+offsetRaw)
+    router = useRouter()
+  let {
+    q: query,
+    t: type,
+    "search-input": legacyInput,
+    o: offsetRaw,
+  } = getQuery(router.asPath)
+  const [offset, setOffset] = React.useState(+offsetRaw)
+
+  query = query ?? manualQuery
+  type = type ?? manualType
 
   React.useEffect(() => {
     ;(async () => {
-      if (!query) return router.replace(Endpoints.HOME)
+      if (!query && query.length !== 0) return router.replace(Endpoints.HOME)
 
       setResults({
         type: SearchResultsType.LOADING,
@@ -53,7 +60,7 @@ export default function Search() {
         })
       }
     })()
-  }, [query, setResults, offset, legacyInput, router, type])
+  }, [query, manualQuery, setResults, offset, legacyInput, router, type])
 
   switch (results.type) {
     case SearchResultsType.LOADING: {
