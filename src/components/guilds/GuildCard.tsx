@@ -52,8 +52,8 @@ export const GuildCard: React.FC<
             <EditableGuildFeatures features={d.features} />
           </>
         ) : (
-          <GuildFeatures features={d.features} />
-        )}{" "}
+          <></>
+        )}
       </Flex>
     </Flex>
   )
