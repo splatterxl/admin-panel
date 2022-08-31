@@ -4,13 +4,10 @@ import { useRouter } from "next/router"
 import React from "react"
 import { GuildCard } from "../../components/guilds/GuildCard"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
-import { UserCard } from "../../components/user/UserCard"
 import FocusedGuildStore from "../../stores/FocusedGuildStore"
-import FocusedUserStore from "../../stores/FocusedUserStore"
-import { Endpoints, PatchcordRoutes } from "../../util/constants"
+import { PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
-import { User } from "../../util/routes/types"
 
 export default function UserProfile() {
   const router = useRouter(),
