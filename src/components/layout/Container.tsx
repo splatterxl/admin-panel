@@ -13,7 +13,7 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
   return (
     <HStack h="100vh" w="full" spacing={0}>
       <VStack
-        display={auth ? "block" : "none"}
+        display={auth ? { base: "none", md: "block" } : "none"}
         position={{
           base: "absolute",
           md: "relative",
