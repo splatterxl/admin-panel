@@ -1,7 +1,6 @@
 import { FlexProps, Input } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
-import SearchbarFocusStore from "../../stores/SearchbarFocusStore"
 import SearchResultStore from "../../stores/SearchResultStore"
 import SearchTypeStore, { SearchType } from "../../stores/SearchTypeStore"
 import { getQuery } from "../../util/query"
@@ -18,15 +17,8 @@ const PLACEHOLDERS: Record<SearchType, string> = {
 
 export const Searchbar: React.FC<FlexProps> = (props) => {
   const searchType = SearchTypeStore.useValue(),
-    setRef = SearchbarFocusStore.useSetState(),
-    ref = React.useRef<HTMLInputElement>(null),
     router = useRouter(),
     { q: query } = getQuery(router.asPath)
-
-  React.useEffect(() => {
-    setRef(ref)
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- no deps needed here
-  }, [])
 
   return (
     <Form
@@ -43,9 +35,6 @@ export const Searchbar: React.FC<FlexProps> = (props) => {
         placeholder={`Search ${PLACEHOLDERS[searchType]}`}
         defaultValue={query}
         hiddenLabel
-        inputProps={{
-          inputRef: ref,
-        }}
       />
       <Input type="submit" hidden />
     </Form>
