@@ -16,11 +16,11 @@ function PatchcordAdmin({ Component, pageProps }: AppProps) {
       </Head>
       <ChakraProvider theme={extendTheme(THEME)}>
         <AuthProvider>
-          <SearchTypeProvider>
-            <Tabs>
+          <Tabs>
+            <SearchTypeProvider>
               <Component {...pageProps} />
-            </Tabs>
-          </SearchTypeProvider>
+            </SearchTypeProvider>
+          </Tabs>
         </AuthProvider>
       </ChakraProvider>
     </RecoilRoot>

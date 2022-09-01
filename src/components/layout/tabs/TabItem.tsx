@@ -1,50 +1,44 @@
-import { Flex, Heading, Icon, Link } from "@chakra-ui/react"
+import { Flex, Heading, Icon } from "@chakra-ui/react"
 import NextLink from "next/link"
 import React from "react"
-import { IconType } from "react-icons"
 
 export const TabItem: React.FC<{
   label: string
   href: string
-  icon: IconType
+  icon: React.ComponentType
   selected?: boolean
 }> = ({ label, href, icon, selected }) => {
   return (
     <NextLink href={href} passHref>
-      <Link
+      <Flex
+        as="a"
         _hover={{
           textDecoration: "none",
+          opacity: !selected ? 0.9 : 1,
         }}
-        mt={0}
+        margin={0}
+        padding={0.25}
+        opacity={!selected ? 0.7 : 1}
+        direction="row"
+        justify="flex-start"
+        align="center"
+        gap={2}
         w="full"
+        cursor="pointer"
       >
-        <Flex
-          as="button"
-          direction="row"
-          justify="flex-start"
-          align="center"
-          gap={1}
-          cursor="pointer"
-          opacity={!selected ? 0.7 : 1}
-          _hover={{
-            opacity: !selected ? 0.7 : 0.9,
-          }}
-          w="full"
+        <Icon as={icon} boxSize="1em" aria-hidden />
+        <Heading
+          as="span"
+          size="xs"
+          fontWeight={400}
+          fontFamily="Whitney Normal"
+          lineHeight={1}
+          textAlign="left"
+          userSelect="none"
         >
-          <Icon as={icon} boxSize="1.2em" />
-          <Heading
-            as="span"
-            size="sm"
-            fontWeight={600}
-            fontFamily="Whitney"
-            lineHeight={1}
-            textAlign="left"
-            userSelect="none"
-          >
-            {label}
-          </Heading>
-        </Flex>
-      </Link>
+          {label}
+        </Heading>
+      </Flex>
     </NextLink>
   )
 }

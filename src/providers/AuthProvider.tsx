@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [setCurrentUser, currentUser, getToken, isLoaded, isLogin, router])
 
   if (!isLoaded || (!isLogin && !token && !currentUser)) {
-    return <FullscreenSpinner />
+    return <FullscreenSpinner bg />
   } else {
     return <>{children}</>
   }

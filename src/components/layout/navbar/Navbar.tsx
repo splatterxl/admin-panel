@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
     >
       {currentUser.username}
       <Link href={Endpoints.USER(currentUser.id)} passHref={false}>
-        <a>
+        <a tabIndex={-1}>
           <UserAvatar d={currentUser} w={7} />
         </a>
       </Link>

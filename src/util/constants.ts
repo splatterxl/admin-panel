@@ -61,7 +61,7 @@ const _DEFAULT_FONT =
 
 export const THEME: Partial<ChakraTheme> = {
   fonts: {
-    text: '"Whitney", ' + _DEFAULT_FONT,
+    normal: '"Whitney", ' + _DEFAULT_FONT,
     heading: '"Ginto Nord", ' + _DEFAULT_FONT,
   },
 }
