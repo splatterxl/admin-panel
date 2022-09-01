@@ -1,3 +1,4 @@
+import { ChakraTheme } from "@chakra-ui/react"
 import { Snowflake } from "discord-api-types/globals"
 import { SearchType } from "../stores/SearchTypeStore"
 
@@ -31,6 +32,38 @@ export const PatchcordRoutes = {
 export enum Colors {
   BG_CARD_DARK = "#52b7b7",
   BG_CARD_LIGHT = "#38bbaf",
+
+  BG_PRIMARY_DARK = "#36393f",
+  BG_PRIMARY_LIGHT = "#ffffff",
+  BG_SECONDARY_DARK = "#2f3136",
+  BG_SECONDARY_LIGHT = "#f2f3f5",
+
+  TEXT_INTERACTIVE_NORMAL_DARK = "white",
+  TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
+}
+
+const _createThemeFunc =
+  <L, D>(light: L, dark: D) =>
+  (theme: string) =>
+    theme === "light" ? light : dark
+
+export const Theme = {
+  bgCard: _createThemeFunc(Colors.BG_CARD_LIGHT, Colors.BG_CARD_DARK),
+  bgPrimary: _createThemeFunc(Colors.BG_PRIMARY_LIGHT, Colors.BG_PRIMARY_DARK),
+  bgSecondary: _createThemeFunc(
+    Colors.BG_SECONDARY_LIGHT,
+    Colors.BG_SECONDARY_DARK
+  ),
+}
+
+const _DEFAULT_FONT =
+  "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+
+export const THEME: Partial<ChakraTheme> = {
+  fonts: {
+    text: '"Whitney", ' + _DEFAULT_FONT,
+    heading: '"Ginto Nord", ' + _DEFAULT_FONT,
+  },
 }
 
 export const ErrorMessages = {

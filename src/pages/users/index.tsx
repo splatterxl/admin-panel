@@ -1,9 +1,6 @@
-import { useSearchbarFocus } from "../../util/focus"
 import Search from "../search"
 
 export default function Users() {
-  useSearchbarFocus()
-
   return Search("", "1")
 
   // TODO: FIX

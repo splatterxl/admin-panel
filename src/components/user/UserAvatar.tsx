@@ -4,7 +4,10 @@ import React from "react"
 import { cdn } from "../../util/constants"
 import { User } from "../../util/routes/types"
 
-export const UserAvatar: React.FC<{ d: User }> = ({ d }) => {
+export const UserAvatar: React.FC<{ d: User; w?: number }> = ({
+  d,
+  w = 20,
+}) => {
   return (
     <Image
       src={
@@ -14,7 +17,7 @@ export const UserAvatar: React.FC<{ d: User }> = ({ d }) => {
             CDNRoutes.defaultUserAvatar((parseInt(d.discriminator) % 5) as any)
       }
       alt={d.username}
-      width={20}
+      width={w}
       borderRadius="100%"
     />
   )
