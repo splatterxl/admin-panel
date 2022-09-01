@@ -1,24 +1,19 @@
 import { Box, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
-import { MdHomeFilled } from "react-icons/md"
-import { MdArchive } from "../../icons/tabs/Archive"
-import { MdReport } from "../../icons/tabs/Report"
-import { MdScriptText } from "../../icons/tabs/ScriptText"
 import AuthStore from "../../stores/AuthStore"
-import SearchTypeStore from "../../stores/SearchTypeStore"
-import { Colors, Endpoints } from "../../util/constants"
+import { Colors } from "../../util/constants"
 import { Logo } from "./navbar/Logo"
-import { Navbar } from "./navbar/Navbar"
-import { TabItem } from "./tabs/TabItem"
+import { Tabs } from "./tabs/Tabs"
 
-export const Tabs: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const type = SearchTypeStore.useValue(),
-    auth = AuthStore.useValue()
+export const Container: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const auth = AuthStore.useValue()
 
   return (
     <HStack h="100vh" w="full" spacing={0}>
       <VStack
-        display={!auth ? "none" : "block"}
+        display={auth ? "block" : "none"}
         position={{
           base: "absolute",
           md: "relative",
@@ -37,30 +32,18 @@ export const Tabs: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Box mb={2}>
           <Logo />
         </Box>
-        <VStack spacing={1} justify="flex-start" align="flex-start" pl={0}>
-          <TabItem
-            icon={MdHomeFilled}
-            label="Home"
-            href={Endpoints.HOME}
-            selected
-          />
-          <TabItem
-            icon={MdScriptText}
-            label="Audit Logs"
-            href={Endpoints.HOME}
-          />
-          <TabItem icon={MdArchive} label="Archives" href={Endpoints.HOME} />
-          <TabItem icon={MdReport} label="Reports" href={Endpoints.HOME} />
-        </VStack>
+        <Tabs />
       </VStack>
       <VStack
         _dark={{ bgColor: Colors.BG_PRIMARY_DARK }}
         _light={{ bgColor: Colors.BG_PRIMARY_LIGHT }}
         h="full"
         w="full"
+        spacing={0}
       >
-        {auth && <Navbar />}
-        {children}
+        <Box w="full" h="full" px={auth ? 6 : 0} py={auth ? 5 : 0}>
+          {children}
+        </Box>
       </VStack>
     </HStack>
   )

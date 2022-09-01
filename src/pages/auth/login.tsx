@@ -1,4 +1,4 @@
-import { useColorMode } from "@chakra-ui/react"
+import { Flex, useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormInputAutocompleteTypes } from "../../components/form/autocomplete/FormInputAutocompleteTypes"
@@ -27,15 +27,12 @@ export default function Login() {
     <FullscreenCard>
       <Form
         id="login"
-        w="full"
-        h="full"
         mt={1}
         mb={0}
         px={{
           base: 4,
           sm: 0,
         }}
-        justify="center"
         i18n={{
           submit: "Continue",
         }}

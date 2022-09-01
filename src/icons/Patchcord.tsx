@@ -1,4 +1,4 @@
-import { createIcon } from "@chakra-ui/react"
+import { createIcon, Heading } from "@chakra-ui/react"
 
 export const PatchcordIcon = createIcon({
   displayName: "PatchcordIcon",

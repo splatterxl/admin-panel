@@ -1,6 +1,7 @@
 import { Flex, Heading, Icon } from "@chakra-ui/react"
 import NextLink from "next/link"
 import React from "react"
+import { THEME } from "../../../util/constants"
 
 export const TabItem: React.FC<{
   label: string
@@ -26,12 +27,12 @@ export const TabItem: React.FC<{
         w="full"
         cursor="pointer"
       >
-        <Icon as={icon} boxSize="1em" aria-hidden />
+        <Icon as={icon} boxSize="1.1em" aria-hidden />
         <Heading
           as="span"
-          size="xs"
-          fontWeight={400}
-          fontFamily="Whitney Normal"
+          size="sm"
+          fontWeight={500}
+          fontFamily={THEME.fonts!.normal as string}
           lineHeight={1}
           textAlign="left"
           userSelect="none"

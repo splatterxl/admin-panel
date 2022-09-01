@@ -2,6 +2,7 @@ import { Heading, Link, Text } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import NextLink from "next/link"
 import { Counts } from "../components/homepage/counts/Counts"
+import { Navbar } from "../components/layout/navbar/Navbar"
 import CurrentUserStore from "../stores/CurrentUserStore"
 import { Endpoints } from "../util/constants"
 import { greeting } from "../util/greeting"
@@ -12,25 +13,11 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Heading
-        as="h1"
-        size="xl"
-        display="flex"
-        justifyContent={{ base: "center", md: "flex-start" }}
-        w={{ base: "full", md: "auto" }}
-        textAlign={{
-          base: "center",
-          md: "left",
-        }}
-      >
-        <Text as="span">
-          Good {greeting()},{" "}
-          <NextLink href={Endpoints.USER(currentUser.id)} passHref>
-            <Link>{currentUser.username}</Link>
-          </NextLink>
-          !
-        </Text>
-      </Heading>
+      <Navbar>
+        <Heading size="lg" fontFamily="normal">
+          Good {greeting()}, {currentUser.username}!
+        </Heading>
+      </Navbar>
       <Counts />
     </>
   )

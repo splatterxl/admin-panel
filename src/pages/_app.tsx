@@ -2,7 +2,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import { RecoilRoot } from "recoil"
-import { Tabs } from "../components/layout/Container"
+import { Container } from "../components/layout/Container"
 import { AuthProvider } from "../providers/AuthProvider"
 import { SearchTypeProvider } from "../providers/SearchTypeProvider"
 import "../styles/globals.css"
@@ -16,11 +16,11 @@ function PatchcordAdmin({ Component, pageProps }: AppProps) {
       </Head>
       <ChakraProvider theme={extendTheme(THEME)}>
         <AuthProvider>
-          <Tabs>
-            <SearchTypeProvider>
+          <SearchTypeProvider>
+            <Container>
               <Component {...pageProps} />
-            </SearchTypeProvider>
-          </Tabs>
+            </Container>
+          </SearchTypeProvider>
         </AuthProvider>
       </ChakraProvider>
     </RecoilRoot>
