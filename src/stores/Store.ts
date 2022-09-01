@@ -7,7 +7,7 @@ import {
   useSetRecoilState,
 } from "recoil"
 
-// eslint-disable react-hooks/rules-of-hooks
+/* eslint-disable */
 
 export default class Store<T, D = T> {
   _atom: RecoilState<T | D>
