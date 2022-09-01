@@ -21,9 +21,6 @@ export const Tabs: React.FC = () => {
       <TabItem icon={MdArchive} label="Archives" href={Endpoints.HOME} />
       <TabItem icon={MdReport} label="Reports" href={Endpoints.HOME} />
 
-      <TabSection label="General">
-        <TabItem icon={MdReport} label="Reports" href={Endpoints.HOME} />
-      </TabSection>
     </VStack>
   )
 }
