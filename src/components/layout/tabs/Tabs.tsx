@@ -1,11 +1,12 @@
 import { VStack } from "@chakra-ui/react"
 import React from "react"
 import { MdHomeFilled } from "react-icons/md"
-import { MdArchive } from '../../../icons/tabs/Archive';
-import { MdReport } from '../../../icons/tabs/Report';
+import { MdArchive } from "../../../icons/tabs/Archive"
+import { MdReport } from "../../../icons/tabs/Report"
 import { MdScriptText } from "../../../icons/tabs/ScriptText"
 import { Endpoints } from "../../../util/constants"
 import { TabItem } from "./TabItem"
+import { TabSection } from "./TabSection"
 
 export const Tabs: React.FC = () => {
   return (
@@ -19,6 +20,10 @@ export const Tabs: React.FC = () => {
       <TabItem icon={MdScriptText} label="Audit Logs" href={Endpoints.HOME} />
       <TabItem icon={MdArchive} label="Archives" href={Endpoints.HOME} />
       <TabItem icon={MdReport} label="Reports" href={Endpoints.HOME} />
+
+      <TabSection label="General">
+        <TabItem icon={MdReport} label="Reports" href={Endpoints.HOME} />
+      </TabSection>
     </VStack>
   )
 }
