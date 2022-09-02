@@ -14,9 +14,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Navbar>
-        <Heading size="md">
-          Good {greeting()}, {currentUser.username}!
-        </Heading>
+        <Heading size="md">Welcome back, {currentUser.username}</Heading>
       </Navbar>
     </>
   )
