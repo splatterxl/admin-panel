@@ -4,11 +4,13 @@ import React from "react"
 import { cdn } from "../../util/constants"
 import { User } from "../../util/routes/types"
 
-export const UserAvatar: React.FC<{ d: User; w?: number }> = ({
+export const UserAvatar: React.FC<{ d: User; w?: number; noAlt?: boolean }> = ({
   d,
   w = 20,
+  noAlt,
 }) => {
   return (
+    // eslint-disable-next-line jsx-a11y/alt-text -- noAlt usage will already be aria-hidden
     <Image
       src={
         d.avatar
@@ -16,7 +18,7 @@ export const UserAvatar: React.FC<{ d: User; w?: number }> = ({
           : RouteBases.cdn +
             CDNRoutes.defaultUserAvatar((parseInt(d.discriminator) % 5) as any)
       }
-      alt={d.username}
+      alt={!noAlt ? d.username : ""}
       width={w}
       borderRadius="100%"
     />

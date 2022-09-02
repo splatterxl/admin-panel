@@ -15,11 +15,11 @@ export const TabItem: React.FC<{
         as="a"
         _hover={{
           textDecoration: "none",
-          opacity: !selected ? 0.9 : 1,
+          opacity: !selected ? 0.6 : 0.8,
         }}
         margin={0}
         padding={0.25}
-        opacity={!selected ? 0.7 : 1}
+        opacity={!selected ? 0.4 : 0.7}
         direction="row"
         justify="flex-start"
         align="center"

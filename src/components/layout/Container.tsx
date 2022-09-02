@@ -1,4 +1,5 @@
 import { Box, HStack, VStack } from "@chakra-ui/react"
+import { useRouter } from 'next/router';
 import React from "react"
 import AuthStore from "../../stores/AuthStore"
 import { Colors } from "../../util/constants"
@@ -11,12 +12,24 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
   const auth = AuthStore.useValue()
 
   return (
-    <HStack h="100vh" w="full" spacing={0}>
+    <HStack
+      minH="100vh"
+      w="full"
+      spacing={0}
+      alignItems="flex-start"
+      // this is a hack to display the sidebar color down the whole page
+      _dark={{
+        bgColor: Colors.BG_SECONDARY_DARK,
+      }}
+      _light={{
+        bgColor: Colors.BG_SECONDARY_LIGHT,
+      }}
+    >
       <VStack
-        display={auth ? { base: "none", md: "block" } : "none"}
+        display={auth ? { base: "none", lg: "block" } : "none"}
         position={{
           base: "absolute",
-          md: "relative",
+          lg: "relative",
         }}
         h="full"
         pr={8}
@@ -37,13 +50,13 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
       <VStack
         _dark={{ bgColor: Colors.BG_PRIMARY_DARK }}
         _light={{ bgColor: Colors.BG_PRIMARY_LIGHT }}
-        h="full"
+        minH="100vh"
         w="full"
         spacing={0}
+        px={auth ? 6 : 0}
+        py={auth ? 5 : 0}
       >
-        <Box w="full" h="full" px={auth ? 6 : 0} py={auth ? 5 : 0}>
-          {children}
-        </Box>
+        {children}
       </VStack>
     </HStack>
   )

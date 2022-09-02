@@ -5,8 +5,6 @@ import { SearchType } from "../stores/SearchTypeStore"
 const encode = encodeURIComponent
 
 export const Endpoints = {
-  HOME: "/",
-
   LOGIN: (next = "/") => `/auth/login?next=${encode(next)}`,
   LOGOUT: "/auth/logout",
 
@@ -14,11 +12,34 @@ export const Endpoints = {
   SEARCH: (query: string, type: SearchType) =>
     `${Endpoints._SEARCH}?q=${encode(query)}&t=${encode(type)}`,
 
+  HOME: "/",
+
+  AUDIT_LOG: "/audit-log",
+
+  ARCHIVES: "/archives",
+
+  REPORTS: "/reports",
+
   USERS: "/users",
   USER: (id: Snowflake) => `${Endpoints.USERS}/${id}`,
 
   GUILDS: "/guilds",
   GUILD: (id: Snowflake) => `${Endpoints.GUILDS}/${id}`,
+
+  MESSAGES: "/messages",
+  CHANNEL_MESSAGES: (channel: Snowflake) => `${Endpoints.MESSAGES}/${channel}`,
+
+  BULK_ACTIONS: "/actions",
+
+  EXPERIMENTS: "/experiments",
+  EXPERIMENT: (id: string) => `${Endpoints.EXPERIMENTS}/${id}`,
+  EXPERIMENT_EDITOR: (id: string) => `${Endpoints.EXPERIMENT(id)}/editor`,
+
+  IP_BANS: "/bans",
+  IP_BAN: (id: string) => `${Endpoints.IP_BANS}/${id}`,
+
+  // TODO: figure out what the hell this is
+  ACLS: "/acls",
 }
 
 export const PatchcordRoutes = {

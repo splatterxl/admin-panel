@@ -18,7 +18,6 @@ const Home: NextPage = () => {
           Good {greeting()}, {currentUser.username}!
         </Heading>
       </Navbar>
-      <Counts />
     </>
   )
 }
