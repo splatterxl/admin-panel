@@ -3,7 +3,7 @@ import {
   RESTGetAPICurrentUserGuildsResult,
   Routes,
 } from "discord-api-types/v10"
-import useSWR from "swr"
+import React from "react"
 import { Endpoints } from "../../../util/constants"
 import http from "../../../util/http"
 import { Section } from "../../layout/section/Section"
@@ -23,10 +23,17 @@ export const _INTERNAL_SERVERS = [
 ]
 
 export const InternalServers: React.FC = () => {
-  const { data, error } = useSWR(
-    Routes.userGuilds(),
-    http.get<RESTGetAPICurrentUserGuildsResult>
+  const [data, setData] = React.useState<RESTGetAPICurrentUserGuildsResult>(
+    null as any
   )
+
+  React.useEffect(() => {
+    http
+      .get<RESTGetAPICurrentUserGuildsResult>(Routes.userGuilds())
+      .then(({ ok, data }) => {
+        if (ok) setData(data)
+      })
+  }, [])
 
   return (
     <Section
