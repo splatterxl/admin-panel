@@ -14,7 +14,7 @@ export const InternalServer: React.FC<{ id: string }> = ({ id }) => {
     });
   }, [])
 
-  if (!res) return <TableRow>Loading... ({id})</TableRow>
+  if (!data) return <TableRow>Loading... ({id})</TableRow>
 
-  return <TableRow icon={<GuildIcon d={res.data} />}>{res.data.name}</TableRow>
+  return <TableRow icon={<GuildIcon d={data} w={6} />}>{data.name}</TableRow>
 }
