@@ -1,7 +1,6 @@
-import { Spinner, Text } from "@chakra-ui/react"
+import { Center, Spinner, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
-import { Full } from "../../components/layout/Full"
 import { SearchGuildResult } from "../../components/search/result/SearchGuildResult"
 import { SearchUserResult } from "../../components/search/result/SearchUserResult"
 import { SearchSection } from "../../components/search/SearchSection"
@@ -17,19 +16,24 @@ import { search } from "../../util/search/http"
 // The Search component can be overriden to search for all items by providing
 //   it with `"", "<int>"` as its arguments. Please, for the love of god,
 //   REWRITE THIS!!!
-export default function Search(manualQuery?: string, manualType?: string) {
+//
+// TODO: rewrite this
+export default function Search(props: {
+  query: string
+  type: SearchType
+  hideHeading?: boolean
+}) {
   const [results, setResults] = SearchResultStore.useState(),
     router = useRouter()
-  let {
-    q: query,
-    t: type,
-    "search-input": legacyInput,
-    o: offsetRaw,
-  } = getQuery(router.asPath)
-  const [offset, setOffset] = React.useState(+offsetRaw)
 
-  query = query ?? manualQuery
-  type = type ?? manualType
+  const {
+      q: query = props.query,
+      t: _type = props.type,
+      o: offsetRaw,
+    } = getQuery(router.asPath),
+    [offset, setOffset] = React.useState(+offsetRaw)
+
+  const type = parseInt(_type.toString())
 
   React.useEffect(() => {
     ;(async () => {
@@ -39,18 +43,12 @@ export default function Search(manualQuery?: string, manualType?: string) {
         type: SearchResultsType.LOADING,
       })
 
-      let offsetValue = offset
-
-      if (isNaN(offsetValue)) {
+      if (isNaN(offset)) {
         setOffset(0)
         return
       }
 
-      const res = await search(
-        query ?? legacyInput,
-        type ? parseInt(type) : SearchType.ANY,
-        +offset
-      )
+      const res = await search(query, type, offset)
 
       if (res) {
         setResults(res)
@@ -60,37 +58,35 @@ export default function Search(manualQuery?: string, manualType?: string) {
         })
       }
     })()
-  }, [query, manualQuery, setResults, offset, legacyInput, router, type])
+  }, [query, setResults, offset, router, type])
 
   switch (results.type) {
     case SearchResultsType.LOADING: {
       return (
-        <Full>
+        <Center w="full" p={16}>
           <Spinner size="lg" />
-        </Full>
+        </Center>
       )
     }
     case SearchResultsType.NONE: {
       return (
-        <>
-          <Full>
-            <Text opacity={0.7}>No results were found</Text>
-          </Full>
-        </>
+        <Center w="full" p={16}>
+          <Text opacity={0.7}>No results were found</Text>
+        </Center>
       )
     }
     case SearchResultsType.DONE: {
       return (
         <>
           {results.users?.length ? (
-            <SearchSection label="Users">
+            <SearchSection label={!props.hideHeading ? "Users" : null}>
               {results.users.map((d) => (
                 <SearchUserResult d={d} key={d.id} />
               ))}
             </SearchSection>
           ) : null}
           {results.guilds?.length ? (
-            <SearchSection label="Guilds">
+            <SearchSection label={!props.hideHeading ? "Guilds" : null}>
               {results.guilds.map((d) => (
                 <SearchGuildResult d={d} key={d.id} />
               ))}

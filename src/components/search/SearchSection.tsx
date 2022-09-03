@@ -2,7 +2,7 @@ import { Flex, Heading } from "@chakra-ui/react"
 import React from "react"
 
 export const SearchSection: React.FC<{
-  label: string
+  label: string | null
   children: React.ReactNode
 }> = ({ label, children }) => {
   return (
@@ -13,9 +13,13 @@ export const SearchSection: React.FC<{
       w="full"
       mb={5}
     >
-      <Heading as="h3" size="sm">
-        {label}
-      </Heading>
+      {label !== null ? (
+        <Heading as="h3" size="sm">
+          {label}
+        </Heading>
+      ) : (
+        <></>
+      )}
       <Flex
         w="full"
         direction="column"

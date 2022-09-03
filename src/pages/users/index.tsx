@@ -1,25 +1,17 @@
+import { Heading } from "@chakra-ui/react"
+import { Navbar } from "../../components/layout/navbar/Navbar"
+import { SearchType } from "../../stores/SearchTypeStore"
 import Search from "../search"
 
+// TODO: redesign this
 export default function Users() {
-  return Search("", "1")
-
-  // TODO: FIX
-  // const [getValue, _, value] = RecentlyViewedUsersStore.useStateFromStorage()
-  //
-  // React.useEffect(() => {
-  //   if (!value) getValue()
-  // })
-  //
-  // if (value?.length) {
-  //   return (
-  //     <>
-  //       <Heading as="h2" size="md" fontStyle="italic" mb={2}>
-  //         Jump back in...
-  //       </Heading>
-  //       <RecentlyViewedUsers />
-  //     </>
-  //   )
-  // } else {
-  //   return null
-  // }
+  return (
+    <>
+      {/* TODO: implement the bg'd navbar here */}
+      <Navbar>
+        <Heading size="md">Users</Heading>
+      </Navbar>
+      <Search query="" type={SearchType.USERS} hideHeading />
+    </>
+  )
 }
