@@ -19,11 +19,13 @@ export const Navbar: React.FC<{ children?: React.ReactNode }> = ({
       spacing={0}
       width="full"
       justify={children ? "space-between" : "flex-end"}
+      padding={4}
+      paddingBottom={{ base:7, md: 4 }}
     >
       {children}
       <Link href={Endpoints.USER(currentUser.id)} passHref={false}>
         <HStack as={ChakraLink} tabIndex={-1} gap={1}>
-          <Text as="span">{currentUser.username}</Text>
+          <Text as="span" display={{ base: "none", md: "block" }}>{currentUser.username}</Text>
           <UserAvatar d={currentUser} w={7} noAlt />
         </HStack>
       </Link>
