@@ -12,14 +12,17 @@ import { Table } from "../../layout/table/Table"
 import { Link } from "../../Link"
 import { InternalServer } from "./InternalServer"
 
-export const _INTERNAL_SERVERS = [
+export const INTERNAL_SERVERS = [
   "996497764957290496",
   "998301153454194861",
   "1010958439087603762",
   "1015298503867367507",
 ]
 
-export const InternalServers: React.FC = () => {
+export const InternalServers: React.FC<{
+  noHeading?: boolean
+  truncate?: boolean
+}> = ({ noHeading, truncate }) => {
   const [data, setData] = React.useState<Snowflake[]>(null as any)
 
   React.useEffect(() => {
@@ -32,18 +35,22 @@ export const InternalServers: React.FC = () => {
 
   return (
     <Section
-      heading="Internal Servers"
+      heading={!noHeading ? "Internal Servers" : ""}
       actions={
-        <Link href={Endpoints.INTERNAL_SERVERS} fontSize="sm" noDecor>
-          View more
-        </Link>
+        !noHeading ? (
+          <Link href={Endpoints.INTERNAL_SERVERS} fontSize="sm" noDecor>
+            View more
+          </Link>
+        ) : null
       }
     >
       {data ? (
         <Table>
-          {_INTERNAL_SERVERS.map((id) => (
-            <InternalServer id={id} isJoined={data.includes(id)} key={id} />
-          ))}
+          {INTERNAL_SERVERS.slice(0, truncate ? 5 : INTERNAL_SERVERS.length)
+            .sort((id) => (data.includes(id) ? 1 : -1))
+            .map((id) => (
+              <InternalServer id={id} isJoined={data.includes(id)} key={id} />
+            ))}
         </Table>
       ) : (
         <Center w="full" p={16}>
