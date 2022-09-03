@@ -8,15 +8,16 @@ import { searchGuildsByQuery } from "./guilds"
 import { searchUsersByQuery } from "./user"
 
 export const searchByQuery = async (
-  input: string,
+  query: string,
   type: SearchType,
-  offset: number
+  offset: number,
+  shouldTruncate?: boolean
 ): Promise<SearchResults> => {
   const users = _hasType(_USERS, type)
-      ? await searchUsersByQuery(input, offset)
+      ? await searchUsersByQuery(query, offset, shouldTruncate)
       : [],
     guilds = _hasType(_GUILDS, type)
-      ? await searchGuildsByQuery(input, offset)
+      ? await searchGuildsByQuery(query, offset, shouldTruncate)
       : []
 
   if (users.length || guilds.length) {

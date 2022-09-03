@@ -8,9 +8,9 @@ export const Endpoints = {
   LOGIN: (next = "/") => `/auth/login?next=${encode(next)}`,
   LOGOUT: "/auth/logout",
 
-  _SEARCH: "/search",
-  SEARCH: (query: string, type: SearchType) =>
-    `${Endpoints._SEARCH}?q=${encode(query)}&t=${encode(type)}`,
+  SEARCH: "/search",
+  DO_SEARCH: (query: string, type: SearchType) =>
+    `${Endpoints.SEARCH}?q=${encode(query)}&t=${encode(type)}`,
 
   HOME: "/",
 

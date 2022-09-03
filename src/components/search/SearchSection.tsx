@@ -25,7 +25,7 @@ export const SearchSection: React.FC<{
         direction="column"
         justify="flex-start"
         align="flex-start"
-        paddingY={3}
+        paddingY={2}
         gap={2}
       >
         {children}

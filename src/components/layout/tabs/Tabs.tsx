@@ -6,6 +6,7 @@ import { MdAccountCancel } from "../../../icons/tabs/AccountCancel"
 import { MdAccountMultiple } from "../../../icons/tabs/AccountMultiple"
 import { MdArchive } from "../../../icons/tabs/Archive"
 import { MdFileLock } from "../../../icons/tabs/FileLock"
+import { MdMagnify } from "../../../icons/tabs/Magnify"
 import { MdReport } from "../../../icons/tabs/Report"
 import { MdScriptText } from "../../../icons/tabs/ScriptText"
 import { MdServer } from "../../../icons/tabs/Server"
@@ -47,6 +48,12 @@ export const Tabs: React.FC = () => {
       />
 
       <TabSection label="General">
+        <TabItem
+          icon={MdMagnify}
+          label="Search"
+          href={Endpoints.SEARCH}
+          selected={pathname.startsWith(Endpoints.SEARCH)}
+        />
         <TabItem
           icon={MdAccountMultiple}
           label="Users"

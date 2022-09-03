@@ -1,16 +1,14 @@
-import Router, { useRouter } from "next/router"
-import React from "react"
+import Router from "next/router"
 import SearchResultStore, {
   SearchResultsType,
 } from "../../stores/SearchResultStore"
 import { SearchType } from "../../stores/SearchTypeStore"
-import { Constants, Endpoints } from "../constants"
-import { getQuery } from "../query"
+import { Endpoints } from "../constants"
 
 export const search = async (input: string, type: SearchType) => {
   if (!input) return
 
-  return Router.push(Endpoints.SEARCH(input, type))
+  return Router.push(Endpoints.DO_SEARCH(input, type))
 }
 
 export const useSearch = () => {

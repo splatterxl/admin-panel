@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 import React from "react"
 import SearchTypeStore, { SearchType } from "../stores/SearchTypeStore"
 import { Endpoints } from "../util/constants"
-import { one } from "../util/one"
 import { getQuery } from "../util/query"
 
 export const SearchTypeProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -24,7 +23,7 @@ export const SearchTypeProvider: React.FC<{ children: React.ReactNode }> = ({
         newType = SearchType.USERS
         break
       }
-      case Endpoints._SEARCH: {
+      case Endpoints.SEARCH: {
         const t = parseInt(getQuery(router.asPath).t)
 
         if (!isNaN(t)) {

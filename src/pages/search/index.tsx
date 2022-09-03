@@ -1,9 +1,9 @@
-import { Center, Spinner, Text } from "@chakra-ui/react"
+import { VStack } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
-import { SearchGuildResult } from "../../components/search/result/SearchGuildResult"
-import { SearchUserResult } from "../../components/search/result/SearchUserResult"
-import { SearchSection } from "../../components/search/SearchSection"
+import { Navbar } from "../../components/layout/navbar/Navbar"
+import { SearchResults } from "../../components/search/result/SearchResults"
+import { Searchbar } from "../../components/search/Searchbar"
 import SearchResultStore, {
   SearchResultsType,
 } from "../../stores/SearchResultStore"
@@ -27,8 +27,8 @@ export default function Search(props: {
     router = useRouter()
 
   const {
-      q: query = props.query,
-      t: _type = props.type,
+      q: query = props.query ?? "",
+      t: _type = props.type ?? SearchType.ANY,
       o: offsetRaw,
     } = getQuery(router.asPath),
     [offset, setOffset] = React.useState(+offsetRaw)
@@ -37,7 +37,7 @@ export default function Search(props: {
 
   React.useEffect(() => {
     ;(async () => {
-      if (!query && query.length !== 0) return router.replace(Endpoints.HOME)
+      if (!query && query !== "") return
 
       setResults({
         type: SearchResultsType.LOADING,
@@ -48,7 +48,7 @@ export default function Search(props: {
         return
       }
 
-      const res = await search(query, type, offset)
+      const res = await search(query, type, offset, type === SearchType.ANY)
 
       if (res) {
         setResults(res)
@@ -60,42 +60,17 @@ export default function Search(props: {
     })()
   }, [query, setResults, offset, router, type])
 
-  switch (results.type) {
-    case SearchResultsType.LOADING: {
-      return (
-        <Center w="full" p={16}>
-          <Spinner size="lg" />
-        </Center>
-      )
-    }
-    case SearchResultsType.NONE: {
-      return (
-        <Center w="full" p={16}>
-          <Text opacity={0.7}>No results were found</Text>
-        </Center>
-      )
-    }
-    case SearchResultsType.DONE: {
-      return (
-        <>
-          {results.users?.length ? (
-            <SearchSection label={!props.hideHeading ? "Users" : null}>
-              {results.users.map((d) => (
-                <SearchUserResult d={d} key={d.id} />
-              ))}
-            </SearchSection>
-          ) : null}
-          {results.guilds?.length ? (
-            <SearchSection label={!props.hideHeading ? "Guilds" : null}>
-              {results.guilds.map((d) => (
-                <SearchGuildResult d={d} key={d.id} />
-              ))}
-            </SearchSection>
-          ) : null}
-        </>
-      )
-    }
-    default:
-      return <>Unknown search result type</>
-  }
+  const NavbarComponent =
+    router.pathname === Endpoints.SEARCH ? Navbar : React.Fragment
+
+  return (
+    <>
+      <VStack spacing={3} w="full">
+        <NavbarComponent>
+          <Searchbar />
+        </NavbarComponent>
+        <SearchResults {...results} hideHeading={props.hideHeading} />
+      </VStack>
+    </>
+  )
 }

@@ -5,14 +5,15 @@ import { searchById } from "./by-id"
 import { searchByQuery } from "./with-query"
 
 export const search = async (
-  input: string,
+  query: string,
   type: SearchType,
-  offset: number
+  offset: number,
+  shouldTruncate?: boolean
 ): Promise<SearchResults> => {
-  if (Constants.ID_REGEXP.test(input)) {
-    return searchById(input, type)
+  if (Constants.ID_REGEXP.test(query)) {
+    return searchById(query, type)
   } else {
-    return searchByQuery(input, type, offset)
+    return searchByQuery(query, type, offset, shouldTruncate)
   }
 }
 

@@ -1,31 +1,27 @@
-import { Snowflake } from "discord-api-types/globals";
-import Router from "next/router";
-import { _GUILDS, _hasType, _USERS } from '..';
+import { Snowflake } from "discord-api-types/globals"
+import Router from "next/router"
+import { _GUILDS, _hasType, _USERS } from ".."
 import {
   SearchResults,
-  SearchResultsType
-} from "../../../../stores/SearchResultStore";
-import { SearchType } from "../../../../stores/SearchTypeStore";
-import { findGuildByID } from "./guild";
-import { findUserByID } from "./user";
+  SearchResultsType,
+} from "../../../../stores/SearchResultStore"
+import { SearchType } from "../../../../stores/SearchTypeStore"
+import { findGuildByID } from "./guild"
+import { findUserByID } from "./user"
 
 export const searchById = async (
-  input: Snowflake,
+  query: Snowflake,
   type: SearchType
 ): Promise<SearchResults> => {
   // do user search first
-  const user =
-    _hasType(_USERS, type) &&
-    (await findUserByID(input))
+  const user = _hasType(_USERS, type) && (await findUserByID(query))
 
-  if (user) return redirectToSearchResult("users", input, user)
+  if (user) return redirectToSearchResult("users", query, user)
 
   // guilds search if no user is found
-  const guild =
-    _hasType(_GUILDS, type) &&
-    (await findGuildByID(input))
+  const guild = _hasType(_GUILDS, type) && (await findGuildByID(query))
 
-  if (guild) return redirectToSearchResult("guilds", input, guild)
+  if (guild) return redirectToSearchResult("guilds", query, guild)
 
   return {
     type: SearchResultsType.NONE,
