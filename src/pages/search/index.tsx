@@ -65,7 +65,7 @@ export default function Search(props: {
 
   return (
     <>
-      <VStack spacing={3} w="full">
+      <VStack spacing={3} w="full" pt={3}>
         <NavbarComponent>
           <Searchbar />
         </NavbarComponent>

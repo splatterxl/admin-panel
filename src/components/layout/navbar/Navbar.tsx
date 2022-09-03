@@ -1,5 +1,6 @@
-import { HStack, Text, Link as ChakraLink } from "@chakra-ui/react"
+import { HStack, Link as ChakraLink, Text } from "@chakra-ui/react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import React from "react"
 import AuthStore from "../../../stores/AuthStore"
 import CurrentUserStore from "../../../stores/CurrentUserStore"
@@ -10,7 +11,12 @@ export const Navbar: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   const auth = AuthStore.useValue(),
-    currentUser = CurrentUserStore.useValue()
+    currentUser = CurrentUserStore.useValue(),
+    { pathname } = useRouter(),
+    // FIXME(splatterxl): This is a hack to not interfere with the navbar on the search page,
+    // since the implementation for embedded searches actually draws from the search page.
+    // We can guarantee for embedded searches that the pathname will not be Endpoints.SEARCH.
+    isSearch = pathname === Endpoints.SEARCH
 
   if (!auth) return null
 
@@ -23,8 +29,16 @@ export const Navbar: React.FC<{ children?: React.ReactNode }> = ({
     >
       {children}
       <Link href={Endpoints.USER(currentUser.id)} passHref={false}>
-        <HStack as={ChakraLink} tabIndex={-1} gap={1}>
-          <Text as="span" display={{ base: "none", md: "block" }}>{currentUser.username}</Text>
+        <HStack as={ChakraLink} tabIndex={-1} gap={isSearch ? 3 : 1}>
+          <Text
+            as="span"
+            display={{
+              base: "none",
+              md: isSearch ? "none" : "block",
+            }}
+          >
+            {currentUser.username}
+          </Text>
           <UserAvatar d={currentUser} w={7} noAlt />
         </HStack>
       </Link>
