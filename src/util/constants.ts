@@ -122,5 +122,5 @@ export const Constants = {
 }
 
 export function cdn(route: string) {
-  return Constants.CDN_DOMAIN + route
+  return Constants.CDN_DOMAIN + (route.startsWith("/") ? route : "/" + route)
 }
