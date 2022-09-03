@@ -14,8 +14,6 @@ export const Navbar: React.FC<{ children?: React.ReactNode }> = ({
 
   if (!auth) return null
 
-  console.log(currentUser)
-
   return (
     <HStack
       spacing={0}

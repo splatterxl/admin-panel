@@ -11,6 +11,7 @@ export const CardContainer: React.FC<{
       _light={{
         backgroundColor: Colors.BG_CARD_LIGHT,
       }}
+      width="full"
     >
       {children}
     </Box>

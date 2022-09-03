@@ -25,6 +25,7 @@ export const Endpoints = {
 
   GUILDS: "/guilds",
   GUILD: (id: Snowflake) => `${Endpoints.GUILDS}/${id}`,
+  INTERNAL_SERVERS: `/guilds/internal`,
 
   MESSAGES: "/messages",
   CHANNEL_MESSAGES: (channel: Snowflake) => `${Endpoints.MESSAGES}/${channel}`,
@@ -63,18 +64,39 @@ export enum Colors {
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
 }
 
-const _createThemeFunc =
-  <L, D>(light: L, dark: D) =>
-  (theme: string) =>
-    theme === "light" ? light : dark
+const _createThemeObj = <L, D>(k: string, light: L, dark: D) => ({
+  _dark: { [k]: dark },
+  _light: { [k]: light },
+})
 
 export const Theme = {
-  bgCard: _createThemeFunc(Colors.BG_CARD_LIGHT, Colors.BG_CARD_DARK),
-  bgPrimary: _createThemeFunc(Colors.BG_PRIMARY_LIGHT, Colors.BG_PRIMARY_DARK),
-  bgSecondary: _createThemeFunc(
+  bgCard: _createThemeObj("bgColor", Colors.BG_CARD_LIGHT, Colors.BG_CARD_DARK),
+  bgPrimary: _createThemeObj(
+    "bgColor",
+    Colors.BG_PRIMARY_LIGHT,
+    Colors.BG_PRIMARY_DARK
+  ),
+  bgSecondary: _createThemeObj(
+    "bgColor",
     Colors.BG_SECONDARY_LIGHT,
     Colors.BG_SECONDARY_DARK
   ),
+}
+
+export function themed(...objs: Record<string, any>[]) {
+  return objs.reduce((acc, curr) => {
+    for (const [k, v] of Object.entries(curr)) {
+      if (acc[k])
+        console.warn(
+          "Violation: accumulator already has themed object property",
+          k
+        )
+
+      acc[k] = v
+    }
+
+    return acc
+  }, {})
 }
 
 const _DEFAULT_FONT =
