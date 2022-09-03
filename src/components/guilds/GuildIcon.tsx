@@ -14,6 +14,7 @@ export const GuildIcon: React.FC<{ d: APIGuild; w?: number }> = ({ d, w = 20 }) 
       name={d.name}
       width={w}
       height={w}
+      fontSize={w < 10 ? "sm" : undefined}
       bgColor="gray.600"
       color="white"
       borderRadius="100%"
