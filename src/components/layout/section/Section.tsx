@@ -8,8 +8,8 @@ export const Section: React.FC<{
 }> = ({ children, actions = <></>, heading }) => {
   return (
     <VStack justify="flex-start" align="flex-start" width="full">
-      <HStack justify="space-between" width="full">
-        <Heading size="sm" fontWeight={500}>
+      <HStack justify="space-between" width="full" pr={1}>
+        <Heading size="sm" fontWeight={400}>
           {heading}
         </Heading>
         {actions}

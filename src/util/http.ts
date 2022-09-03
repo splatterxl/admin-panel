@@ -22,7 +22,7 @@ class HTTPClient {
     return `${process.env.NEXT_PUBLIC_API_HOST}`.replace(/\/+$/, "")
   }
 
-  getAuthHeader() {
+  getHeaders() {
     if (!globalThis.localStorage?.AuthStore) return {}
 
     return {
@@ -51,7 +51,7 @@ class HTTPClient {
           body: data ? JSON.stringify(data) : undefined,
           ...options,
           headers: {
-            ...this.getAuthHeader(),
+            ...this.getHeaders(),
             ...options.headers,
             ...(data ? { "Content-Type": "application/json" } : {}),
           } as any,

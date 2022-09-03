@@ -2,6 +2,7 @@ import { Center, Spinner } from "@chakra-ui/react"
 import {
   RESTGetAPICurrentUserGuildsResult,
   Routes,
+  Snowflake,
 } from "discord-api-types/v10"
 import React from "react"
 import { Endpoints } from "../../../util/constants"
@@ -19,15 +20,13 @@ export const _INTERNAL_SERVERS = [
 ]
 
 export const InternalServers: React.FC = () => {
-  const [data, setData] = React.useState<RESTGetAPICurrentUserGuildsResult>(
-    null as any
-  )
+  const [data, setData] = React.useState<Snowflake[]>(null as any)
 
   React.useEffect(() => {
     http
       .get<RESTGetAPICurrentUserGuildsResult>(Routes.userGuilds())
       .then(({ ok, data }) => {
-        if (ok) setData(data)
+        if (ok) setData(data.map((v) => v.id))
       })
   }, [])
 
@@ -43,7 +42,7 @@ export const InternalServers: React.FC = () => {
       {data ? (
         <Table>
           {_INTERNAL_SERVERS.map((id) => (
-            <InternalServer id={id} key={id} />
+            <InternalServer id={id} isJoined={data.includes(id)} key={id} />
           ))}
         </Table>
       ) : (

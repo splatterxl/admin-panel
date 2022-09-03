@@ -3,7 +3,10 @@ import { APIGuild, CDNRoutes, ImageFormat } from "discord-api-types/v10"
 import React from "react"
 import { cdn } from "../../util/constants"
 
-export const GuildIcon: React.FC<{ d: APIGuild; w?: number }> = ({ d, w = 20 }) => {
+export const GuildIcon: React.FC<{ d: APIGuild; size?: string }> = ({
+  d,
+  size = "md",
+}) => {
   return (
     <Avatar
       src={
@@ -12,9 +15,7 @@ export const GuildIcon: React.FC<{ d: APIGuild; w?: number }> = ({ d, w = 20 }) 
           : undefined
       }
       name={d.name}
-      width={w}
-      height={w}
-      fontSize={w < 10 ? "sm" : undefined}
+      size={size}
       bgColor="gray.600"
       color="white"
       borderRadius="100%"
