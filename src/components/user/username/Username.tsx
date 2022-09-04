@@ -1,4 +1,4 @@
-import { Flex, Heading, Text, TextProps, useToast } from "@chakra-ui/react"
+import { Flex, Heading, TextProps, useToast } from "@chakra-ui/react"
 import { Snowflake } from "discord-api-types/globals"
 import React from "react"
 import { BotTag } from "../BotTag"
@@ -53,7 +53,7 @@ export const Username: React.FC<
       <Heading
         as="span"
         fontSize="xl"
-        w="full"
+        width="full"
         _dark={{ color: "gray.400" }}
         _light={{
           color: "gray.600",

@@ -18,12 +18,12 @@ export const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           sm: "xl",
         }}
         shadow="3xl"
-        w={{
+        width={{
           base: "full",
           sm: "sm",
           lg: "sm",
         }}
-        h={{
+        height={{
           base: "full",
           sm: "sm",
           md: "sm",

@@ -55,7 +55,7 @@ export const GuildName: React.FC<
         <Center
           fontSize="2xl"
           display={compact ? "inline-block" : "inline-flex"}
-          w={!compact ? "full" : undefined}
+          width={!compact ? "full" : undefined}
           ml={1}
         >
           {Components.map((V, i) => {

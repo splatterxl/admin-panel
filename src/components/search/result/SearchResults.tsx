@@ -14,14 +14,14 @@ export const SearchResults: React.FC<
   switch (results.type) {
     case SearchResultsType.LOADING: {
       return (
-        <Center w="full" p={16}>
+        <Center width="full" p={16}>
           <Spinner size="lg" />
         </Center>
       )
     }
     case SearchResultsType.NONE: {
       return (
-        <Center w="full" p={16}>
+        <Center width="full" p={16}>
           <Text opacity={0.7}>No results were found</Text>
         </Center>
       )

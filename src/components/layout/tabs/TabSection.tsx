@@ -1,4 +1,4 @@
-import { Heading, Text, VStack } from "@chakra-ui/react"
+import { Heading, VStack } from "@chakra-ui/react"
 import React from "react"
 
 export const TabSection: React.FC<{
@@ -6,14 +6,14 @@ export const TabSection: React.FC<{
   label: string
 }> = (props) => {
   return (
-    <VStack spacing={3} pt={2} w="full">
+    <VStack spacing={3} pt={2} width="full">
       <Heading
         as="span"
         textTransform="uppercase"
         opacity={0.4}
         size="sm"
         fontSize="xs"
-        w="full"
+        width="full"
       >
         {props.label}
       </Heading>

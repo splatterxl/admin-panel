@@ -12,7 +12,7 @@ export const TableRow: React.FC<
 > = ({ icon = null, children, actions = null, href, ...props }) => {
   return (
     <HStack
-      w="full"
+      width="full"
       {...themed(Theme.bgSecondary)}
       p={2}
       justify="space-between"

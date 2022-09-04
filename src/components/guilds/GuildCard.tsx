@@ -5,7 +5,6 @@ import { Endpoints } from "../../util/constants"
 import { Hr } from "../user/UserCard"
 import { EditableGuildFeatures } from "./EditableGuildFeatures"
 import { GuildDescription } from "./GuildDescription"
-import { GuildFeatures } from "./GuildFeatures"
 import { GuildIcon } from "./GuildIcon"
 import { GuildName } from "./GuildName"
 
@@ -35,7 +34,7 @@ export const GuildCard: React.FC<
         direction="column"
         justify="flex-start"
         align={compact ? "flex-start" : "center"}
-        w={!compact ? "full" : "fit-content"}
+        width={!compact ? "full" : "fit-content"}
         as="section"
       >
         <GuildName
@@ -44,11 +43,11 @@ export const GuildCard: React.FC<
           id={d.id}
           compact={compact}
         />
-        <Hr mb={compact ? 1 : 2} mt={1} w={compact ? 52 : "60%"} />
+        <Hr mb={compact ? 1 : 2} mt={1} width={compact ? 52 : "60%"} />
         <GuildDescription description={d.description!} compact={compact} />
         {!compact ? (
           <>
-            <Hr mb={compact ? 1 : 2} mt={1} w={compact ? 52 : "60%"} />
+            <Hr mb={compact ? 1 : 2} mt={1} width={compact ? 52 : "60%"} />
             <EditableGuildFeatures features={d.features} />
           </>
         ) : (

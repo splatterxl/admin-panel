@@ -10,7 +10,7 @@ export default function FormLabel(props: FormLabelProps) {
     <Box
       as="span"
       mb={0}
-      w="full"
+      width="full"
       display={props.hidden ? "none" : undefined}
       aria-hidden={false}
     >

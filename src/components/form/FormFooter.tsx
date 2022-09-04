@@ -1,10 +1,10 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react"
 
 export default function FormFooter({ children, br }: FormFooterProps) {
-  return <Box w="full">{children}</Box>;
+  return <Box width="full">{children}</Box>
 }
 
 interface FormFooterProps {
-  children: React.ReactNode;
-  br?: number;
+  children: React.ReactNode
+  br?: number
 }

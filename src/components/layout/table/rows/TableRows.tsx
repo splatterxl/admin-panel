@@ -6,7 +6,7 @@ export const TableRows: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <VStack spacing={0} justify="flex-start" align="flex-start" w="full">
+    <VStack spacing={0} justify="flex-start" align="flex-start" width="full">
       {children}
     </VStack>
   )

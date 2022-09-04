@@ -4,7 +4,7 @@ import React from "react"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import { UserCard } from "../../components/user/UserCard"
 import FocusedUserStore from "../../stores/FocusedUserStore"
-import { Endpoints, PatchcordRoutes } from "../../util/constants"
+import { PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
 import { User } from "../../util/routes/types"
@@ -41,8 +41,8 @@ export default function UserProfile() {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
-      h="full"
-      w="full"
+      height="full"
+      width="full"
       justify="flex-start"
       align={{ base: "center", md: "flex-start" }}
     >

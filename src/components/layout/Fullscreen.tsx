@@ -1,6 +1,6 @@
-import { Center } from "@chakra-ui/react"
-import React from "react"
-import { Colors } from "../../util/constants"
+import { Center } from "@chakra-ui/react";
+import React from "react";
+import { Colors } from "../../util/constants";
 
 export const Fullscreen: React.FC<{
   children: React.ReactNode
@@ -8,8 +8,8 @@ export const Fullscreen: React.FC<{
 }> = ({ children, bg }) => {
   return (
     <Center
-      h="100vh"
-      w="full"
+      height="100vh"
+      width="full"
       _dark={{
         bgColor: bg ? Colors.BG_PRIMARY_DARK : undefined,
       }}

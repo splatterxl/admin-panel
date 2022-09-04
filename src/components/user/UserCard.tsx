@@ -12,7 +12,7 @@ import { Username } from "./username/Username"
 export const Hr: React.FC<BoxProps> = (props) => (
   <Box
     as="hr"
-    w="60%"
+    width="60%"
     mb={2}
     _light={{
       borderColor: "gray.400",
@@ -49,7 +49,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
         direction="column"
         justify="flex-start"
         align={compact ? "flex-start" : "center"}
-        w={!compact ? "full" : "fit-content"}
+        width={!compact ? "full" : "fit-content"}
         as="section"
       >
         <Username
@@ -59,7 +59,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
           id={d.id}
           shouldCopy={!compact}
         />
-        <Hr mb={+compact} w={compact ? 52 : "60%"} />
+        <Hr mb={+compact} width={compact ? 52 : "60%"} />
         {!compact ? (
           <EditableUserFlags d={d} default="No flags" />
         ) : (

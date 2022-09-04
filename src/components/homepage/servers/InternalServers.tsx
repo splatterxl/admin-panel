@@ -53,7 +53,7 @@ export const InternalServers: React.FC<{
             ))}
         </Table>
       ) : (
-        <Center w="full" p={16}>
+        <Center width="full" p={16}>
           <Spinner size="lg" />
         </Center>
       )}

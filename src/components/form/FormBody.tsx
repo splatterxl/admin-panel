@@ -1,7 +1,7 @@
-import { StackProps, VStack } from "@chakra-ui/react";
+import { StackProps, VStack } from "@chakra-ui/react"
 
 export default function FormBody(props: FormBodyProps) {
-  return <VStack mb={5} mt={2} spacing={2} w="full" {...props} />;
+  return <VStack mb={5} mt={2} spacing={2} width="full" {...props} />
 }
 
 interface FormBodyProps extends StackProps {}

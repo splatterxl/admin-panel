@@ -41,8 +41,8 @@ export default function UserProfile() {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}
-      h="full"
-      w="full"
+      height="full"
+      width="full"
       justify="flex-start"
       align={{ base: "center", md: "flex-start" }}
     >

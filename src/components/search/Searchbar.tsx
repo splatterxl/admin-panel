@@ -1,7 +1,6 @@
 import { FlexProps, Input } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
-import SearchResultStore from "../../stores/SearchResultStore"
 import SearchTypeStore, { SearchType } from "../../stores/SearchTypeStore"
 import { getQuery } from "../../util/query"
 import { search } from "../../util/search"
@@ -23,7 +22,7 @@ export const Searchbar: React.FC<FlexProps> = (props) => {
   return (
     <Form
       id="search"
-      w="full"
+      width="full"
       customButtons
       {...props}
       onSubmit={({ input }) => search(input, searchType)}

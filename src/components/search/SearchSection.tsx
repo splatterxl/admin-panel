@@ -10,7 +10,7 @@ export const SearchSection: React.FC<{
       direction="column"
       justify="flex-start"
       align="flex-start"
-      w="full"
+      width="full"
       mb={5}
     >
       {label !== null ? (
@@ -21,7 +21,7 @@ export const SearchSection: React.FC<{
         <></>
       )}
       <Flex
-        w="full"
+        width="full"
         direction="column"
         justify="flex-start"
         align="flex-start"

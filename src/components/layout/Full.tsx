@@ -3,7 +3,7 @@ import React from "react"
 
 export const Full: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Center w="full" h="full">
+    <Center width="full" height="full">
       {children}
     </Center>
   )

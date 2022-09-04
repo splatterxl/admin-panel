@@ -24,13 +24,13 @@ export const TabItem: React.FC<{
         justify="flex-start"
         align="center"
         gap={2}
-        w="full"
+        width="full"
         cursor="pointer"
       >
-        <Icon as={icon} boxSize="1.1em" aria-hidden />
+        <Icon as={icon} boxSize={{ base: "1.3em", md: "1.1em" }} aria-hidden />
         <Heading
           as="span"
-          size="sm"
+          size={{ base: "md", md: "sm" }}
           fontWeight={500}
           fontFamily={THEME.fonts!.normal as string}
           lineHeight={1}

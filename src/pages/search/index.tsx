@@ -64,7 +64,7 @@ export default function Search(props: {
 
   return (
     <>
-      <VStack spacing={3} w="full" pt={!isPath ? 3 : 0}>
+      <VStack spacing={3} width="full" pt={!isPath ? 3 : 0}>
         {isPath ? (
           <Navbar isSearch>
             <Searchbar />

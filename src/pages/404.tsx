@@ -10,7 +10,7 @@ export default function UserNotFound() {
         direction="column"
         justify="center"
         align="center"
-        w="80%"
+        width="80%"
         pt={10}
         opacity={0.7}
       >
