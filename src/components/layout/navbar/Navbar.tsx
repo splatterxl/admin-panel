@@ -1,6 +1,5 @@
 import { HStack, Link as ChakraLink, Text } from "@chakra-ui/react"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import React from "react"
 import AuthStore from "../../../stores/AuthStore"
 import CurrentUserStore from "../../../stores/CurrentUserStore"
@@ -12,8 +11,7 @@ export const Navbar: React.FC<{
   isSearch?: boolean
 }> = ({ children, isSearch }) => {
   const auth = AuthStore.useValue(),
-    currentUser = CurrentUserStore.useValue(),
-    { pathname } = useRouter()
+    currentUser = CurrentUserStore.useValue()
 
   if (!auth) return null
 
@@ -22,7 +20,7 @@ export const Navbar: React.FC<{
       spacing={0}
       width="full"
       justify={children ? "space-between" : "flex-end"}
-      paddingBottom={{ base: 7, md: 0 }}
+      paddingBottom={{ base: 2, md: 0 }}
     >
       {children}
       <Link href={Endpoints.USER(currentUser.id)} passHref={false}>
