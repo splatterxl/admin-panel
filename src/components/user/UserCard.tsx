@@ -44,7 +44,7 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
         borderColor: "gray.300",
       }}
     >
-      <UserAvatar d={d} />
+      <UserAvatar d={d} w={compact ? 16 : 20} />
       <Flex
         direction="column"
         justify="flex-start"

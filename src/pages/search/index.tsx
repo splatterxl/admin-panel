@@ -60,15 +60,18 @@ export default function Search(props: {
     })()
   }, [query, setResults, offset, router, type])
 
-  const NavbarComponent =
-    router.pathname === Endpoints.SEARCH ? Navbar : React.Fragment
+  const isPath = router.pathname === Endpoints.SEARCH
 
   return (
     <>
-      <VStack spacing={3} w="full" pt={3}>
-        <NavbarComponent>
+      <VStack spacing={3} w="full" pt={!isPath ? 3 : 0}>
+        {isPath ? (
+          <Navbar isSearch>
+            <Searchbar />
+          </Navbar>
+        ) : (
           <Searchbar />
-        </NavbarComponent>
+        )}
         <SearchResults {...results} hideHeading={props.hideHeading} />
       </VStack>
     </>
