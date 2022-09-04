@@ -37,13 +37,13 @@ export const Tabs: React.FC = () => {
       <TabItem
         icon={MdArchive}
         label="Archives"
-        href={Endpoints.HOME}
+        href={Endpoints.ARCHIVES}
         selected={pathname === Endpoints.ARCHIVES}
       />
       <TabItem
         icon={MdReport}
         label="Reports"
-        href={Endpoints.HOME}
+        href={Endpoints.REPORTS}
         selected={pathname === Endpoints.REPORTS}
       />
 
