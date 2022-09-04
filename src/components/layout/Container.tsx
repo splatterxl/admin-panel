@@ -52,8 +52,12 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
           bgColor: Colors.BG_SECONDARY_LIGHT,
         }}
       >
-        <HStack mb={{ base: 2, md: 4 }} width="full" justify="space-between">
-          <Logo />
+        <HStack
+          mb={{ base: isOpen ? 6 : 2, md: 4 }}
+          width="full"
+          justify="space-between"
+        >
+          <Logo isOpen={isOpen} setOpen={setOpen} />
           {isMobile ? <NavbarAvatar /> : null}
         </HStack>
         {!isMobile || isOpen ? <Tabs /> : null}
