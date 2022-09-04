@@ -1,7 +1,7 @@
-import { HStack, Stack, useMediaQuery, VStack } from "@chakra-ui/react"
+import { Box, HStack, Stack, useMediaQuery, VStack } from "@chakra-ui/react"
 import React from "react"
 import AuthStore from "../../stores/AuthStore"
-import { Colors } from "../../util/constants"
+import { Colors, Theme } from "../../util/constants"
 import { Logo } from "./navbar/Logo"
 import { NavbarAvatar } from "./navbar/NavbarAvatar"
 import { Tabs } from "./tabs/Tabs"
@@ -39,28 +39,42 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
         display={auth ? "block" : "none"}
         height="full"
         width={{ base: "full", md: "auto" }}
-        paddingRight={{ base: 4, md: 8 }}
-        paddingLeft={6}
         paddingBottom={{
           base: isOpen ? 8 : 0,
           md: 4,
         }}
-        paddingTop={2}
-        justify="flex-start"
-        _dark={{ bgColor: Colors.BG_SECONDARY_DARK }}
-        _light={{
-          bgColor: Colors.BG_SECONDARY_LIGHT,
+        paddingRight={{
+          base: 0,
+          md: 8,
         }}
+        justify="flex-start"
+        {...Theme.bgSecondary}
       >
         <HStack
-          mb={{ base: isOpen ? 6 : 2, md: 4 }}
+          paddingBottom={{ base: 2, md: 0 }}
+          paddingRight={{ base: 4, md: 0 }}
+          paddingLeft={{ base: 4, md: 3 }}
+          paddingTop={2}
           width="full"
-          justify="space-between"
+          justify={{ base: "space-between", md: "flex-start" }}
+          {...(isMobile ? Theme.bgTertiary : Theme.bgSecondary)}
         >
           <Logo isOpen={isOpen} setOpen={setOpen} />
           {isMobile ? <NavbarAvatar /> : null}
         </HStack>
-        {!isMobile || isOpen ? <Tabs /> : null}
+        {!isMobile || isOpen ? (
+          <Box
+            width={{ base: "full", md: "25vh" }}
+            paddingRight={{ base: 4, md: 0 }}
+            paddingLeft={{ base: 4, md: 6 }}
+            paddingTop={{
+              base: 1,
+              md: 0,
+            }}
+          >
+            <Tabs />
+          </Box>
+        ) : null}
       </VStack>
       <VStack
         _dark={{ bgColor: Colors.BG_PRIMARY_DARK }}

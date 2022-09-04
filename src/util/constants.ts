@@ -59,6 +59,7 @@ export enum Colors {
   BG_PRIMARY_LIGHT = "#ffffff",
   BG_SECONDARY_DARK = "#2f3136",
   BG_SECONDARY_LIGHT = "#f2f3f5",
+  BG_TERTIARY_DARK = "#18191c",
 
   TEXT_INTERACTIVE_NORMAL_DARK = "white",
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
@@ -81,6 +82,15 @@ export const Theme = {
     Colors.BG_SECONDARY_LIGHT,
     Colors.BG_SECONDARY_DARK
   ),
+  bgTertiary:_createThemeObj('bgColor',Colors.BG_SECONDARY_LIGHT, Colors.BG_TERTIARY_DARK),
+  btnTrans: {
+    _hover: {
+      bgColor: "transparent",
+    },
+    _active: {
+      bgColor: "transparent",
+    },
+  },
 }
 
 export function themed(...objs: Record<string, any>[]) {

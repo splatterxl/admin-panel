@@ -21,7 +21,13 @@ export const Tabs: React.FC = () => {
   const { pathname } = useRouter()
 
   return (
-    <VStack spacing={3} justify="flex-start" align="flex-start" pl={0}>
+    <VStack
+      spacing={3}
+      justify="flex-start"
+      align="flex-start"
+      paddingLeft={{ base: 2, md: 0 }}
+      width="full"
+    >
       <TabItem
         icon={MdHome}
         label="Home"

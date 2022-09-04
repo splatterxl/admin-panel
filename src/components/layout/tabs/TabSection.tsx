@@ -6,10 +6,11 @@ export const TabSection: React.FC<{
   label: string
 }> = (props) => {
   return (
-    <VStack spacing={3} pt={2} width="full">
+    <VStack spacing={2} pt={2} width="full">
       <Heading
         as="span"
         textTransform="uppercase"
+        userSelect="none"
         opacity={0.4}
         size="sm"
         fontSize="xs"
@@ -17,7 +18,9 @@ export const TabSection: React.FC<{
       >
         {props.label}
       </Heading>
-      {props.children}
+      <VStack spacing={3} width="full">
+        {props.children}
+      </VStack>
     </VStack>
   )
 }
