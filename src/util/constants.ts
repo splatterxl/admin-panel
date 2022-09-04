@@ -2,15 +2,15 @@ import { ChakraTheme } from "@chakra-ui/react"
 import { Snowflake } from "discord-api-types/globals"
 import { SearchType } from "../stores/SearchTypeStore"
 
-const encode = encodeURIComponent
-
 export const Endpoints = {
-  LOGIN: (next = "/") => `/auth/login?next=${encode(next)}`,
+  LOGIN: (next = "/") => `/auth/login?next=${encodeURIComponent(next)}`,
   LOGOUT: "/auth/logout",
 
   SEARCH: "/search",
   DO_SEARCH: (query: string, type: SearchType) =>
-    `${Endpoints.SEARCH}?q=${encode(query)}&t=${encode(type)}`,
+    `${Endpoints.SEARCH}?q=${encodeURIComponent(query)}&t=${encodeURIComponent(
+      type
+    )}`,
 
   HOME: "/",
 
@@ -59,54 +59,10 @@ export enum Colors {
   BG_PRIMARY_LIGHT = "#ffffff",
   BG_SECONDARY_DARK = "#2f3136",
   BG_SECONDARY_LIGHT = "#f2f3f5",
-  BG_TERTIARY_DARK = "#18191c",
+  BG_TERTIARY_DARK = "#18191d",
 
   TEXT_INTERACTIVE_NORMAL_DARK = "white",
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
-}
-
-const _createThemeObj = <L, D>(k: string, light: L, dark: D) => ({
-  _dark: { [k]: dark },
-  _light: { [k]: light },
-})
-
-export const Theme = {
-  bgCard: _createThemeObj("bgColor", Colors.BG_CARD_LIGHT, Colors.BG_CARD_DARK),
-  bgPrimary: _createThemeObj(
-    "bgColor",
-    Colors.BG_PRIMARY_LIGHT,
-    Colors.BG_PRIMARY_DARK
-  ),
-  bgSecondary: _createThemeObj(
-    "bgColor",
-    Colors.BG_SECONDARY_LIGHT,
-    Colors.BG_SECONDARY_DARK
-  ),
-  bgTertiary:_createThemeObj('bgColor',Colors.BG_SECONDARY_LIGHT, Colors.BG_TERTIARY_DARK),
-  btnTrans: {
-    _hover: {
-      bgColor: "transparent",
-    },
-    _active: {
-      bgColor: "transparent",
-    },
-  },
-}
-
-export function themed(...objs: Record<string, any>[]) {
-  return objs.reduce((acc, curr) => {
-    for (const [k, v] of Object.entries(curr)) {
-      if (acc[k])
-        console.warn(
-          "Violation: accumulator already has themed object property",
-          k
-        )
-
-      acc[k] = v
-    }
-
-    return acc
-  }, {})
 }
 
 const _DEFAULT_FONT =
@@ -118,7 +74,35 @@ export const THEME: Partial<ChakraTheme> = {
     heading: '"Ginto Normal", ' + _DEFAULT_FONT,
     nord: '"Ginto Nord", ' + _DEFAULT_FONT,
   },
+  colors: {
+    card: { dark: Colors.BG_CARD_DARK, light: Colors.BG_CARD_LIGHT },
+    primary: { dark: Colors.BG_PRIMARY_DARK, light: Colors.BG_PRIMARY_LIGHT },
+    secondary: {
+      dark: Colors.BG_SECONDARY_DARK,
+      light: Colors.BG_SECONDARY_LIGHT,
+    },
+    tertiary: {
+      dark: Colors.BG_TERTIARY_DARK,
+      light: Colors.BG_SECONDARY_LIGHT,
+    },
+  },
 }
+
+export const btnTrans = {
+  _hover: {
+    bgColor: "transparent",
+  },
+  _active: {
+    bgColor: "transparent",
+  },
+}
+
+type Themed<K extends string> = Record<"_light" | "_dark", Record<K, string>>
+
+export const themed = <K extends string>(key: K, val: string): Themed<K> => ({
+  _dark: { [key]: `${val}.dark` } as any,
+  _light: { [key]: `${val}.light` } as any,
+})
 
 export const ErrorMessages = {
   MAZE: "The maze wasn't meant for you",

@@ -1,7 +1,7 @@
 import { Box, HStack, Stack, useMediaQuery, VStack } from "@chakra-ui/react"
 import React from "react"
 import AuthStore from "../../stores/AuthStore"
-import { Colors, Theme } from "../../util/constants"
+import { Colors, themed } from "../../util/constants"
 import { Logo } from "./navbar/Logo"
 import { NavbarAvatar } from "./navbar/NavbarAvatar"
 import { Tabs } from "./tabs/Tabs"
@@ -27,13 +27,7 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
         base: "column",
         md: "row",
       }}
-      // this is a hack to display the sidebar color down the whole page
-      _dark={{
-        bgColor: Colors.BG_SECONDARY_DARK,
-      }}
-      _light={{
-        bgColor: Colors.BG_SECONDARY_LIGHT,
-      }}
+      {...themed("bgColor", "secondary")}
     >
       <VStack
         display={auth ? "block" : "none"}
@@ -48,7 +42,7 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
           md: 8,
         }}
         justify="flex-start"
-        {...Theme.bgSecondary}
+        {...themed("bgColor", "secondary")}
       >
         <HStack
           paddingBottom={{ base: 2, md: 0 }}
@@ -57,7 +51,6 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
           paddingTop={2}
           width="full"
           justify={{ base: "space-between", md: "flex-start" }}
-          {...(isMobile ? Theme.bgTertiary : Theme.bgSecondary)}
         >
           <Logo isOpen={isOpen} setOpen={setOpen} />
           {isMobile ? <NavbarAvatar /> : null}
@@ -77,13 +70,12 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
         ) : null}
       </VStack>
       <VStack
-        _dark={{ bgColor: Colors.BG_PRIMARY_DARK }}
-        _light={{ bgColor: Colors.BG_PRIMARY_LIGHT }}
         minH="100vh"
         width="full"
         spacing={0}
         px={auth ? 6 : 0}
         py={auth ? 5 : 0}
+        {...themed('bgColor','primary')}
       >
         {children}
       </VStack>

@@ -30,6 +30,7 @@ export const InternalServer: React.FC<{ id: string; isJoined: boolean }> = ({
         <Button
           variant="outline"
           disabled={isJoined}
+          rounded="sm"
           size="xs"
           onClick={async () => {
             await joinGuild(id, currentUser.id)
