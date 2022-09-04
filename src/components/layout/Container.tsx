@@ -15,8 +15,6 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
     [isMobile] = useIsMobile(),
     [isOpen, setOpen] = React.useState(false)
 
-  console.log(isMobile, isOpen)
-
   return (
     <Stack
       minH="100vh"
@@ -75,7 +73,7 @@ export const Container: React.FC<{ children: React.ReactNode }> = ({
         spacing={0}
         px={auth ? 6 : 0}
         py={auth ? 5 : 0}
-        {...themed('bgColor','primary')}
+        {...themed("bgColor", "primary")}
       >
         {children}
       </VStack>

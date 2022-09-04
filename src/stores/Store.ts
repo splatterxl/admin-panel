@@ -13,7 +13,7 @@ export default class Store<T, D = T> {
   _atom: RecoilState<T | D>
 
   constructor(
-    defaultValue: D = null as unknown as D,
+    private defaultValue: D = null as unknown as D,
     public key: string,
     public persisted = false
   ) {
@@ -63,8 +63,7 @@ export default class Store<T, D = T> {
     let value: any = localStorage.getItem(this.key)
 
     if (value != null) value = JSON.parse(value)
-
-    setState(value)
+    else value = this.defaultValue
 
     return value
   }

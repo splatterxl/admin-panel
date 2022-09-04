@@ -25,7 +25,9 @@ export const InternalServer: React.FC<{ id: string; isJoined: boolean }> = ({
 
   return (
     <TableRow
-      icon={<GuildIcon d={data} size="sm" />}
+      icon={
+        <GuildIcon id={data.id} hash={data.icon} name={data.name} size="sm" />
+      }
       actions={
         <Button
           variant="outline"

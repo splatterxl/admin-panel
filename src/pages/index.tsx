@@ -1,5 +1,6 @@
 import { Heading } from "@chakra-ui/react"
 import type { NextPage } from "next"
+import { SavedPages } from "../components/homepage/saved/SavedPages"
 import { InternalServers } from "../components/homepage/servers/InternalServers"
 import { Navbar } from "../components/layout/navbar/Navbar"
 import { SectionContainer } from "../components/layout/section/SectionContainer"
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
         <Heading size="md">Welcome back, {currentUser.username}</Heading>
       </Navbar>
       <SectionContainer>
+        <SavedPages />
         <InternalServers truncate />
       </SectionContainer>
     </>

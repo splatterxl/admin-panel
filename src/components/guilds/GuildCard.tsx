@@ -29,7 +29,7 @@ export const GuildCard: React.FC<
         borderColor: "gray.300",
       }}
     >
-      <GuildIcon d={d} />
+      <GuildIcon id={d.id} hash={d.icon} name={d.name} />
       <Flex
         direction="column"
         justify="flex-start"

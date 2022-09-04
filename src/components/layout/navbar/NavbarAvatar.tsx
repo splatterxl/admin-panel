@@ -25,9 +25,11 @@ export const NavbarAvatar: React.FC<{ isSearch?: boolean }> = ({
           {currentUser.username}
         </Text>
         <UserAvatar
-          d={currentUser}
-          w={isSearch ? 9 : { base: 8, md: 7 }}
-          noAlt
+          id={currentUser.id}
+          alt=""
+          discriminator={parseInt(currentUser.discriminator)}
+          hash={currentUser.avatar}
+          width={isSearch ? 9 : { base: 8, md: 7 }}
         />
       </HStack>
     </Link>

@@ -1,6 +1,6 @@
-import { HStack, Text, TextProps } from "@chakra-ui/react";
-import { themed } from "../../../../util/constants";
-import { Link } from "../../../Link";
+import { HStack, Text, TextProps } from "@chakra-ui/react"
+import { themed } from "../../../../util/constants"
+import { Link } from "../../../Link"
 
 export const TableRow: React.FC<
   {
@@ -13,9 +13,11 @@ export const TableRow: React.FC<
   return (
     <HStack
       width="full"
-      {...themed('bgColor','secondary')}
+      {...themed("bgColor", "secondary")}
       p={2}
       justify="space-between"
+      borderBottom="1px"
+      {...themed("borderColor", "tertiary")}
     >
       <HStack as={(href ? Link : undefined) as any} href={href}>
         {icon}

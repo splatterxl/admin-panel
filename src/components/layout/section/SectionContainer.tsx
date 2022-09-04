@@ -7,7 +7,7 @@ export const SectionContainer: React.FC<{ children: React.ReactNode }> = ({
   return (
     <HStack
       justify="space-evenly"
-      align="center"
+      align="flex-start"
       width="full"
       paddingY={2}
       gap={5}

@@ -1,21 +1,23 @@
 import { Avatar } from "@chakra-ui/react"
-import { APIGuild, CDNRoutes, ImageFormat } from "discord-api-types/v10"
+import { CDNRoutes, ImageFormat, Snowflake } from "discord-api-types/v10"
 import React from "react"
 import { cdn } from "../../util/constants"
 
-export const GuildIcon: React.FC<{ d: APIGuild; size?: string }> = ({
-  d,
-  size = "md",
-}) => {
+export const GuildIcon: React.FC<{
+  id: Snowflake
+  hash: string | null
+  name: string
+  size?: string
+}> = (props) => {
   return (
     <Avatar
       src={
-        d.icon
-          ? cdn(CDNRoutes.guildIcon(d.id, d.icon!, ImageFormat.PNG))
+        props.hash
+          ? cdn(CDNRoutes.guildIcon(props.id, props.hash, ImageFormat.PNG))
           : undefined
       }
-      name={d.name}
-      size={size}
+      name={props.name}
+      size={props.size}
       bgColor="gray.600"
       color="white"
       borderRadius="100%"
