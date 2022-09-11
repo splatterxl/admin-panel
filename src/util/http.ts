@@ -70,12 +70,29 @@ class HTTPClient {
 
     if (!res.ok) {
       toReturn.err = json
+
+      throw new HTTPError(res, json)
     }
 
     toReturn.data = json
     toReturn.textContent = text
 
     return toReturn
+  }
+}
+
+class HTTPError extends Error {
+  name = "HTTPError"
+  code: string
+
+  constructor(res: Response, err: APIError) {
+    super()
+
+    this.name = err.code === 0 ? this.name : `HTTPError[${err.code}]`
+    this.message = err.message
+    this.cause = err.errors
+
+    this.code = `${res.status} ${res.statusText}`
   }
 }
 

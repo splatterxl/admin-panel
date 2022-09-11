@@ -1,27 +1,18 @@
 import { Button } from "@chakra-ui/react"
-import { APIGuild } from "discord-api-types/v10"
 import React from "react"
 import CurrentUserStore from "../../../stores/CurrentUserStore"
-import { Endpoints, PatchcordRoutes } from "../../../util/constants"
-import http from "../../../util/http"
+import { IInternalServer } from "../../../stores/InternalServerStore"
+import { Endpoints } from "../../../util/constants"
 import { joinGuild } from "../../../util/routes/users/guilds"
 import { GuildIcon } from "../../guilds/GuildIcon"
 import { TableRow } from "../../layout/table/rows/TableRow"
 
-export const InternalServer: React.FC<{ id: string; isJoined: boolean }> = ({
-  id,
-  isJoined,
-}) => {
-  const [data, setData] = React.useState<APIGuild>(null as any),
-    currentUser = CurrentUserStore.useValue()
-
-  React.useEffect(() => {
-    http.get<APIGuild>(PatchcordRoutes.GUILD(id)).then(({ ok, data }) => {
-      if (ok) setData(data)
-    })
-  }, [id])
-
-  if (!data) return <TableRow>Loading... ({id})</TableRow>
+export const InternalServer: React.FC<{
+  data: IInternalServer
+  // if this is null the current user's joined servers list isn't loaded yet
+  joined: boolean | null
+}> = ({ data, joined }) => {
+  const currentUser = CurrentUserStore.useValue()
 
   return (
     <TableRow
@@ -31,17 +22,18 @@ export const InternalServer: React.FC<{ id: string; isJoined: boolean }> = ({
       actions={
         <Button
           variant="outline"
-          disabled={isJoined}
+          disabled={joined ?? true}
           rounded="sm"
           size="xs"
+          isLoading={joined === null}
           onClick={async () => {
-            await joinGuild(id, currentUser.id)
+            await joinGuild(data.id, currentUser.id)
           }}
         >
-          {isJoined ? "Joined" : "Join Server"}
+          {joined ? "Joined" : "Join Server"}
         </Button>
       }
-      href={Endpoints.GUILD(id)}
+      href={Endpoints.GUILD(data.id)}
     >
       {data.name}
     </TableRow>

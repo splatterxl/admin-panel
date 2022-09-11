@@ -1,12 +1,12 @@
 import { Center, Spinner } from "@chakra-ui/react"
-import {
-  RESTGetAPICurrentUserGuildsResult,
-  Routes,
-  Snowflake,
-} from "discord-api-types/v10"
 import React from "react"
+import CurrentUserGuildsStore from "../../../stores/CurrentUserGuildsStore"
+import InternalServerStore, {
+  IInternalServer,
+} from "../../../stores/InternalServerStore"
+import { arrayEquals } from "../../../util/array"
 import { Endpoints } from "../../../util/constants"
-import http from "../../../util/http"
+import { getGuildsBulk } from "../../../util/routes/guilds"
 import { Section } from "../../layout/section/Section"
 import { Table } from "../../layout/table/Table"
 import { Link } from "../../Link"
@@ -23,15 +23,33 @@ export const InternalServers: React.FC<{
   noHeading?: boolean
   truncate?: boolean
 }> = ({ noHeading, truncate }) => {
-  const [data, setData] = React.useState<Snowflake[]>(null as any)
+  const joined = CurrentUserGuildsStore.useIDValues(),
+    [, set, servers] = InternalServerStore.useStateFromStorage()
 
   React.useEffect(() => {
-    http
-      .get<RESTGetAPICurrentUserGuildsResult>(Routes.userGuilds())
-      .then(({ ok, data }) => {
-        if (ok) setData(data.map((v) => v.id))
+    // if we ever modify the internal guilds
+    if (
+      !arrayEquals(
+        servers.map(({ id }) => id),
+        INTERNAL_SERVERS
+      )
+    ) {
+      getGuildsBulk({ ids: INTERNAL_SERVERS, admin: true }).then((guilds) => {
+        set(
+          guilds.map(
+            (guild): IInternalServer => ({
+              id: guild.id,
+              name: guild.name,
+              icon: guild.icon,
+            })
+          )
+        )
       })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- this never needs to run more than once
   }, [])
+
+  console
 
   return (
     <Section
@@ -44,13 +62,15 @@ export const InternalServers: React.FC<{
         ) : null
       }
     >
-      {data ? (
+      {servers.length ? (
         <Table>
-          {INTERNAL_SERVERS.slice(0, truncate ? 5 : INTERNAL_SERVERS.length)
-            .sort((id) => (data.includes(id) ? 1 : -1))
-            .map((id) => (
-              <InternalServer id={id} isJoined={data.includes(id)} key={id} />
-            ))}
+          {servers.slice(0, truncate ? 5 : servers.length).map((data) => (
+            <InternalServer
+              data={data}
+              joined={joined === null ? null : joined!.includes(data.id)}
+              key={data.id}
+            />
+          ))}
         </Table>
       ) : (
         <Center width="full" p={16}>

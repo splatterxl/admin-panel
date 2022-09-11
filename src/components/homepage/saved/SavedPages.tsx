@@ -8,12 +8,8 @@ import { Table } from "../../layout/table/Table"
 import { SavedPage } from "./SavedPage"
 
 export const SavedPages: React.FC = () => {
-  const [get, set, value] = SavedPagesStore.useStateFromStorage()
-
-  React.useEffect(() => {
-    get()
-  }, [get])
-
+  const value = SavedPagesStore.useValue()
+  
   return (
     <Section heading="Saved Pages">
       {value !== null ? (
