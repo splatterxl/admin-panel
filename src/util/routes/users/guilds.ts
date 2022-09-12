@@ -6,5 +6,5 @@ export const acceptInvite = async (code: string) => {
 }
 
 export const joinGuild = async (guildId: Snowflake, userId: Snowflake) => {
-  await http.put(Routes.guildMember(guildId), "")
+  await http.put(Routes.guildMember(guildId, userId), "")
 }
