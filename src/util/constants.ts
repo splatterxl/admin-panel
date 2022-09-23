@@ -112,7 +112,11 @@ export const ErrorMessages = {
 export const Constants = {
   ID_REGEXP: /^\d{16,22}/,
   DUMMY_DOMAIN: "https://admin.patchcord.pw",
-  CDN_DOMAIN: "https://patchcord.pw",
+  CDN_DOMAIN: process.env.NEXT_PUBLIC_CDN ?? "https://patchcord.pw",
+  API_HOST:
+    process.env.NEXT_PUBLIC_API_HOST ??
+    process.env.NEXT_PUBLIC_API_BASE ??
+    "https://patchcord.pw/api/v9",
 }
 
 export function cdn(route: string) {

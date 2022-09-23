@@ -1,4 +1,5 @@
 import AuthStore from "../stores/AuthStore"
+import { Constants } from "./constants"
 import { noop } from "./noop"
 
 export interface APIRequest extends RequestInit {
@@ -19,7 +20,7 @@ interface APIError {
 
 class HTTPClient {
   getAPIBaseURL() {
-    return `${process.env.NEXT_PUBLIC_API_HOST}`.replace(/\/+$/, "")
+    return `${Constants.API_HOST}`.replace(/\/+$/, "")
   }
 
   getHeaders() {
