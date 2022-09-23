@@ -3,7 +3,7 @@ import React from "react"
 import CurrentUserStore from "../../../stores/CurrentUserStore"
 import { IInternalServer } from "../../../stores/InternalServerStore"
 import { Endpoints } from "../../../util/constants"
-import { joinGuild } from "../../../util/routes/users/guilds"
+import { useJoinGuild } from "../../../util/routes/users/guilds"
 import { GuildIcon } from "../../guilds/GuildIcon"
 import { TableRow } from "../../layout/table/rows/TableRow"
 
@@ -12,7 +12,8 @@ export const InternalServer: React.FC<{
   // if this is null the current user's joined servers list isn't loaded yet
   joined: boolean | null
 }> = ({ data, joined }) => {
-  const currentUser = CurrentUserStore.useValue()
+  const currentUser = CurrentUserStore.useValue(),
+    joinGuild = useJoinGuild()
 
   return (
     <TableRow
