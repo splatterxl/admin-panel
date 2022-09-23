@@ -3,10 +3,8 @@ import { APIGuild } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React from "react"
 import { GuildHeader } from "../../components/guilds/GuildHeader"
-import { GuildCard } from "../../components/guilds/legacy/GuildCard"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import { Navbar } from "../../components/layout/navbar/Navbar"
-import { Searchbar } from "../../components/search/Searchbar"
 import FocusedGuildStore from "../../stores/FocusedGuildStore"
 import { PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
@@ -54,7 +52,7 @@ export default function UserProfile() {
         justify="flex-start"
         align={{ base: "center", md: "flex-start" }}
       >
-        <GuildHeader data={guild as any} />
+        <GuildHeader />
       </Flex>
     </>
   )

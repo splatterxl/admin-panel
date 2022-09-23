@@ -27,7 +27,9 @@ export const UserLink: React.FC<{ id: Snowflake }> = ({ id }) => {
             discriminator={parseInt(user.discriminator)}
             alt={user.username}
           />
-          <Text as="span">{user.username}</Text>
+          <Text as="span">
+            {user.username}#{user.discriminator}
+          </Text>
         </HStack>
       </Link>
     )
