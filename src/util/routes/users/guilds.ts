@@ -1,4 +1,5 @@
 import { Routes, Snowflake } from "discord-api-types/v10"
+import CurrentUserGuildsStore from "../../../stores/CurrentUserGuildsStore"
 import http from "../../http"
 
 export const acceptInvite = async (code: string) => {
@@ -7,4 +8,6 @@ export const acceptInvite = async (code: string) => {
 
 export const joinGuild = async (guildId: Snowflake, userId: Snowflake) => {
   await http.put(Routes.guildMember(guildId, userId), "")
+
+  await CurrentUserGuildsStore.fetch()
 }

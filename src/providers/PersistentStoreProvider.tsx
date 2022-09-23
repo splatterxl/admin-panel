@@ -3,6 +3,7 @@ import {
   Routes,
 } from "discord-api-types/v10"
 import React from "react"
+import { FullscreenSpinner } from "../components/layout/FullscreenSpinner"
 import CurrentUserGuildsStore from "../stores/CurrentUserGuildsStore"
 import http from "../util/http"
 
@@ -10,22 +11,18 @@ export const PersistentStoreProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   const [loaded, setLoaded] = React.useState(false),
-    [setCurrentUserGuilds] = [CurrentUserGuildsStore.useSetState()]
+    [set] = [CurrentUserGuildsStore.useSetInStorage()]
 
   React.useEffect(() => {
-    {
-      // current user guilds
+    ;(async () => {
+      if (loaded) return
 
-      http
-        .get<RESTGetAPICurrentUserGuildsResult>(Routes.userGuilds())
-        .then(({ ok, data }) => {
-          if (ok) setCurrentUserGuilds(data)
-        })
-    }
+      await CurrentUserGuildsStore.fetch(set)
 
-    setLoaded(true)
-  }, [])
+      setLoaded(true)
+    })()
+  }, [loaded])
 
-  if (!loaded) return null
+  if (!loaded) return <FullscreenSpinner />
   else return <>{children}</>
 }
