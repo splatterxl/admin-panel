@@ -6,6 +6,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react"
 import { AiOutlineSearch } from "react-icons/ai"
+import { themed } from "../../../../util/constants"
 import { useFormContext } from "../../Form"
 import TextInput, { TextInputProps } from "./TextInput"
 
@@ -14,7 +15,7 @@ export default function SearchbarInput(props: TextInputProps) {
 
   return (
     <InputGroup>
-      <TextInput {...props} />
+      <TextInput fontFamily="normal" {...props} />
       <InputRightElement pr={3}>
         <Button
           variant="ghost"
@@ -23,16 +24,9 @@ export default function SearchbarInput(props: TextInputProps) {
           onClick={() => {
             context.submit()
           }}
-          aria-label="Search"
-          bgColor="transparent"
-          _hover={{
-            bgColor: "transparent",
-          }}
-          _active={{
-            bgColor: "transparent",
-          }}
+          hidden
         >
-          <Icon as={AiOutlineSearch} aria-hidden="true" />
+          Search
         </Button>
       </InputRightElement>
     </InputGroup>

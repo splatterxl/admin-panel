@@ -14,7 +14,7 @@ export const NavbarAvatar: React.FC<{ isSearch?: boolean }> = ({
 
   return (
     <Link href={Endpoints.USER(currentUser.id)} passHref={false}>
-      <HStack as={ChakraLink} tabIndex={-1} gap={1} pl={isSearch ? 3 : 0}>
+      <HStack as={ChakraLink} tabIndex={-1} gap={0.5} pl={isSearch ? 3 : 0}>
         <Text
           as="span"
           display={{

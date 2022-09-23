@@ -18,7 +18,7 @@ export const Navbar: React.FC<{
       spacing={0}
       width="full"
       justify={children ? "space-between" : "flex-end"}
-      paddingBottom={{ base: 2, md: 1 }}
+      paddingBottom={{ base: 2, md: 2 }}
     >
       {children}
       {!isMobile ? <NavbarAvatar isSearch={isSearch} /> : null}

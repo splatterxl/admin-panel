@@ -1,12 +1,10 @@
 import { Snowflake } from "discord-api-types/globals"
+import { editGuild } from "."
 import { PatchcordRoutes } from "../../constants"
 import http from "../../http"
 
 export const FEATURES = [
-  [
-    "Role Subscriptions Available",
-    "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE",
-  ],
+  ["Role Subscriptions Available", "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE"],
   ["Welcome Screen", "WELCOME_SCREEN_ENABLED"],
   ["Announcement Channels", "NEWS"],
   ["Community", "COMMUNITY"],
@@ -45,16 +43,8 @@ export const FEATURES = [
 ]
 
 export const FEATURE_MAP = Object.fromEntries(
-  FEATURES.map(([label, id], value) => [
-    id,
-    { label, value },
-  ])
+  FEATURES.map(([label, id], value) => [id, { label, value }])
 )
 
-export const editGuildFeatures = async (id: Snowflake, features: string[]) => {
-  const res = await http.patch(PatchcordRoutes.GUILD(id), {
-    features: features,
-  })
-
-  if (!res.ok) throw new Error(`could not apply features: ${res.err?.message}`)
-}
+export const editGuildFeatures = (id: Snowflake, features: string[]) =>
+  editGuild(id, { features: features as any })

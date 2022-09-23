@@ -14,22 +14,15 @@ export const SearchTypeProvider: React.FC<{ children: React.ReactNode }> = ({
   React.useEffect(() => {
     let newType = SearchType.ANY
 
-    switch (router.pathname) {
-      case Endpoints.GUILDS: {
-        newType = SearchType.GUILDS
-        break
-      }
-      case Endpoints.USERS: {
-        newType = SearchType.USERS
-        break
-      }
-      case Endpoints.SEARCH: {
-        const t = parseInt(getQuery(router.asPath).t)
+    if (router.pathname.startsWith(Endpoints.GUILDS)) {
+      newType = SearchType.GUILDS
+    } else if (router.pathname.startsWith(Endpoints.USERS)) {
+      newType = SearchType.USERS
+    } else if (router.pathname === Endpoints.SEARCH) {
+      const t = parseInt(getQuery(router.asPath).t)
 
-        if (!isNaN(t)) {
-          newType = t
-          break
-        }
+      if (!isNaN(t)) {
+        newType = t
       }
     }
 

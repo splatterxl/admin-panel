@@ -1632,6 +1632,7 @@ __metadata:
     "@types/react": 18.0.17
     "@types/react-dom": 18.0.6
     discord-api-types: ^0.37.4
+    discord-snowflake: ^2.0.0
     eslint: 8.22.0
     eslint-config-next: 12.2.5
     formik: ^2.2.9
@@ -2055,6 +2056,13 @@ __metadata:
   version: 0.37.4
   resolution: "discord-api-types@npm:0.37.4"
   checksum: 18b74acfcd5f6c554668eb5cb31a5db9076dfb5cb6b5c538a342ab9d22816644bada22a66285468fe7dd9980287921d5d50ba3b11cc8e391fe4f09e761bcd179
+  languageName: node
+  linkType: hard
+
+"discord-snowflake@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "discord-snowflake@npm:2.0.0"
+  checksum: aefff84f87c109f0acf2d95998174e26aa40ffb07c90738ce101d0ee67f0f7fd78de7309ad6a24cbedec9fb12f5da7920392506f9d336448bf64409155889914
   languageName: node
   linkType: hard
 

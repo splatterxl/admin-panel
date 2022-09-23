@@ -14,7 +14,10 @@ const PLACEHOLDERS: Record<SearchType, string> = {
   [SearchType.USERS]: "users",
 }
 
-export const Searchbar: React.FC<FlexProps> = (props) => {
+export const Searchbar: React.FC<FlexProps & { label?: string }> = ({
+  label,
+  ...props
+}) => {
   const searchType = SearchTypeStore.useValue(),
     router = useRouter(),
     { q: query } = getQuery(router.asPath)
@@ -22,7 +25,7 @@ export const Searchbar: React.FC<FlexProps> = (props) => {
   return (
     <Form
       id="search"
-      width="full"
+      width={!label ? "full" : undefined}
       customButtons
       {...props}
       onSubmit={({ input }) => search(input, searchType)}
@@ -31,7 +34,7 @@ export const Searchbar: React.FC<FlexProps> = (props) => {
         id="input"
         as={SearchbarInput}
         label="Search"
-        placeholder={`Search ${PLACEHOLDERS[searchType]}`}
+        placeholder={label ?? `Search ${PLACEHOLDERS[searchType]}`}
         defaultValue={query}
         hiddenLabel
       />

@@ -63,6 +63,7 @@ export enum Colors {
 
   TEXT_INTERACTIVE_NORMAL_DARK = "white",
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
+  TEXT_HEADER_SECONDARY_DARK = "#B9BBBE",
 }
 
 const _DEFAULT_FONT =
@@ -84,6 +85,14 @@ export const THEME: Partial<ChakraTheme> = {
     tertiary: {
       dark: Colors.BG_TERTIARY_DARK,
       light: Colors.BG_SECONDARY_LIGHT,
+    },
+    header_secondary: {
+      dark: Colors.TEXT_HEADER_SECONDARY_DARK,
+      light: Colors.TEXT_HEADER_SECONDARY_DARK,
+    },
+    text: {
+      dark: Colors.TEXT_INTERACTIVE_NORMAL_DARK,
+      light: Colors.TEXT_INTERACTIVE_NORMAL_LIGHT,
     },
   },
 }
