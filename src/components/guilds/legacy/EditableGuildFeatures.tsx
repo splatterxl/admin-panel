@@ -2,8 +2,8 @@ import { Box, Button, Flex, Icon } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { FaEdit } from "react-icons/fa"
-import { GuildFlagsEditModal } from "../modals/GuildFlagsEditModal"
-import { _TooltipCard } from "../Tooltip"
+import { GuildFlagsEditModal } from "../../modals/GuildFlagsEditModal"
+import { _TooltipCard } from "../../Tooltip"
 
 export const EditableGuildFeatures: React.FC<{ features: string[] }> = ({
   features,

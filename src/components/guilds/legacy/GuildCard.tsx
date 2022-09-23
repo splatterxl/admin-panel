@@ -1,11 +1,11 @@
 import { Flex, FlexProps } from "@chakra-ui/react"
 import { APIGuild } from "discord-api-types/v10"
 import Link from "next/link"
-import { Endpoints } from "../../util/constants"
-import { Hr } from "../user/UserCard"
+import { Endpoints } from "../../../util/constants"
+import { Hr } from "../../user/UserCard"
+import { GuildIcon } from "../GuildIcon"
 import { EditableGuildFeatures } from "./EditableGuildFeatures"
 import { GuildDescription } from "./GuildDescription"
-import { GuildIcon } from "./GuildIcon"
 import { GuildName } from "./GuildName"
 
 export const GuildCard: React.FC<

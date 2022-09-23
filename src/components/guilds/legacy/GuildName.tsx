@@ -8,8 +8,8 @@ import {
 import { Snowflake } from "discord-api-types/globals"
 import { GuildFeature } from "discord-api-types/v10"
 import React from "react"
-import { GuildPartnered } from "../../icons/guild/PartneredIcon"
-import { GuildVerified } from "../../icons/guild/VerifiedIcon"
+import { GuildPartnered } from "../../../icons/guild/PartneredIcon"
+import { GuildVerified } from "../../../icons/guild/VerifiedIcon"
 
 export const GuildName: React.FC<
   {
@@ -42,7 +42,7 @@ export const GuildName: React.FC<
           duration: 3e3,
         })
       }}
-      textAlign="center"
+      textAlign={compact ? undefined : "center"}
       display="flex"
       maxW={!compact ? 64 : undefined}
       flexWrap="wrap"
