@@ -1,9 +1,10 @@
 import AuthStore from "../stores/AuthStore"
-import { Constants } from "./constants"
+import { AbortCodes, Constants } from "./constants"
 import { noop } from "./noop"
 
 export interface APIRequest extends RequestInit {
   query?: Record<string, any> | URLSearchParams
+  kickOnUnauthorized?: boolean
 }
 
 export interface APIResponse<T> extends Response {
@@ -72,7 +73,14 @@ class HTTPClient {
     if (!res.ok) {
       toReturn.err = json
 
-      throw new HTTPError(res, json)
+      if (
+        res.status === 401 /* Unauthorized */ &&
+        (options.kickOnUnauthorized || options.kickOnUnauthorized === undefined)
+      ) {
+        throw AbortCodes.MUST_LOGIN
+      } else {
+        throw new HTTPError(res, json)
+      }
     }
 
     toReturn.data = json

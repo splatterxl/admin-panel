@@ -1,4 +1,4 @@
-import { Flex, useColorMode } from "@chakra-ui/react"
+import { useColorMode } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
 import { FormInputAutocompleteTypes } from "../../components/form/autocomplete/FormInputAutocompleteTypes"
@@ -9,6 +9,7 @@ import Form from "../../components/form/Form"
 import FormBody from "../../components/form/FormBody"
 import FormHeading from "../../components/form/FormHeading"
 import { FullscreenCard } from "../../components/layout/card/CardWithContainer"
+import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import AuthStore from "../../stores/AuthStore"
 import CurrentUserStore from "../../stores/CurrentUserStore"
 import { Endpoints } from "../../util/constants"
@@ -18,10 +19,27 @@ import { login } from "../../util/routes/auth"
 export default function Login() {
   const [error, setError] = React.useState<string>(""),
     setAuth = AuthStore.useSetInStorage(),
+    auth = AuthStore.useValue(),
     setCurrentUser = CurrentUserStore.useSetInStorage(),
-    { setColorMode } = useColorMode(),
-    router = useRouter(),
+    { setColorMode } = useColorMode()
+
+  const router = useRouter(),
     next = one(router.query.next)
+
+  const [loaded, setLoaded] = React.useState(false)
+
+  React.useEffect(() => {
+    if (auth) {
+      if (next) router.replace(next)
+      else router.replace(Endpoints.HOME)
+    } else {
+      setLoaded(true)
+    }
+  }, [])
+
+  if (!loaded) {
+    return <FullscreenSpinner />
+  }
 
   return (
     <FullscreenCard>

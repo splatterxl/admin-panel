@@ -1,4 +1,5 @@
 import { ChakraTheme } from "@chakra-ui/react"
+import { mode } from "@chakra-ui/theme-tools"
 import { Snowflake } from "discord-api-types/globals"
 import { SearchType } from "../stores/SearchTypeStore"
 
@@ -51,6 +52,11 @@ export const PatchcordRoutes = {
   QUERY_GUILDS: "/admin/guilds",
 }
 
+export const enum AbortCodes {
+  MUST_LOGIN = 1e3,
+}
+
+
 export enum Colors {
   BG_CARD_DARK = "#52b7b7",
   BG_CARD_LIGHT = "#38bbaf",
@@ -94,6 +100,13 @@ export const THEME: Partial<ChakraTheme> = {
       dark: Colors.TEXT_INTERACTIVE_NORMAL_DARK,
       light: Colors.TEXT_INTERACTIVE_NORMAL_LIGHT,
     },
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: mode(Colors.BG_PRIMARY_LIGHT, Colors.BG_PRIMARY_DARK)(props),
+      },
+    }),
   },
 }
 
