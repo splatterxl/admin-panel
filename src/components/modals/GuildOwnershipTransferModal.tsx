@@ -38,25 +38,22 @@ export const GuildOwnershipTransferModal: React.FC<{
 
               const guild = await getGuild(id)
 
-              if (guild.owner_id === userId) {
-                onClose()
-                return
-              } else {
+              if (guild.owner_id !== userId) {
                 await transferOwnership(id, userId)
-                apply(userId)
-              }
+              } else console.log("user is already owner")
+
+              apply(userId)
             }}
             i18n={{
               submit: "Transfer",
             }}
             submitProps={{
               mt: 4,
-              mb: 8,
               my: 0,
             }}
             px={6}
             pt={6}
-            pb={4}
+            pb={8}
           >
             <FormHeading>
               <FormHeading.Title>Transfer Ownership</FormHeading.Title>

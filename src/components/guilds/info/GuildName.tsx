@@ -9,7 +9,12 @@ export const GuildName: React.FC<{ name: string; flags: GuildFeature[] }> = ({
 }) => {
   return (
     <HStack justify="flex-start" align="center" spacing={1}>
-      <Heading fontFamily="normal" size="sm" as="h2" fontWeight={600}>
+      <Heading
+        fontFamily="normal"
+        size={{ base: "md", md: "sm" }}
+        as="h2"
+        fontWeight={600}
+      >
         {name}
       </Heading>
       <HStack spacing={0.5} justify="flex-start" align="center">

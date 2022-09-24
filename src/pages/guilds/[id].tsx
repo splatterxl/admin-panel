@@ -1,29 +1,33 @@
-import { Flex, Heading } from "@chakra-ui/react"
+import { Heading } from "@chakra-ui/react"
 import { APIGuild } from "discord-api-types/v10"
 import { useRouter } from "next/router"
-import React from "react"
-import { GuildHeader } from "../../components/guilds/GuildHeader"
+import React, { createContext } from "react"
+import { GuildHeader } from "../../components/guilds/header/GuildHeader"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import { Navbar } from "../../components/layout/navbar/Navbar"
-import FocusedGuildStore from "../../stores/FocusedGuildStore"
 import { PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
+
+export const GuildContext = createContext<{
+  data: APIGuild & { member_count: number }
+  setData: React.Dispatch<APIGuild & { member_count: number }>
+}>(null as any)
 
 export default function UserProfile() {
   const router = useRouter(),
     guildId = one(router.query.id)!,
     // undefined: loading, null: not found
-    [guild, setGuild] = FocusedGuildStore.useState()
+    [guild, setGuild] = React.useState<null | undefined | APIGuild>(undefined)
 
   React.useEffect(() => {
     ;(async () => {
       if (!guildId) {
-        setGuild(null as any)
+        setGuild(null)
         return
       }
 
-      if (guild && guild.id !== guildId) setGuild(null as any)
+      if (guild && guild.id !== guildId) setGuild(null)
 
       const res = await http.get<APIGuild>(PatchcordRoutes.GUILD(guildId))
 
@@ -43,17 +47,21 @@ export default function UserProfile() {
     <>
       <Navbar>
         {/* <Searchbar label="Search guilds by ID or name" /> */}
-        <Heading size="md">Guild Details</Heading>
+        <Heading size="md" display={{ base: "none", md: "block" }}>
+          Guild Details
+        </Heading>
       </Navbar>
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        height="full"
-        width="full"
-        justify="flex-start"
-        align={{ base: "center", md: "flex-start" }}
+      <GuildContext.Provider
+        value={{
+          data: guild as any,
+          setData: (data) => {
+            console.log("new guild", data)
+            setGuild(data)
+          },
+        }}
       >
         <GuildHeader />
-      </Flex>
+      </GuildContext.Provider>
     </>
   )
 }
