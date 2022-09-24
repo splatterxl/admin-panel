@@ -19,11 +19,11 @@ export default function UserProfile() {
   React.useEffect(() => {
     ;(async () => {
       if (!guildId) {
-        setGuild(null)
+        setGuild(null as any)
         return
       }
 
-      if (guild && guild.id !== guildId) setGuild(null)
+      if (guild && guild.id !== guildId) setGuild(null as any)
 
       const res = await http.get<APIGuild>(PatchcordRoutes.GUILD(guildId))
 
