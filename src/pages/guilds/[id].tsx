@@ -1,10 +1,14 @@
 import { Heading } from "@chakra-ui/react"
-import { APIGuild } from "discord-api-types/v10"
+import { APIChannel, APIGuild } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React, { createContext } from "react"
+import { GuildDetails } from "../../components/guilds/details/GuildDetails"
 import { GuildHeader } from "../../components/guilds/header/GuildHeader"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import { Navbar } from "../../components/layout/navbar/Navbar"
+import { SectionContainer } from "../../components/layout/section/SectionContainer"
+import ChannelCache from "../../stores/cache/ChannelCache"
+import FocusedGuildStore from "../../stores/FocusedGuildStore"
 import { PatchcordRoutes } from "../../util/constants"
 import http from "../../util/http"
 import { one } from "../../util/one"
@@ -18,7 +22,20 @@ export default function UserProfile() {
   const router = useRouter(),
     guildId = one(router.query.id)!,
     // undefined: loading, null: not found
-    [guild, setGuild] = React.useState<null | undefined | APIGuild>(undefined)
+    [guild, setGuild] = FocusedGuildStore.useState(),
+    addChannelToCache = ChannelCache.useSet()
+
+  React.useEffect(() => {
+    // @ts-ignore
+    const channels: APIChannel[] = guild?.channels
+
+    if (!channels) return
+
+    for (const channel of channels) {
+      addChannelToCache(channel.id, channel)
+    }
+    // @ts-ignore
+  }, [addChannelToCache, guild?.channels, guildId])
 
   React.useEffect(() => {
     ;(async () => {
@@ -47,20 +64,20 @@ export default function UserProfile() {
     <>
       <Navbar>
         {/* <Searchbar label="Search guilds by ID or name" /> */}
-        <Heading size="md" display={{ base: "none", md: "block" }}>
+        <Heading size="lg" display={{ base: "none", md: "block" }}>
           Guild Details
         </Heading>
       </Navbar>
       <GuildContext.Provider
         value={{
           data: guild as any,
-          setData: (data) => {
-            console.log("new guild", data)
-            setGuild(data)
-          },
+          setData: setGuild,
         }}
       >
         <GuildHeader />
+        <SectionContainer>
+          <GuildDetails />
+        </SectionContainer>
       </GuildContext.Provider>
     </>
   )

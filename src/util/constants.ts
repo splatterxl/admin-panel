@@ -48,6 +48,7 @@ export const PatchcordRoutes = {
   COUNTS: "/admin/counts",
   USER: (id: Snowflake) => `/admin/users/${id}`,
   GUILD: (id: Snowflake) => `/admin/guilds/${id}`,
+  CHANNEL: (id: Snowflake) => `/admin/channels/${id}`,
   QUERY_USERS: "/admin/users",
   QUERY_GUILDS: "/admin/guilds",
 }
@@ -55,7 +56,6 @@ export const PatchcordRoutes = {
 export const enum AbortCodes {
   MUST_LOGIN = 1e3,
 }
-
 
 export enum Colors {
   BG_CARD_DARK = "#52b7b7",
@@ -65,7 +65,7 @@ export enum Colors {
   BG_PRIMARY_LIGHT = "#ffffff",
   BG_SECONDARY_DARK = "#2f3136",
   BG_SECONDARY_LIGHT = "#f2f3f5",
-  BG_TERTIARY_DARK = "#282a2e",
+  BG_TERTIARY_DARK = "#202225",
 
   TEXT_INTERACTIVE_NORMAL_DARK = "white",
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
@@ -78,6 +78,7 @@ const _DEFAULT_FONT =
 export const THEME: Partial<ChakraTheme> = {
   fonts: {
     normal: '"Whitney", ' + _DEFAULT_FONT,
+    body: '"Whitney", ' + _DEFAULT_FONT,
     heading: '"Ginto Normal", ' + _DEFAULT_FONT,
     nord: '"Ginto Nord", ' + _DEFAULT_FONT,
   },

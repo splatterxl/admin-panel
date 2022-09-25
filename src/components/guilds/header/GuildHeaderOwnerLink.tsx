@@ -11,7 +11,6 @@ export const GuildHeaderOwnerLink: React.FC<{
   owner_id: Snowflake
   setOpen: Dispatch<boolean>
 }> = ({ owner_id, setOpen }) => {
-  console.log(owner_id)
   return (
     <Field
       name="Owner"

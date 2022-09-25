@@ -12,3 +12,10 @@ export const GhostButton: React.FC<ButtonProps> = (props) => {
     />
   )
 }
+
+export const GhostButtonProps = {
+  variant: "ghost",
+  bgColor: "transparent",
+  _hover: { bgColor: "transparent" },
+  _active: { bgColor: "transparent" },
+}

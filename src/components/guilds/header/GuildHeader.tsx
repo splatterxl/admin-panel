@@ -1,7 +1,8 @@
 import { Flex, HStack, Stack, Text, VStack } from "@chakra-ui/react"
+import { APIGuild } from "discord-api-types/v10"
 import { getDate } from "discord-snowflake"
 import React from "react"
-import { GuildContext } from "../../../pages/guilds/[id]"
+import FocusedGuildStore from "../../../stores/FocusedGuildStore"
 import { themed } from "../../../util/constants"
 import { Field } from "../../layout/Field"
 import { GuildOwnershipTransferModal } from "../../modals/GuildOwnershipTransferModal"
@@ -11,7 +12,9 @@ import { GuildHeaderOwnerLink } from "./GuildHeaderOwnerLink"
 
 export const GuildHeader: React.FC = () => {
   const [isOwnershipModalOpen, setOpen] = React.useState(false),
-    { data: data, setData } = React.useContext(GuildContext)
+    [data, setData] = FocusedGuildStore.useState()
+
+  if (!data) return null
 
   function onClose() {
     setOpen(false)
@@ -23,6 +26,7 @@ export const GuildHeader: React.FC = () => {
         justify="flex-start"
         rounded="md"
         p={{ base: 8, md: 4 }}
+        pb={2}
         minW={{ base: 0, md: "full" }}
         {...themed("bgColor", "secondary")}
       >
@@ -85,8 +89,7 @@ export const GuildHeader: React.FC = () => {
         isOpen={isOwnershipModalOpen}
         onClose={onClose}
         apply={(newOwner) => {
-          console.log("new owner", newOwner)
-          setData({ ...data, owner_id: newOwner })
+          setData((data) => ({ ...data, owner_id: newOwner } as APIGuild))
           onClose()
         }}
       />

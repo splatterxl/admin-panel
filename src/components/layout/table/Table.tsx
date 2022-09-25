@@ -3,7 +3,7 @@ import { TableData } from "./TableData"
 import { TableRows } from "./rows/TableRows"
 
 export const Table: React.FC<{
-  children: React.ReactNode
+  children?: React.ReactNode
   data?: Record<string, React.ReactNode>
 }> = ({ children, data }) => {
   if (children && !data) {

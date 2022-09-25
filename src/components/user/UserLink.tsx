@@ -5,6 +5,7 @@ import Link from "next/link"
 import React, { useState } from "react"
 import { Endpoints } from "../../util/constants"
 import { getUser } from "../../util/routes/users"
+import { Loading } from "../Loading"
 import { UserAvatar } from "./UserAvatar"
 
 export const UserLink: React.FC<{ id: Snowflake }> = ({ id }) => {
@@ -14,13 +15,7 @@ export const UserLink: React.FC<{ id: Snowflake }> = ({ id }) => {
     getUser(id).then((user) => setUser(user))
   }, [id])
 
-  if (!user)
-    return (
-      <HStack justify="flex-start" align="flex-start">
-        <Spinner size="sm" />
-        <Text as="span">{id}</Text>
-      </HStack>
-    )
+  if (!user) return <Loading size="sm" />
   else
     return (
       <Link href={Endpoints.USER(id)} passHref>
