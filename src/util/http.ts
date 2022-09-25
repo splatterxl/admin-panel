@@ -99,7 +99,7 @@ class HTTPError extends Error {
 
     this.name = err.code === 0 ? this.name : `HTTPError[${err.code}]`
     this.message = err.message
-    this.cause = err.errors
+    this.errors = err.errors
 
     this.code = `${res.status} ${res.statusText}`
   }
