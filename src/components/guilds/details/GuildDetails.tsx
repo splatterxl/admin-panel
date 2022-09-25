@@ -227,6 +227,8 @@ export const GuildDetails: React.FC = () => {
           convertDisplayedDictToAPI(values as any, data.id, coerceChannel)
         )
 
+        if (Object.keys(newData).length === 0) return
+
         await editGuild(data.id, newData)
         setData((prev) => ({ ...prev, ...newData } as APIGuild))
       }}
