@@ -93,13 +93,14 @@ class HTTPClient {
 class HTTPError extends Error {
   name = "HTTPError"
   code: string
+  err: APIError
 
   constructor(res: Response, err: APIError) {
     super()
 
     this.name = err.code === 0 ? this.name : `HTTPError[${err.code}]`
     this.message = err.message
-    this.errors = err.errors
+    this.err = err
 
     this.code = `${res.status} ${res.statusText}`
   }
