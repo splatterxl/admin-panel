@@ -3,6 +3,7 @@ import type { AppProps } from "next/app"
 import Head from "next/head"
 import { RecoilRoot } from "recoil"
 import { Container } from "../components/layout/Container"
+import { SafariBanner } from "../components/SafariBanner"
 import { AuthProvider } from "../providers/AuthProvider"
 import { PersistentStoreProvider } from "../providers/PersistentStoreProvider"
 import { SearchTypeProvider } from "../providers/SearchTypeProvider"
@@ -19,6 +20,7 @@ function PatchcordAdmin({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <SearchTypeProvider>
             <PersistentStoreProvider>
+              <SafariBanner />
               <Container>
                 <Component {...pageProps} />
               </Container>
