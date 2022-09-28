@@ -41,22 +41,33 @@ export const TableRow: React.FC<
         href={href}
       >
         {icon}
-        <Text as="span" fontSize="sm" {...(title ? props : {})}>
-          {title ?? children}
-        </Text>
+        {!title && noText ? (
+          children
+        ) : (
+          <Text as="span" fontSize="sm" {...(title ? props : {})}>
+            {title ?? children}
+          </Text>
+        )}
       </HStack>
-      <HStack width="full" flexDirection={title ? "row" : "row-reverse"}>
-        {title ? (
-          noText ? (
-            children
-          ) : (
-            <Text as="span" fontSize="sm" {...props}>
-              {children}
-            </Text>
-          )
-        ) : null}
-        {actions}
-      </HStack>
+      {title ?? actions ? (
+        <HStack
+          width={title ? "full" : undefined}
+          flexDirection={title ? "row" : "row-reverse"}
+          justify="flex-start"
+          align="center"
+        >
+          {title ? (
+            noText ? (
+              children
+            ) : (
+              <Text as="span" fontSize="sm" {...props}>
+                {children}
+              </Text>
+            )
+          ) : null}
+          {actions}
+        </HStack>
+      ) : null}
     </HStack>
   )
 }

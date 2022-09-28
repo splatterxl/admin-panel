@@ -12,7 +12,7 @@ export const Section: React.FC<{
       justify="flex-start"
       align="flex-start"
       width="full"
-      mt={2}
+      pt={2}
       spacing={2}
     >
       <HStack justify="space-between" width="full" pr={1}>

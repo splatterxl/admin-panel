@@ -1,5 +1,15 @@
-import { Icon, IconButton, Input, Spinner, Text } from "@chakra-ui/react"
-import React from "react"
+import {
+  Button,
+  HStack,
+  Icon,
+  IconButton,
+  Input,
+  Spinner,
+  Text,
+} from "@chakra-ui/react"
+import React, { FormEvent } from "react"
+import { AiOutlineMinus } from "react-icons/ai"
+import { BsFillPlusCircleFill } from "react-icons/bs"
 import { MdDone, MdEdit } from "react-icons/md"
 import { themed } from "../../../util/constants"
 import { toProperCase } from "../../../util/string"
@@ -10,57 +20,235 @@ import { TableRows } from "./rows/TableRows"
 
 export type NotNull<T> = Exclude<T, null | undefined>
 
-// TODO
-export const TableData: React.FC<{
-  data: Record<string, React.ReactNode>
-  editable?: boolean
-  transformEdit?: Record<
-    string,
-    () => string | number | null | undefined | { value: string; label: string }
-  >
-  onEdit?: (args: Record<string, string | number>) => void | Promise<void>
-  title?: string
-}> = ({
-  data,
-  editable = false,
-  title,
-  transformEdit: transformToEditableValues,
-  onEdit,
-}) => {
-  const initialRows = []
+export class TableData extends React.Component<
+  {
+    data: Record<string, React.ReactNode> | React.ReactNode[]
+    editable?: boolean
+    transformEdit?: Record<
+      string,
+      () =>
+        | string
+        | number
+        | null
+        | undefined
+        | { value: string; label: string }
+    >
+    onEdit?: (args: any) => void | Promise<void>
+    onItemAdd?: () => void | Promise<void>
+    onItemRemove?: (key: string) => void | Promise<void>
+    title?: string
+  },
+  {
+    editing: boolean
+    submitting: boolean
+    values: Record<string, string>
+  }
+> {
+  state = {
+    editing: false,
+    submitting: false,
+    values: {},
+  }
 
-  const [editing, setEditing] = React.useState(false),
-    [submitting, setSubmitting] = React.useState(false),
-    [values, setValues] = React.useState({})
+  listener(event: KeyboardEvent) {
+    if (
+      (event.keyCode === 27 || event.key === "Escape") &&
+      this.state.editing
+    ) {
+      this.setState((prev) => ({ ...prev, editing: false }))
+    }
+  }
 
-  function sanitiseValue(val: React.ReactNode) {
+  isArray() {
+    return Array.isArray(this.props.data)
+  }
+
+  /**
+   * Sanitise a value to an editable form field value that can be inserted into an input value
+   *
+   * We cannot add a ReactNode to the input value for obvious reasons
+   */
+  sanitiseValue(val: React.ReactNode) {
     if (["string", "number", "boolean"].includes(typeof val))
       return val?.toString()
     else return null
   }
 
-  for (let [key, value] of Object.entries(data)) {
-    if (value === null) continue
+  async handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
 
-    if (!editing) {
-      if (value === undefined)
+    this.setEditing(true)
+    this.setSubmitting(true)
+
+    try {
+      if (this.isArray()) {
+        // create a new array to carry over set data that we don't need to change, but not to mutate the props array since that's kinda important to keep
+        // as-is
+        //
+        // this is different from the object implementation where we only send the values
+        // that have explicitly been changed by the end user, to be optimised and save bandwidth
+        // in HTTP PATCH requests.
+        //
+        // for arrays, however, we need to include all of the values since it is not in fact a PATCH
+        // request with an object.
+        //
+        // for example: take the following object value passed to this component
+        //
+        // data = { name: 'a', value: 'three' }
+        //
+        // if the user edits `value`, then we can just send back the `value` property with its new edited
+        // value as the mutation by the parent component is probably just a PATCH request.
+        //
+        // however, take this following array:
+        //
+        // data = [1, 2, 3]
+        //
+        // we cannot send back just the edited value as every value _must_ be present in the array for Discord's API
+        // to mutate properly (except for adding a single feature, which I'm pretty sure Patchcord does not implement, and also is an edge case).
+        // that does not apply to the other endpoints so for consistency and to ensure no data is lost we send back the entire array.
+        const array: any[] = Object.assign([], this.props.data)
+
+        for (const [key, value] of Object.entries(this.state.values)) {
+          array[+key] = value
+        }
+
+        // @ts-ignore
+        this.props.onEdit!(array)
+      } else {
+        // simply pass the edited values to the handler.
+        // @ts-ignore
+        this.props.onEdit!(values)
+      }
+    } catch (e) {
+      console.error(e)
+    }
+
+    this.setSubmitting(false)
+    this.setEditing(false)
+  }
+
+  render() {
+    return this.getView()
+  }
+
+  componentDidMount() {
+    window.addEventListener("keydown", this.listener.bind(this))
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.listener.bind(this))
+  }
+
+  getView() {
+    if (this.state.editing) return this.getEditingView()
+    else return this.getDisplayView()
+  }
+
+  setEditing(editing: boolean) {
+    return this.setState((prev) => ({ ...prev, editing }))
+  }
+
+  setSubmitting(submitting: boolean) {
+    return this.setState((prev) => ({ ...prev, submitting }))
+  }
+
+  getDisplayView() {
+    const rows = <TableRows>{this.getDisplayRows()}</TableRows>
+
+    if (this.props.editable)
+      return (
+        <Section
+          heading={this.props.title!}
+          actions={
+            <IconButton
+              size="xs"
+              icon={
+                this.state.submitting ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <Icon as={MdEdit} boxSize="1.5em" />
+                )
+              }
+              onClick={() => {
+                this.setEditing(true)
+              }}
+              {...GhostButtonProps}
+              aria-label="Edit"
+            />
+          }
+        >
+          {rows}
+        </Section>
+      )
+    else return rows
+  }
+
+  getEditingView() {
+    const rows = this.getEditingRows()
+
+    return (
+      <form style={{ width: "100%" }} onSubmit={this.handleSubmit.bind(this)}>
+        <Section
+          heading={this.props.title!}
+          actions={
+            <IconButton
+              type={"submit"}
+              size="xs"
+              icon={
+                this.state.submitting ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <Icon as={MdDone} boxSize="1.5em" />
+                )
+              }
+              {...GhostButtonProps}
+              aria-label="Edit"
+            />
+          }
+        >
+          <TableRows>{rows}</TableRows>
+        </Section>
+      </form>
+    )
+  }
+
+  getDisplayRows() {
+    const rows = []
+
+    for (let [key, value] of Object.entries(this.props.data)) {
+      if (value === undefined) {
         value = (
           <Text as="span" mr={2.5} color="whiteAlpha.400">
             Unset
           </Text>
         )
-      initialRows.push(
-        <TableRow title={toProperCase(key)} key={key}>
+      } else if (!value) {
+        continue
+      }
+
+      rows.push(
+        <TableRow
+          title={!this.isArray() ? toProperCase(key) : undefined}
+          key={key}
+        >
           {value}
         </TableRow>
       )
-    } else {
-      const sanitised = sanitiseValue(value)
+    }
+
+    return rows
+  }
+
+  getEditingRows() {
+    const rows = []
+
+    for (const [key, value] of Object.entries(this.props.data)) {
+      const sanitised = this.sanitiseValue(value)
 
       let final: string | number | null | undefined = sanitised
 
       if (sanitised == null) {
-        const transformed = transformToEditableValues?.[key]?.()
+        const transformed = this.props.transformEdit?.[key]?.()
 
         if (transformed != null) {
           if (typeof transformed === "object") {
@@ -71,12 +259,30 @@ export const TableData: React.FC<{
         }
       }
 
-      initialRows.push(
-        <TableRow title={toProperCase(key)} noText>
+      const isArray = this.isArray()
+
+      rows.push(
+        <TableRow
+          title={!isArray ? toProperCase(key) : undefined}
+          actions={
+            isArray && this.props.onItemRemove ? (
+              <IconButton
+                aria-label="delete"
+                size="xs"
+                onClick={() => {
+                  this.props.onItemRemove!(key)
+                }}
+                {...GhostButtonProps}
+                icon={<Icon as={AiOutlineMinus} />}
+              />
+            ) : undefined
+          }
+          key={final === "" ? key : final}
+          noText
+        >
           <Input
             name={key}
             id={key}
-            key={key}
             aria-label={key}
             size="xs"
             fontSize="sm"
@@ -86,75 +292,37 @@ export const TableData: React.FC<{
             {...themed("bgColor", "secondary")}
             defaultValue={final ?? ""}
             onChange={(event) => {
-              setValues((prev) => ({ ...prev, [key]: event.target.value }))
+              this.setState((prev) => ({
+                ...prev,
+                values: { ...prev.values, [key]: event.target.value },
+              }))
             }}
-            placeholder="Unset"
+            placeholder={this.isArray() ? "" : "Unset"}
           />
         </TableRow>
       )
     }
-  }
 
-  {
-    const listener = (event: KeyboardEvent) => {
-      if ((event.keyCode === 27 || event.key === "Escape") && editing) {
-        setEditing(false)
-      }
+    if (this.isArray() && this.props.onItemAdd) {
+      rows.push(
+        <Button
+          variant="ghost"
+          width="full"
+          size="sm"
+          rounded={0}
+          onClick={() => {
+            this.props.onItemAdd!()
+          }}
+          {...themed("bgColor", "secondary")}
+        >
+          <HStack gap={1} opacity={0.8}>
+            <Icon as={BsFillPlusCircleFill} {...themed("stroke", "text")} />
+            <Text as="span">Add item</Text>
+          </HStack>
+        </Button>
+      )
     }
 
-    React.useEffect(() => {
-      if (editing) {
-        window.addEventListener("keydown", listener)
-
-        return () => window.removeEventListener("keydown", listener)
-      } else {
-        window.removeEventListener("keydown", listener)
-      }
-    }, [editing, listener])
+    return rows
   }
-
-  if (!editable) return <TableRows>{initialRows}</TableRows>
-  else
-    return (
-      <form
-        style={{ width: "100%" }}
-        onSubmit={async (event) => {
-          event.preventDefault()
-
-          setEditing(true)
-          setSubmitting(true)
-
-          await onEdit?.(values)
-
-          setSubmitting(false)
-          setEditing(false)
-        }}
-      >
-        <Section
-          heading={title!}
-          actions={
-            <IconButton
-              type={editing ? "button" : "submit"}
-              size="xs"
-              icon={
-                submitting ? (
-                  <Spinner size="sm" />
-                ) : (
-                  <Icon as={editing ? MdDone : MdEdit} boxSize="1.5em" />
-                )
-              }
-              onClick={() => {
-                if (submitting) return
-
-                setEditing(!editing)
-              }}
-              {...GhostButtonProps}
-              aria-label="Edit"
-            />
-          }
-        >
-          <TableRows>{initialRows}</TableRows>
-        </Section>
-      </form>
-    )
 }

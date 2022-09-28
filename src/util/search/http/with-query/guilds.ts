@@ -1,3 +1,4 @@
+import { APIGuild } from "discord-api-types/v10"
 import { PatchcordRoutes } from "../../../constants"
 import http from "../../../http"
 import { GuildsQueryResult } from "../../../routes/types"
@@ -5,6 +6,7 @@ import { GuildsQueryResult } from "../../../routes/types"
 export const searchGuildsByQuery = async (
   input: string,
   offset = 0,
+  inviteResult: APIGuild | undefined,
   lowLimit?: boolean
 ) => {
   const res = await http.get<GuildsQueryResult>(
@@ -19,5 +21,9 @@ export const searchGuildsByQuery = async (
     }
   )
 
-  return res.ok ? res.data.guilds : []
+  return res.ok
+    ? res.data.guilds.concat(inviteResult ? [inviteResult] : [])
+    : inviteResult
+    ? [inviteResult]
+    : []
 }

@@ -40,7 +40,7 @@ export const GuildOwnershipTransferModal: React.FC<{
 
               if (guild.owner_id !== userId) {
                 await transferOwnership(id, userId)
-              } else console.log("user is already owner")
+              }
 
               apply(userId)
             }}

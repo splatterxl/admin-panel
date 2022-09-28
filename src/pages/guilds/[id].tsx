@@ -3,6 +3,7 @@ import { APIChannel, APIGuild } from "discord-api-types/v10"
 import { useRouter } from "next/router"
 import React, { createContext } from "react"
 import { GuildDetails } from "../../components/guilds/details/GuildDetails"
+import { GuildFeatures } from "../../components/guilds/details/GuildFeatures"
 import { GuildHeader } from "../../components/guilds/header/GuildHeader"
 import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
 import { Navbar } from "../../components/layout/navbar/Navbar"
@@ -77,6 +78,7 @@ export default function UserProfile() {
         <GuildHeader />
         <SectionContainer>
           <GuildDetails />
+          <GuildFeatures />
         </SectionContainer>
       </GuildContext.Provider>
     </>

@@ -134,6 +134,8 @@ export const ErrorMessages = {
 
 export const Constants = {
   ID_REGEXP: /^\d{16,22}/,
+  INVITE_REGEXP:
+    /^(?:https?:\/\/)?(?:discord\.(?:com\/invites?|gg)|patchcord\.pw\/invites?)\/(?<invite>[a-zA-Z0-9])/i,
   DUMMY_DOMAIN: "https://admin.patchcord.pw",
   CDN_DOMAIN: process.env.NEXT_PUBLIC_CDN ?? "https://patchcord.pw",
   API_HOST:

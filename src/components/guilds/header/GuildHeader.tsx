@@ -26,7 +26,6 @@ export const GuildHeader: React.FC = () => {
         justify="flex-start"
         rounded="md"
         p={{ base: 8, md: 4 }}
-        pb={2}
         minW={{ base: 0, md: "full" }}
         {...themed("bgColor", "secondary")}
       >

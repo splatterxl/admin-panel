@@ -33,7 +33,7 @@ const convertDisplayedDictToAPI = (
     default_message_notifications: parseNotifLevel(dict.notification_level),
     mfa_level: parseMFALevel(dict.mfa_level),
     max_members: parseIntgr(dict.max_members),
-    vanity_url_code: dict.vanity_url_code === "" ? null : dict.vanity_url_code,
+    vanity_url_code: dict.vanity_code === "" ? null : dict.vanity_code,
     widget_channel_id: coerceChannel(dict.widget_channel),
     afk_channel_id: coerceChannel(dict.afk_channel),
     system_channel_id: coerceChannel(dict.system_channel),
@@ -239,7 +239,7 @@ export const GuildDetails: React.FC = () => {
         notification_level: notifLevel(data.default_message_notifications),
         mfa_level: GuildMFALevel[data.mfa_level] ?? data.mfa_level,
         max_members: data.max_members?.toLocaleString() ?? undefined,
-        vanity_url_code: data.vanity_url_code ?? undefined,
+        vanity_code: data.vanity_url_code ?? undefined,
         widget_channel: data.widget_channel_id ?? undefined,
         afk_channel: data.afk_channel_id ? (
           <>

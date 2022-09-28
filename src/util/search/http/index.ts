@@ -2,18 +2,27 @@ import { SearchResults } from "../../../stores/SearchResultStore"
 import { SearchType } from "../../../stores/SearchTypeStore"
 import { Constants } from "../../constants"
 import { searchById } from "./by-id"
+import { searchByInvite } from "./by-invite"
 import { searchByQuery } from "./with-query"
 
 export const search = async (
   query: string,
   type: SearchType,
   offset: number,
-  shouldTruncate?: boolean
+  shouldTruncate = true
 ): Promise<SearchResults> => {
   if (Constants.ID_REGEXP.test(query)) {
     return searchById(query, type)
   } else {
-    return searchByQuery(query, type, offset, shouldTruncate)
+    const invite = Constants.INVITE_REGEXP.exec(query)
+
+    if (invite) {
+      return searchByInvite(invite!.groups!.invite)
+    } else {
+      const inviteResults = await searchByInvite(query)
+
+      return searchByQuery(query, type, offset, shouldTruncate, inviteResults)
+    }
   }
 }
 

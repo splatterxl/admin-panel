@@ -79,7 +79,6 @@ export const GuildFlagsEditModal: React.FC<{
 
 const getFeatureComponents = (features: GuildFeature[]) => {
   return Object.entries(FEATURE_MAP).map(([id, { label }]) => {
-    // console.log(`${id}: ${features.includes(id as GuildFeature)}`)
     return (
       <FormField
         as={SwitchInput}
