@@ -47,7 +47,7 @@ export class TableData extends React.Component<
   state = {
     editing: false,
     submitting: false,
-    values: {},
+    values: {} as Record<string, string>,
   }
 
   listener(event: KeyboardEvent) {
@@ -271,6 +271,7 @@ export class TableData extends React.Component<
                 size="xs"
                 onClick={() => {
                   this.props.onItemRemove!(key)
+                  delete this.state.values[key]
                 }}
                 {...GhostButtonProps}
                 icon={<Icon as={AiOutlineMinus} />}
