@@ -39,9 +39,9 @@ export const verifLevel = (level: GuildVerificationLevel) => {
           case GuildSystemChannelFlags.SuppressGuildReminderNotifications:
             return "Setup Tips"
           case GuildSystemChannelFlags.SuppressJoinNotificationReplies:
-            return "Sticker Greetings"
+            return "Sticker Button"
           case GuildSystemChannelFlags.SuppressJoinNotifications:
-            return "Join Notifications"
+            return "Joins"
           case GuildSystemChannelFlags.SuppressPremiumSubscriptions:
             return "Boosts"
         }
