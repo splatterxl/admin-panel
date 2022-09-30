@@ -36,6 +36,7 @@ const convertDisplayedDictToAPI = (
     vanity_url_code: dict.vanity_code === "" ? null : dict.vanity_code,
     widget_channel_id: coerceChannel(dict.widget_channel),
     afk_channel_id: coerceChannel(dict.afk_channel),
+    afk_timeout: parseIntgr(dict.afk_timeout),
     system_channel_id: coerceChannel(dict.system_channel),
     system_channel_flags: parseSystemChanFlags(dict.system_channel_flags),
     rules_channel_id: coerceChannel(dict.rules_channel),
@@ -47,7 +48,8 @@ export const useCoerceChannel = (guildId: Snowflake) => {
   const value = ChannelCache.useValue()
 
   return (name: string) => {
-    if (!name) return
+    if (name === undefined) return
+    else if (name === "") return null
 
     if (name.startsWith("#") || isNaN(parseInt(name))) {
       name = name.replace(/^#/g, "")
@@ -229,8 +231,9 @@ export const GuildDetails: React.FC = () => {
 
         if (Object.keys(newData).length === 0) return
 
-        await editGuild(data.id, newData)
-        setData((prev) => ({ ...prev, ...newData } as APIGuild))
+        await editGuild(data.id, newData).then((data) =>
+          setData((prev) => ({ ...prev, ...data }))
+        )
       }}
       data={{
         name: data.name,
@@ -240,13 +243,16 @@ export const GuildDetails: React.FC = () => {
         mfa_level: GuildMFALevel[data.mfa_level] ?? data.mfa_level,
         max_members: data.max_members?.toLocaleString() ?? undefined,
         vanity_code: data.vanity_url_code ?? undefined,
-        widget_channel: data.widget_channel_id ?? undefined,
+        widget_channel: data.widget_channel_id ? (
+          <ChannelNameLazy id={data.widget_channel_id} />
+        ) : undefined,
         afk_channel: data.afk_channel_id ? (
           <>
-            <ChannelNameLazy id={data.afk_channel_id} /> ($
+            <ChannelNameLazy id={data.afk_channel_id} /> (
             {data.afk_timeout.toLocaleString()}s)
           </>
         ) : undefined,
+        afk_timeout: null,
         system_channel: data.system_channel_id ? (
           <ChannelNameLazy id={data.system_channel_id} />
         ) : undefined,
@@ -267,6 +273,7 @@ export const GuildDetails: React.FC = () => {
       transformEdit={{
         widget_channel: () => labelValuePair(data.widget_channel_id, get),
         afk_channel: () => labelValuePair(data.afk_channel_id, get),
+        afk_timeout: () => data.afk_timeout,
         system_channel: () => labelValuePair(data.system_channel_id, get),
         rules_channel: () => labelValuePair(data.rules_channel_id, get),
         updates_channel: () =>
