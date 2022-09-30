@@ -71,6 +71,7 @@ export enum Colors {
   TEXT_INTERACTIVE_NORMAL_DARK = "white",
   TEXT_INTERACTIVE_NORMAL_LIGHT = "#4f5660",
   TEXT_HEADER_SECONDARY_DARK = "#B9BBBE",
+  TEXT_MUTED_DARK = "#72767D",
 }
 
 const _DEFAULT_FONT =
@@ -101,6 +102,10 @@ export const THEME: Partial<ChakraTheme> = {
     text: {
       dark: Colors.TEXT_INTERACTIVE_NORMAL_DARK,
       light: Colors.TEXT_INTERACTIVE_NORMAL_LIGHT,
+      muted: {
+        dark: Colors.TEXT_MUTED_DARK,
+        light: Colors.TEXT_MUTED_DARK,
+      },
     },
   },
   styles: {

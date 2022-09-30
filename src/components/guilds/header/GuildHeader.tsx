@@ -35,7 +35,6 @@ export const GuildHeader: React.FC = () => {
           justify={{ base: "center", md: "flex-start" }}
           spacing={0}
           gap={2}
-          // minW={{ base: "full", md: 0 }}
         >
           <HStack
             justify="flex-start"
@@ -49,23 +48,25 @@ export const GuildHeader: React.FC = () => {
             spacing={0}
             gap={2}
           >
-            <GuildIcon
-              id={data.id}
-              hash={data.icon}
-              name={data.name}
-              size="sm"
-            />
-            <VStack justify="flex-start" align="flex-start" spacing={0}>
-              <GuildName name={data.name} flags={data.features} />
-              <Text
-                fontWeight={400}
-                fontSize={{ base: "md", md: "sm" }}
-                fontFamily="normal"
-              >
-                {/* @ts-ignore */}
-                {data.member_count} members
-              </Text>
-            </VStack>
+            <HStack justify="space-between" align="center">
+              <GuildIcon
+                id={data.id}
+                hash={data.icon}
+                name={data.name}
+                size="sm"
+              />
+              <VStack justify="flex-start" align="flex-start" spacing={0}>
+                <GuildName name={data.name} flags={data.features} />
+                <Text
+                  fontWeight={400}
+                  fontSize={{ base: "md", md: "sm" }}
+                  fontFamily="normal"
+                >
+                  {/* @ts-ignore */}
+                  {data.member_count} members
+                </Text>
+              </VStack>
+            </HStack>
           </HStack>
           <HStack
             spacing={0}
