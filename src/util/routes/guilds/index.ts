@@ -19,7 +19,9 @@ export const getGuild = (id: Snowflake, admin = false) =>
     .then((v) => v.data)
 
 export const editGuild = async (id: Snowflake, data: Partial<APIGuild>) => {
-  return http.patch(PatchcordRoutes.GUILD(id), data).then((res) => res.data)
+  return http
+    .patch<APIGuild>(PatchcordRoutes.GUILD(id), data)
+    .then((res) => res.data)
 }
 
 export const transferOwnership = (guildId: Snowflake, newOwner: Snowflake) =>
