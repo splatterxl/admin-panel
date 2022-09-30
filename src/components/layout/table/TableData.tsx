@@ -117,7 +117,7 @@ export class TableData extends React.Component<
       } else {
         // simply pass the edited values to the handler.
         // @ts-ignore
-        this.props.onEdit!(values)
+        this.props.onEdit!(this.state.values)
       }
     } catch (e) {
       console.error(e)
