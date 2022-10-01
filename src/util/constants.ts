@@ -4,7 +4,8 @@ import { Snowflake } from "discord-api-types/globals"
 import { SearchType } from "../stores/SearchTypeStore"
 
 export const Endpoints = {
-  LOGIN: (next = "/") => `/auth/login?next=${encodeURIComponent(next)}`,
+  _LOGIN: "/auth/login",
+  LOGIN: (next = "/") => `${Endpoints._LOGIN}?next=${encodeURIComponent(next)}`,
   LOGOUT: "/auth/logout",
 
   SEARCH: "/search",
@@ -142,6 +143,14 @@ export const Constants = {
     process.env.NEXT_PUBLIC_API_HOST ??
     process.env.NEXT_PUBLIC_API_BASE ??
     "https://patchcord.pw/api/v9",
+  INTERNAL_SERVERS: process.env.NEXT_PUBLIC_INTERNAL_SERVERS?.split(
+    /[, ]/g
+  ) ?? [
+    "996497764957290496",
+    "998301153454194861",
+    "1010958439087603762",
+    "1015298503867367507",
+  ],
 }
 
 export function cdn(route: string) {

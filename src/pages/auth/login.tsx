@@ -23,8 +23,10 @@ export default function Login() {
     setCurrentUser = CurrentUserStore.useSetInStorage(),
     { setColorMode } = useColorMode()
 
-  const router = useRouter(),
-    next = one(router.query.next)
+  const router = useRouter()
+  let next = router.query.next ? one(router.query.next)! : Endpoints.HOME
+
+  if (/[\[\]]/g.test(next)) next = Endpoints.HOME
 
   const [loaded, setLoaded] = React.useState(false)
 
@@ -63,13 +65,7 @@ export default function Login() {
             setAuth(token)
 
             // I don't know why this is needed but everything breaks without it
-            setTimeout(
-              () =>
-                router.push(next ?? Endpoints.HOME, next ?? Endpoints.HOME, {
-                  shallow: false,
-                }),
-              1e2
-            )
+            setTimeout(() => router.push(next), 1e2)
           } catch (e) {
             setError(new String(e) as string)
           }

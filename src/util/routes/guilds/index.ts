@@ -10,7 +10,13 @@ export const getGuildsBulk = ({
   ids: Snowflake[]
   admin: boolean
 }) => {
-  return Promise.all(ids.map((id) => getGuild(id, admin)))
+  return Promise.all(
+    ids.map((id) =>
+      getGuild(id, admin).catch(() => {
+        console.warn("Unknown guild provided to getGuildsBulk, ignoring:", id)
+      })
+    )
+  ).then((data) => <APIGuild[]>data.filter((guild) => guild))
 }
 
 export const getGuild = (id: Snowflake, admin = false) =>

@@ -5,19 +5,12 @@ import InternalServerStore, {
   IInternalServer,
 } from "../../../stores/InternalServerStore"
 import { arrayEquals } from "../../../util/array"
-import { Endpoints } from "../../../util/constants"
+import { Constants, Endpoints } from "../../../util/constants"
 import { getGuildsBulk } from "../../../util/routes/guilds"
 import { Section } from "../../layout/section/Section"
 import { Table } from "../../layout/table/Table"
 import { Link } from "../../Link"
 import { InternalServer } from "./InternalServer"
-
-export const INTERNAL_SERVERS = [
-  "996497764957290496",
-  "998301153454194861",
-  "1010958439087603762",
-  "1015298503867367507",
-]
 
 export const InternalServers: React.FC<{
   noHeading?: boolean
@@ -31,20 +24,22 @@ export const InternalServers: React.FC<{
     if (
       !arrayEquals(
         servers.map(({ id }) => id),
-        INTERNAL_SERVERS
+        Constants.INTERNAL_SERVERS
       )
     ) {
-      getGuildsBulk({ ids: INTERNAL_SERVERS, admin: true }).then((guilds) => {
-        set(
-          guilds.map(
-            (guild): IInternalServer => ({
-              id: guild.id,
-              name: guild.name,
-              icon: guild.icon,
-            })
+      getGuildsBulk({ ids: Constants.INTERNAL_SERVERS, admin: true }).then(
+        (guilds) => {
+          set(
+            guilds.map(
+              (guild): IInternalServer => ({
+                id: guild.id,
+                name: guild.name,
+                icon: guild.icon,
+              })
+            )
           )
-        )
-      })
+        }
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- this never needs to run more than once
   }, [])

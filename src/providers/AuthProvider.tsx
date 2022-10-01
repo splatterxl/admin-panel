@@ -53,5 +53,10 @@ export const clearAuthAndGoToLogin = (router: NextRouter) => {
 
   localStorage.removeItem(AuthStore.key)
 
-  router.replace(Endpoints.LOGIN(router.asPath))
+  router.replace({
+    pathname: Endpoints._LOGIN,
+    query: {
+      next: router.asPath,
+    },
+  })
 }

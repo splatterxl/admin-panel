@@ -11,7 +11,7 @@ import { SectionContainer } from "../../components/layout/section/SectionContain
 import ChannelCache from "../../stores/cache/ChannelCache"
 import FocusedGuildStore from "../../stores/FocusedGuildStore"
 import { PatchcordRoutes } from "../../util/constants"
-import http from "../../util/http"
+import http, { HTTPError } from "../../util/http"
 import { one } from "../../util/one"
 
 export const GuildContext = createContext<{
@@ -47,14 +47,17 @@ export default function UserProfile() {
 
       if (guild && guild.id !== guildId) setGuild(null)
 
-      const res = await http.get<APIGuild>(PatchcordRoutes.GUILD(guildId))
+      try {
+        const res = await http.get<APIGuild>(PatchcordRoutes.GUILD(guildId))
 
-      if (!res.ok) {
-        router.replace("/404", router.asPath)
+        setGuild(res.data)
+      } catch (e: any) {
+        const error: HTTPError = e
+
+        if (error.status === 404 /* Not Found */)
+          router.replace("/404", router.asPath)
         return
       }
-
-      setGuild(res.data)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps -- doesn't need add hook
   }, [guildId])

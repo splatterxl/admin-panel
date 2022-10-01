@@ -90,9 +90,10 @@ class HTTPClient {
   }
 }
 
-class HTTPError extends Error {
+export class HTTPError extends Error {
   name = "HTTPError"
   code: string
+  status: number
   err: APIError
 
   constructor(res: Response, err: APIError) {
@@ -101,6 +102,7 @@ class HTTPError extends Error {
     this.name = err.code === 0 ? this.name : `HTTPError[${err.code}]`
     this.message = err.message
     this.err = err
+    this.status = res.status
 
     this.code = `${res.status} ${res.statusText}`
   }
