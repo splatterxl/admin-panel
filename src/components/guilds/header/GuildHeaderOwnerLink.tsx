@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md"
 import { themed } from "../../../util/constants"
 import { GhostButton } from "../../GhostButton"
 import { Field } from "../../layout/Field"
-import { UserLink } from "../../user/UserLink"
+import { UserLink } from "../../users/UserLink"
 
 export const GuildHeaderOwnerLink: React.FC<{
   owner_id: Snowflake

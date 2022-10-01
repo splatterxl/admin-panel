@@ -1,13 +1,13 @@
 import { Box, BoxProps, Flex, FlexProps } from "@chakra-ui/react"
 import Link from "next/link"
 import React from "react"
-import { Endpoints } from "../../util/constants"
-import { User } from "../../util/routes/types"
-import { EditableUserFlags } from "./flags/EditableUserFlags"
-import { UserFlagsRow } from "./flags/UserFlags"
-import { UserAvatar } from "./UserAvatar"
+import { Endpoints } from "../../../util/constants"
+import { User } from "../../../util/routes/types"
+import { EditableUserFlags } from "../flags/EditableUserFlags"
+import { UserFlagsRow } from "../flags/UserFlags"
+import { UserAvatar } from "../UserAvatar"
 import { UserBio } from "./UserBio"
-import { Username } from "./username/Username"
+import { Username } from "../Username"
 
 export const Hr: React.FC<BoxProps> = (props) => (
   <Box

@@ -3,7 +3,7 @@ import Link from "next/link"
 import React from "react"
 import CurrentUserStore from "../../../stores/CurrentUserStore"
 import { Endpoints } from "../../../util/constants"
-import { UserAvatar } from "../../user/UserAvatar"
+import { UserAvatar } from "../../users/UserAvatar"
 
 export const NavbarAvatar: React.FC<{ isSearch?: boolean }> = ({
   isSearch,

@@ -1,7 +1,6 @@
 import { Flex, Heading, TextProps, useToast } from "@chakra-ui/react"
 import { Snowflake } from "discord-api-types/globals"
 import React from "react"
-import { BotTag } from "../BotTag"
 
 export const Username: React.FC<
   {
@@ -62,7 +61,6 @@ export const Username: React.FC<
       >
         #{discriminator}
       </Heading>
-      {isBot ? <BotTag /> : null}
     </Flex>
   )
 }

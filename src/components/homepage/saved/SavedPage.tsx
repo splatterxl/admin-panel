@@ -5,7 +5,7 @@ import { MdServer } from "../../../icons/tabs/Server"
 import { ISavedPage, SavedPageType } from "../../../stores/SavedPagesStore"
 import { GuildIcon } from "../../guilds/GuildIcon"
 import { TableRow } from "../../layout/table/rows/TableRow"
-import { UserAvatar } from "../../user/UserAvatar"
+import { UserAvatar } from "../../users/UserAvatar"
 
 export const getTypeIconForPage = (type: SavedPageType) => {
   switch (type) {

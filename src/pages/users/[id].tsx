@@ -1,13 +1,12 @@
-import { Flex } from "@chakra-ui/react"
-import { useRouter } from "next/router"
-import React from "react"
-import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
-import { UserCard } from "../../components/user/UserCard"
-import FocusedUserStore from "../../stores/FocusedUserStore"
-import { PatchcordRoutes } from "../../util/constants"
-import http from "../../util/http"
-import { one } from "../../util/one"
-import { User } from "../../util/routes/types"
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React from "react";
+import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner";
+import FocusedUserStore from "../../stores/FocusedUserStore";
+import { PatchcordRoutes } from "../../util/constants";
+import http from "../../util/http";
+import { one } from "../../util/one";
+import { User } from "../../util/routes/types";
 
 export default function UserProfile() {
   const router = useRouter(),
@@ -39,15 +38,11 @@ export default function UserProfile() {
   if (!user) return <FullscreenSpinner />
 
   return (
-    <Flex
-      direction={{ base: "column", md: "row" }}
-      height="full"
-      width="full"
-      justify="flex-start"
-      align={{ base: "center", md: "flex-start" }}
-    >
-      <UserCard d={user} />
-      {/* <Box>Balls</Box> */}
-    </Flex>
+    <>
+      <Head>
+        <title>{user.username} on Patchcord</title>
+      </Head>
+      <UserHead
+    </>
   )
 }
