@@ -44,8 +44,6 @@ export const InternalServers: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps -- this never needs to run more than once
   }, [])
 
-  console
-
   return (
     <Section
       heading={!noHeading ? "Internal Servers" : ""}

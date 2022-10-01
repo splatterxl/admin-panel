@@ -261,6 +261,7 @@ export class TableData extends React.Component<
 
       const isArray = this.isArray()
 
+      // TODO: use downshift https://github.com/downshift-js/downshift for autocomplete
       rows.push(
         <TableRow
           title={!isArray ? toProperCase(key) : undefined}
