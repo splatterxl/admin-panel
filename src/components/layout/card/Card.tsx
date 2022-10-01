@@ -23,7 +23,7 @@ export const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           sm: "sm",
           lg: "sm",
         }}
-        height={{
+        minH={{
           base: "full",
           sm: "sm",
           md: "sm",
