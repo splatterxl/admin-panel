@@ -21,9 +21,5 @@ export const searchGuildsByQuery = async (
     }
   )
 
-  return res.ok
-    ? res.data.guilds.concat(inviteResult ? [inviteResult] : [])
-    : inviteResult
-    ? [inviteResult]
-    : []
+  return (inviteResult ? [inviteResult] : []).concat(res.ok ? res.data.guilds : [])
 }
