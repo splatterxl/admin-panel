@@ -4,14 +4,12 @@ import http from "../http"
 import { User } from "./types"
 
 export const login = async (data: { login: string; password: string }) => {
-  const res = await http.post<{
-    token: string
-    user_settings: { theme: string }
-  }>("/auth/login", data)
+  try {
+    const res = await http.post<{
+      token: string
+      user_settings: { theme: string }
+    }>("/auth/login", data)
 
-  if (!res.ok) {
-    throw ErrorMessages.INVALID_CREDENTIALS
-  } else {
     const {
       token,
       user_settings: { theme },
@@ -28,5 +26,7 @@ export const login = async (data: { login: string; password: string }) => {
     } else {
       return { theme, user, token }
     }
+  } catch {
+    throw ErrorMessages.INVALID_CREDENTIALS
   }
 }

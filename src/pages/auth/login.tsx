@@ -35,7 +35,7 @@ export default function Login() {
     } else {
       setLoaded(true)
     }
-  }, [])
+  }, [next, router])
 
   if (!loaded) {
     return <FullscreenSpinner />
