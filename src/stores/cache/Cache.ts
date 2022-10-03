@@ -1,11 +1,11 @@
 import Store from "../Store"
 
 // thank recoil for making me do this clusterfuck
-export default abstract class Cache<K, V, O> extends Store<
+export default abstract class Cache<K, V, O = false> extends Store<
   // @ts-ignore
   O extends true ? Record<K, V> : Map<K, V>
 > {
-  constructor(name: string, persisted = false, public obj: O) {
+  constructor(name: string, persisted = false, public obj = false) {
     super(obj ? Object.create(null) : new Map(), name, persisted)
   }
 
