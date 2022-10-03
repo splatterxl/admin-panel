@@ -3,10 +3,10 @@ import { Snowflake } from "discord-api-types/globals"
 import { APIUser } from "discord-api-types/v10"
 import Link from "next/link"
 import React, { useState } from "react"
-import { Endpoints } from "../../../util/constants"
-import { getUser } from "../../../util/routes/users"
-import { Loading } from "../../Loading"
-import { UserAvatar } from "../UserAvatar"
+import { Endpoints } from "../../util/constants"
+import { getUser } from "../../util/routes/users"
+import { Loading } from "../Loading"
+import { UserAvatar } from "./UserAvatar"
 
 export const UserLink: React.FC<{ id: Snowflake }> = ({ id }) => {
   const [user, setUser] = useState<APIUser | null>(null)

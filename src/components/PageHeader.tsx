@@ -1,5 +1,6 @@
-import { Flex, HStack, Stack } from "@chakra-ui/react"
+import { Center, Flex, HStack, Icon, Stack } from "@chakra-ui/react"
 import React from "react"
+import { BsThreeDotsVertical } from "react-icons/bs"
 import { themed } from "../util/constants"
 
 export const PageHeader: React.FC<{
@@ -25,18 +26,24 @@ export const PageHeader: React.FC<{
           <HStack
             justify="flex-start"
             align="center"
-            borderRightWidth={{ base: 0, md: 2 }}
+            borderRightWidth={{ base: 0, md: 1 }}
             borderBottomWidth={{ base: 2, md: 0 }}
             paddingRight={{ base: 0, md: 4 }}
-            paddingBottom={{ base: 2, md: 0 }}
+            paddingBottom={{ base: 4, md: 0 }}
             marginBottom={{ base: 1, md: 0 }}
             borderColor="rgba(255, 255, 255, 0.1)"
             spacing={0}
-            gap={2}
+            gap={4}
           >
             <HStack justify="space-between" align="center">
               {props.children}
             </HStack>
+            <Center pr={2}>
+              <Icon
+                as={BsThreeDotsVertical}
+                {...themed("fill", "text.muted")}
+              />
+            </Center>
           </HStack>
           <HStack
             spacing={0}

@@ -1,4 +1,5 @@
 import { VStack } from "@chakra-ui/react"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import React from "react"
 import { Navbar } from "../../components/layout/navbar/Navbar"
@@ -64,6 +65,15 @@ export default function Search(props: {
 
   return (
     <>
+      <Head>
+        <title>
+          Search
+          {type !== SearchType.ANY
+            ? " " + SearchType[type].toLowerCase()
+            : null}{" "}
+          | Patchcord
+        </title>
+      </Head>
       <VStack spacing={3} width="full" pt={!isPath ? 3 : 0}>
         {isPath ? (
           <Navbar isSearch>

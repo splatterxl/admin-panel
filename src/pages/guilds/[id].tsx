@@ -1,5 +1,6 @@
 import { Heading } from "@chakra-ui/react"
 import { APIChannel, APIGuild } from "discord-api-types/v10"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import React, { createContext } from "react"
 import { GuildDetails } from "../../components/guilds/details/GuildDetails"
@@ -66,6 +67,9 @@ export default function UserProfile() {
 
   return (
     <>
+      <Head>
+        <title>{guild.name} | Patchcord</title>
+      </Head>
       <Navbar>
         {/* <Searchbar label="Search guilds by ID or name" /> */}
         <Heading size="lg" display={{ base: "none", md: "block" }}>

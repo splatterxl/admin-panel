@@ -1,12 +1,15 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React from "react";
-import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner";
-import FocusedUserStore from "../../stores/FocusedUserStore";
-import { PatchcordRoutes } from "../../util/constants";
-import http from "../../util/http";
-import { one } from "../../util/one";
-import { User } from "../../util/routes/types";
+import { Heading } from "@chakra-ui/react"
+import Head from "next/head"
+import { useRouter } from "next/router"
+import React from "react"
+import { FullscreenSpinner } from "../../components/layout/FullscreenSpinner"
+import { Navbar } from "../../components/layout/navbar/Navbar"
+import { UserHeader } from "../../components/users/header/UserHeader"
+import FocusedUserStore from "../../stores/FocusedUserStore"
+import { PatchcordRoutes } from "../../util/constants"
+import http from "../../util/http"
+import { one } from "../../util/one"
+import { User } from "../../util/routes/types"
 
 export default function UserProfile() {
   const router = useRouter(),
@@ -40,9 +43,17 @@ export default function UserProfile() {
   return (
     <>
       <Head>
-        <title>{user.username} on Patchcord</title>
+        <title>
+          {user.username}#{user.discriminator} | Patchcord
+        </title>
       </Head>
-      <UserHead
+      <Navbar>
+        {/* <Searchbar label="Search users by ID or name" /> */}
+        <Heading size="lg" display={{ base: "none", md: "block" }}>
+          User Details
+        </Heading>
+      </Navbar>
+      <UserHeader />
     </>
   )
 }

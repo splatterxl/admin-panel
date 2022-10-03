@@ -1,9 +1,9 @@
 import { Flex, IconProps } from "@chakra-ui/react"
 import { UserPremiumType } from "discord-api-types/v10"
 import React from "react"
-import { Nitro } from "../../../icons/flags/Nitro"
-import { FLAGS } from "../../../util/routes/users/flags"
-import { Tooltip } from "../../Tooltip"
+import { Nitro } from "../../icons/flags/Nitro"
+import { FLAGS } from "../../util/routes/users/flags"
+import { Tooltip } from "../Tooltip"
 
 export const UserFlagsRow: React.FC<
   {
@@ -25,7 +25,13 @@ export const UserFlagsRow: React.FC<
   const elems = Object.entries(FLAGS)
     .filter(([K]) => (bits & parseInt(K)) === parseInt(K))
     .map(([K, [Component, label]]) => {
-      const elem = <Component key={K} {...props} />
+      const elem = (
+        <Component
+          key={K}
+          boxSize={!compact ? "1.2em" : undefined}
+          {...props}
+        />
+      )
 
       if (useTooltip)
         return (
@@ -53,13 +59,7 @@ export const UserFlagsRow: React.FC<
     elems.push(<React.Fragment key="__default">{defaultNode}</React.Fragment>)
 
   return (
-    <Flex
-      direction="row"
-      align="center"
-      justify="center"
-      wrap="wrap"
-      maxW={!compact ? 36 : undefined}
-    >
+    <Flex direction="row" align="center" justify="center" wrap="wrap" gap={0.1}>
       {elems}
     </Flex>
   )

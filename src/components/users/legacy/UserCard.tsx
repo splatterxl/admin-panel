@@ -4,10 +4,10 @@ import React from "react"
 import { Endpoints } from "../../../util/constants"
 import { User } from "../../../util/routes/types"
 import { EditableUserFlags } from "../flags/EditableUserFlags"
-import { UserFlagsRow } from "../flags/UserFlags"
 import { UserAvatar } from "../UserAvatar"
-import { UserBio } from "./UserBio"
+import { UserFlagsRow } from "../UserFlags"
 import { Username } from "../Username"
+import { UserBio } from "./UserBio"
 
 export const Hr: React.FC<BoxProps> = (props) => (
   <Box
@@ -63,19 +63,14 @@ export const UserCard: React.FC<{ d: User; compact?: boolean } & FlexProps> = ({
           discriminator={d.discriminator}
           isBot={!!d.bot}
           id={d.id}
-          shouldCopy={!compact}
         />
         <Hr mb={+compact} width={compact ? 52 : "60%"} />
-        {!compact ? (
-          <EditableUserFlags d={d} default="No flags" />
-        ) : (
-          <UserFlagsRow
-            bitfield={d.flags!}
-            nitro={d.premium_type!}
-            default={<></>}
-            compact
-          />
-        )}
+        <UserFlagsRow
+          bitfield={d.flags!}
+          nitro={d.premium_type!}
+          default={<></>}
+          compact
+        />
         {!compact ? <Hr mt={1} /> : null}
         <UserBio bio={d.bio} compact={compact} />
       </Flex>
