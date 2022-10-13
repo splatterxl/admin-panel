@@ -34,7 +34,7 @@ export const UserHeader: React.FC = () => {
       />
       <VStack justify="flex-start" align="flex-start" spacing={0}>
         <Text as="span" fontWeight={400} lineHeight={1.3}>
-          <Text as="span" fontWeight={450}>
+          <Text as="span" fontWeight={500}>
             {data.username}
           </Text>
           #{data.discriminator}
