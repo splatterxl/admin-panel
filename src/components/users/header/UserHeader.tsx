@@ -33,8 +33,11 @@ export const UserHeader: React.FC = () => {
         width={{ base: 7, md: 10 }}
       />
       <VStack justify="flex-start" align="flex-start" spacing={0}>
-        <Text as="span" fontWeight={450} lineHeight={1.3}>
-          {data.username}#{data.discriminator}
+        <Text as="span" fontWeight={400} lineHeight={1.3}>
+          <Text as="span" fontWeight={450}>
+            {data.username}
+          </Text>
+          #{data.discriminator}
         </Text>
         {(data.flags !== 0 || data.premium_type != null) && !mobile ? (
           <UserFlagsRow
