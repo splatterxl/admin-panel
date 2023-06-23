@@ -74,7 +74,7 @@ export default function Login() {
         <FormHeading pb={0}>
           <FormHeading.Title>Login</FormHeading.Title>
           <FormHeading.Description>
-            You need to log into your Patchcord account to continue.
+            You need to log into your admin account to continue.
           </FormHeading.Description>
         </FormHeading>
 
