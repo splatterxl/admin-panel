@@ -134,28 +134,23 @@ export const themed = <K extends string>(key: K, val: string): Themed<K> => ({
 })
 
 export const ErrorMessages = {
-  MAZE: "The maze wasn't meant for you",
+  MAZE: "The Maze wasn't meant for you",
   INVALID_CREDENTIALS: "Login or password is invalid",
 }
 
 export const Constants = {
   ID_REGEXP: /^\d{16,22}/,
   INVITE_REGEXP:
-    /^(?:https?:\/\/)?(?:discord\.(?:com\/invites?|gg)|patchcord\.pw\/invites?)\/(?<invite>[a-zA-Z0-9])/i,
-  DUMMY_DOMAIN: "https://admin.patchcord.pw",
-  CDN_DOMAIN: process.env.NEXT_PUBLIC_CDN ?? "https://patchcord.pw",
+    /^(?:https?:\/\/)?(?:discord\.(?:com\/invites?|gg))\/(?<invite>[a-zA-Z0-9])/i,
+  DUMMY_DOMAIN: "https://admin.discord.co",
+  CDN_DOMAIN: process.env.NEXT_PUBLIC_CDN ?? "https://cdn.discordapp.com",
   API_HOST:
     process.env.NEXT_PUBLIC_API_HOST ??
     process.env.NEXT_PUBLIC_API_BASE ??
-    "https://patchcord.pw/api/v9",
+    "https://admin.discord.co/api/v9",
   INTERNAL_SERVERS: process.env.NEXT_PUBLIC_INTERNAL_SERVERS?.split(
     /[, ]/g
-  ) ?? [
-    "996497764957290496",
-    "998301153454194861",
-    "1010958439087603762",
-    "1015298503867367507",
-  ],
+  ) ?? [],
 }
 
 export function cdn(route: string) {
